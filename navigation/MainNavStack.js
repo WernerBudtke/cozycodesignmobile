@@ -4,7 +4,7 @@ import Home from '../screens/Home'
 import SignIn from '../screens/SignIn'
 import SignUp from '../screens/SignUp'
 import LogoMenu, { ArrowBack } from '../components/LogoMenu'
-import ProductGallery from '../screens/ProductGallery'
+import ProductsGallery from '../screens/ProductsGallery'
 import Cart from '../screens/Cart'
 
 const Stack = createNativeStackNavigator()
@@ -30,7 +30,7 @@ export const NavigatorProductGallery = (props) => {
             },
             headerRight: () => <LogoMenu navigation={props.navigation} />
          }}>
-            <Stack.Screen name='Gallery' component={ProductGallery} options={{title: 'Gallery', headerLeft: () => <ArrowBack navigation={props.navigation} to={'Home'}/>}} />
+            <Stack.Screen name='Gallery' component={ProductsGallery} options={{title: 'Gallery', headerLeft: () => <ArrowBack navigation={props.navigation} to={'Home'}/>}} />
             {/* Aca irían las screens que te llevan al componente dinamico de cada producto */}
         </Stack.Navigator>
     )
