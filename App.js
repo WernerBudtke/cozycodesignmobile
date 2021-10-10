@@ -1,13 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Product from './Product';
+import { applyMiddleware, createStore } from "redux"
+import { Provider } from "react-redux"
+import thunk from "redux-thunk"
+import rootReducers from "./redux/reducers/rootReducers"
+
+const masterStore = createStore(rootReducers, applyMiddleware(thunk))
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Holis equipo !!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={masterStore}>
+    <Product />
+  </Provider>
   );
 }
 
