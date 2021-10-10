@@ -34,6 +34,7 @@ const userActions = {
       }
     }
   },
+
   logIn: (user) => {
     return async (dispatch) => {
       try {
