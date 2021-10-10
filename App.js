@@ -1,13 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import Navigator from './navigation/MainNavDrawer';
+import {applyMiddleware, createStore} from 'redux'
+import {Provider} from 'react-redux'
+import thunk from 'redux-thunk'
+import rootReducer from './redux/reducers/rootReducer'
+
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Holis equipo !!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Navigator />
+      </NavigationContainer>
+    </Provider>
   );
 }
 
