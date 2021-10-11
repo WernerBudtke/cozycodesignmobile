@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState} from "react";
 import {
   Animated,
   Dimensions,
@@ -7,16 +7,17 @@ import {
   Text,
   View,
   StyleSheet,
+  Button, 
+  TextInput,
+  ImageBackground, 
+  Pressable
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { useEffect, useState } from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Home = (props) => {
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const scrollX = React.useRef(new Animated.Value(0)).current;
-  console.log(width);
-  console.log(height);
 
   const { width, height } = Dimensions.get("screen");
   const ITEM_WIDTH = width * 0.76;
@@ -26,35 +27,36 @@ const Home = (props) => {
   const images = [
     {
       img: "https://i.postimg.cc/28fhfXP2/home1.png",
-      link: ">Check out our latest trends",
+      link: "Check out our latest trends",
     },
     { img: "https://i.postimg.cc/cCsFRrC2/home2.png", link: "Categories" },
     {
       img: "https://i.postimg.cc/nrKszp6T/home3.png",
-      link: "There is no place like home",
+      link: "There is no place like home", description: "In Cozy we offer a wide variety of well-designed, functional home products. Whether your home decor leans towards minimalist or maximalist aesthetic, you'll find something to suit your style."
     },
-    { img: "https://i.postimg.cc/HskSjcf7/home4.png", link: "" },
+    { img: "https://i.postimg.cc/GpdXhsJ6/home4.png", link: "" },
     { img: "https://i.postimg.cc/Wb6rpwVj/home5.png", link: "" },
   ];
   const data = images.map((image, index) => ({
     key: String(index),
     photo: image.img,
     link: image.link,
+    description: image.description
   }));
 
   const categories = [
-    { src: "https://i.postimg.cc/tR8xRKn9/bat.jpg", category: "Bathroom" },
-    { src: "https://i.postimg.cc/nzm4F3LR/home8.jpg", category: "Kitchenware" },
-    { src: "https://i.postimg.cc/J4Q2C5tc/deco.jpg", category: "Decor" },
+    { src: "https://i.postimg.cc/tR8xRKn9/bat.jpg", category: "bathroom" },
+    { src: "https://i.postimg.cc/nzm4F3LR/home8.jpg", category: "kitchenware" },
+    { src: "https://i.postimg.cc/J4Q2C5tc/deco.jpg", category: "decor" },
     {
       src: "https://i.postimg.cc/3wdn2zCV/gitfcard-Home.png",
-      category: "GiftCard",
+      category: "giftcard",
     },
     { src: "https://i.postimg.cc/R0mhJ9vz/sale.jpg", category: "sale" },
   ];
 
   const items = categories.map((obj, index) => (
-    <View key={index}>
+    <View key={index} style={styles.galleryWrapOnFocus}>
       <TouchableOpacity
         onPress={() => {
           props.navigation.navigate(`/products/${obj.category}`);
@@ -62,38 +64,10 @@ const Home = (props) => {
       >
         <Image
           source={{ uri: obj.src }}
-          style={{
-            width: 70,
-            height: 400,
-            resizeMode: "cover",
-            borderRadius: 16,
-            shadowColor: "#000",
-            shadowOpacity: 0.5,
-            shadowOffset: {
-              width: 0,
-              height: 0,
-            },
-            shadowRadius: 20,
-          }}
         />
         <Text style={styles.textCategory}>{obj.category} </Text>
       </TouchableOpacity>
     </View>
-  ));
-
-  const info = [
-    { src: "./assets/6.png" },
-    { src: "./assets/7.png" },
-    { src: "./assets/8.png" },
-    { src: "./assets/9.png" },
-  ];
-
-  const infoItems = info.map((obj, index) => (
-    <div
-      key={index}
-      className={styles.infoItem}
-      style={{ backgroundImage: `url('${obj.src}')` }}
-    ></div>
   ));
 
   return (
@@ -127,6 +101,7 @@ const Home = (props) => {
             <View>
               {item.link == "Categories" ? (
                 <View>
+                    <Text style={styles.titleCategory}>CATEGORIES</Text>
                   <FlatList
                     data={categories}
                     keyExtractor={(_, index) => index.toString()}
@@ -182,22 +157,11 @@ const Home = (props) => {
                       overflow: "hidden",
                       alignItems: "center",
                 }}>
-                    <TouchableOpacity
-                    onPress={() => {
-                      props.navigation.navigate("/", {
-                        id: item._id,
-                        title: item.link,
-                      });
-                    }}
-                  >
-                    <Text style={styles.textCard}>{item.link} </Text>
-                  </TouchableOpacity>
-                 
                     <Animated.Image
                       source={{ uri: item.photo }}
                       style={{
-                        width: width,
-                        height: height,
+                        width: width*1.04,
+                        height: height*1.04,
                         resizeMode: "cover",
                         transform: [
                           {
@@ -206,12 +170,36 @@ const Home = (props) => {
                         ],
                       }}
                     />
+                    {item.link.includes("Check") &&(
+                          <TouchableOpacity
+                    onPress={() => {
+                      props.navigation.navigate("/", {
+                        id: item._id,
+                        title: item.link,
+                        
+                      });
+                      
+                    }}
+                  >
+                    <Text style={styles.textCard}>{item.link} </Text>
+                  </TouchableOpacity>
+                  )}
+                  {item.link.includes("home") &&(
+                      <View  style={styles.boxQuote}>
+                    <Text style={styles.textQuote}>{item.link} </Text>
+                    <Text style={styles.bodyQuote}>{item.description} </Text>
+                    </View>
+                  )}
               </View>
             )}
             </View>
           );
         }}
-        ListFooterComponent={<Text>algo más</Text>}
+        ListFooterComponent={
+        <View style={{backgroundColor: "#dabea8de", width:"100%", height:25}}>
+        <Text style={{marginStart: 150, fontSize:12, fontWeight:"bolder"}}>Mind-Hub 2021</Text>
+        </View>
+        }
       />
     </View>
   );
@@ -234,8 +222,85 @@ const styles = StyleSheet.create({
   },
   textCard: {
     color: "#060B34",
-    fontSize: 12,
-    fontWeight: "normal",
-    backgroundColor: "#fff",
+    fontSize: 14,
+    fontWeight: "bolder",
+    backgroundColor: "#dabea8de",
+    height:80,
+    width:80,
+    position: "absolute",
+    zIndex: 200,
+    bottom:-60,
+    left:40,
+    marginBottom:width*1.5,
+    padding:5,
+    borderRadius:15,
+    shadowColor: '#000',
+    shadowOpacity:.5,
+    shadowOffset: {
+        width:0,
+        height:0,
+    },
+    shadowRadius: 20,
   },
+
+  galleryWrap:{
+    width: 82,
+    height: 60,
+    display: "flex",
+  },
+
+  galleryWrapOnFocus:{
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignitems:"flex-end",
+    transition: 0.8,
+  },
+  
+  titleCategory: {
+    fontSize:30,
+    fontWeight: "bolder",
+    alignSelf: "center",
+    paddingTop:10,
+    color:"rgba(0, 0, 0, 0.638)"
+  },
+  textCategory:{
+    alignItems:"center",
+  },
+  boxQuote: {
+    color: "#060B34",
+    fontSize: 10,
+    backgroundColor: "rgba(255, 255, 255, 0.79)",
+    width:220,
+    height:200,
+    position: "absolute",
+    zIndex: 200,
+    bottom:-60,
+    left:20,
+    marginBottom:width,
+    padding:10,
+    borderTopRightRadius:15,
+    borderEndEndRadius:15,
+    shadowColor: '#000',
+    shadowOpacity:.1,
+    shadowOffset: {
+        width:0,
+        height:0,
+    },
+    shadowRadius: 5,
+  },
+  textQuote: {
+    color: "#060B34",
+    fontSize: 14,
+    fontWeight: "bolder",
+    paddingStart:10,
+  },
+  bodyQuote:{
+    color: "#060B34",
+    fontSize: 14,
+    lineHeight:20,
+    paddingStart:10,
+    paddingTop:10,
+  }
+
 });
