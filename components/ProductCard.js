@@ -1,7 +1,39 @@
 import React from "react" 
 import { Text, View, StyleSheet, Image } from "react-native"
+import { connect } from "react-redux"
+import { useEffect, useState } from "react"
+import cartActions from "../redux/actions/cartActions"
 
-const ProductCard = () => {
+const ProductCard = ({
+    product,
+    editShowCartCard,
+    setProductAlert,
+    addCartProduct,
+    user,
+  }) => {
+
+    const [admin, setAdmin] = useState(null)
+    useEffect(() => {
+        if (user) {
+        setAdmin(user.admin)
+        }
+    }, [])
+
+    const addToCartHandler = () => {
+        let newProducts = {
+          product: product,
+          quantity: 1,
+        }
+        editShowCartCard(true)
+        setProductAlert(newProducts)
+        addCartProduct(newProducts)
+    }
+
+    // const photo = product.photo?.includes("http")
+    //     ? product.photo
+    //     : `http://localhost:4000/${product.photo}`
+    //     https://cozydeco.herokuapp.com/
+
     return (
         <View style={styles.wrapper}>
             <View style={styles.container}>
@@ -23,7 +55,7 @@ const ProductCard = () => {
                     2
                   )} */}
                 </Text>
-              {/* )} */}
+            {/* //   )} */}
             </View>
           </View>
           <View style={styles.cardButtons}>
@@ -52,7 +84,17 @@ const ProductCard = () => {
     )
 }
 
-export default ProductCard
+const mapStateToProps = (states) => {
+    return {
+      user: states.users.user,
+    }
+  }
+  
+  const mapDispatchToProps = {
+    addCartProduct: cartActions.addCartProduct,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard)
 
 const styles = StyleSheet.create ({
     container: {
@@ -81,8 +123,6 @@ const styles = StyleSheet.create ({
         height: "100%",
         width: "100%",
         overflow: "hidden",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
     },
 
     bottom: {
@@ -100,6 +140,12 @@ const styles = StyleSheet.create ({
         flexDirection: "column",
         justifyContent: "space-evenly",
         alignItems: "center",
+    },
+
+    sale: {
+        // textDecoration: "line-through",
+        color: "#dd3e2c",
+        fontSize: 5,
     },
 
     cardButtons: {
