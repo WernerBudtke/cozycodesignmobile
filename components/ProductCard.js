@@ -1,115 +1,173 @@
 import React from "react" 
-import { Text, View, StyleSheet, Image } from "react-native"
+import { Text, View, StyleSheet, Image, Pressable, TouchableOpacity } from "react-native"
+import { connect } from "react-redux"
+import { useEffect, useState } from "react"
+import Icon from 'react-native-vector-icons/Ionicons'
+import cartActions from "../redux/actions/cartActions"
 
-const ProductCard = () => {
+const ProductCard = ({
+    user,
+    product,
+    navigation,
+    editShowCartCard,
+    setProductAlert,
+    addCartProduct,
+  }) => {
+
+    const [admin, setAdmin] = useState(null)
+    useEffect(() => {
+        if (user) {
+        setAdmin(user.admin)
+        }
+    }, [])
+
+    const addToCartHandler = () => {
+        let newProducts = {
+          product: product,
+          quantity: 1,
+        }
+        editShowCartCard(true)
+        setProductAlert(newProducts)
+        addCartProduct(newProducts)
+    }
+
+    const photo = product.photo?.includes("http")
+        ? product.photo
+        : `https://cozydeco.herokuapp.com/${product.photo}`
+        
+
     return (
-        <View style={styles.wrapper}>
-            <View style={styles.container}>
-                <Image source={{ uri: `https://i.postimg.cc/0jbZdZKt/formbackground.jpg`}} style={styles.top}/>
-                <View style={styles.bottom}>
-          <View style={styles.nameAndPrice}>
-            <Text>
-                {/* {product.name} */}
-            </Text>
-            <View>
-              <Text style={styles.sale}>
-                $
-                {/* {product.price} */}
-              </Text>
-              {/* {product.discount !== 0 && ( */}
-                <Text>
-                  $
-                  {/* {(((100 - product.discount) / 100) * product.price).toFixed(
-                    2
-                  )} */}
+      <View style={styles.wrapper} > 
+      {/* width: Dimensions.get('window').width, */}
+      {product.discount !== 0 && (
+        <View style={styles.inside}>
+          <Text style={styles.icon}>
+            {product.discount}% OFF
+          </Text>
+        </View>
+      )}
+        <Pressable 
+        // onPress={() => navigation.navigate('Product')}
+        >
+          <View style={styles.container}>
+            <Image source={{ uri: photo}} style={styles.top} resizeMode="cover"/>
+            <View style={styles.bottom}>
+              <View style={styles.nameAndPrice}>
+                <Text style={styles.productName}>
+                    {product.name}
                 </Text>
-              {/* )} */}
-            </View>
-          </View>
-          <View style={styles.cardButtons}>
-            {/* {!admin && (
-              <>
-                <i
-                  style="fas fa-cart-plus fa-lg"
-                  onClick={addToCartHandler}
-                ></i>
-                <Link to={`/product/${product._id}`}>
-                  <i style="fas fa-eye fa-lg"></i>
-                </Link>
-              </>
-            )}
-            {admin && (
-              <Link to={`/productform/${product._id}`}>
-                <i style="fas fa-pen fa-lg"></i>
-              </Link>
-            )} */}
-          </View>
-        </View>
-                <View >
+                <View style={styles.priceContainer}>
+                  {product.discount !== 0 && (
+                    <Text style={styles.sale}>
+                      {(((100 - product.discount) / 100) * product.price).toFixed(2)}
+                    </Text>
+                  )} 
+                  <Text style={styles.price} >
+                    ${product.price}
+                  </Text>
                 </View>
+              </View>
+              <View style={styles.cardButtons}>
+              {/* <Pressable icon={({ color, size }) => ( <Icon name="cart-outline" color={color} size={size} /> )} label="Cart"/> */}
+              <Text>CART</Text>
+              <Text>VIEW</Text>
+              </View>
             </View>
-        </View>
+          </View>
+        </Pressable>
+      </View>
     )
 }
 
-export default ProductCard
+const mapStateToProps = (states) => {
+    return {
+      user: states.users.user,
+    }
+  }
+  
+  const mapDispatchToProps = {
+    addCartProduct: cartActions.addCartProduct,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard)
 
 const styles = StyleSheet.create ({
-    container: {
-        backgroundColor: "#ead8ca"
-    },
+  
+  wrapper: {
+    width: "85%",
+    height: 420,
+    marginVertical: "5%",
+    marginHorizontal: 0.5,
+    backgroundColor: "#ead8ca", 
+    position: "relative",
+    overflow: "hidden",
+    borderRadius: 20,
+    // boxShadow: 0 0 3 .5 "#cac5c5",
+  },
+  
+  container: {
+      backgroundColor: "#ead8ca",
+      height: 300,
+      flexDirection: "column",
+      width: "100%",
+  },
 
-    wrapper: {
-        width: "85%",
-        height: 250,
-        marginVertical: 4,
-        marginHorizontal: 0.5,
-        backgroundColor: "white", 
-        position: "relative",
-        overflow: "hidden",
-        borderRadius: 20,
-        // boxShadow: 0 0 3 .5 "#cac5c5",
-    },
+  top: {
+      height: "100%",
+      width: "100%",
+      overflow: "hidden",
+  },
 
-    container: {
-        flexDirection: "column",
-        width: "100%",
-        height: "100%",
-    },
+  bottom: {
+    height: "100%",
+    width: "100%",
+  },
 
-    top: {
-        height: "100%",
-        width: "100%",
-        overflow: "hidden",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-    },
+  nameAndPrice: {
+    backgroundColor: "#ead8ca",
+    height: "20%",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
 
-    bottom: {
-        flex: 1,
-        justifyContent: "space-between",
-        alignItems: "center",
-        backgroundColor: "#ead8ca",
-        height: "100%",
-        width: "100%",
-    },
+  productName: {
+    fontSize: 20,
+  },
 
-    nameAndPrice: {
-        height: "100%",
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: "space-evenly",
-        alignItems: "center",
-    },
+  priceContainer: {
+    flexDirection: "row", 
+    alignItems: "center",
+  },
 
-    cardButtons: {
-        height: "100%",
-        flexDirection: "column",
-        justifyContent: "space-evenly",
-        paddingRight: 10,
-    },
+  price: {
+    color: "black",
+    fontSize: 15,
+  },
 
-    fas: {
-        color: "rgb(56, 54, 54)",
-    }
+  sale: {
+    color: "#dd3e2c",
+    textDecorationLine: 'line-through', 
+    textDecorationStyle: 'solid',
+    fontSize: 12,
+    marginRight: 15,
+  },
+
+  cardButtons: {
+    backgroundColor: "#ead8ca",
+    height: "100%",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    paddingTop: "5%"
+  },
+
+  inside: {
+    backgroundColor: "#d16b5f",
+    width: 140,
+    height: 140,
+    position: "absolute",
+    top: -70,
+    right: -70,
+    overflow: "hidden",
+    borderBottomLeftRadius: 200,
+  }
 })
