@@ -1,5 +1,5 @@
 import React from "react" 
-import { Text, View, StyleSheet, Image, Pressable, TouchableOpacity } from "react-native"
+import { Text, View, StyleSheet, Image, Pressable, TouchableOpacity, Button } from "react-native"
 import { connect } from "react-redux"
 import { useEffect, useState } from "react"
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -13,7 +13,7 @@ const ProductCard = ({
     setProductAlert,
     addCartProduct,
   }) => {
-
+    console.log(product)
     const [admin, setAdmin] = useState(null)
     useEffect(() => {
         if (user) {
@@ -22,18 +22,17 @@ const ProductCard = ({
     }, [])
 
     const addToCartHandler = () => {
+      console.log('ejecuta la función')
         let newProducts = {
           product: product,
           quantity: 1,
         }
-        editShowCartCard(true)
-        setProductAlert(newProducts)
         addCartProduct(newProducts)
     }
 
-    const photo = product.photo?.includes("http")
-        ? product.photo
-        : `https://cozydeco.herokuapp.com/${product.photo}`
+    // const photo = product.photo?.includes("http")
+    //     ? product.photo
+    //     : `https://cozydeco.herokuapp.com/${product.photo}`
         
 
     return (
@@ -69,7 +68,7 @@ const ProductCard = ({
               </View>
               <View style={styles.cardButtons}>
               {/* <Pressable icon={({ color, size }) => ( <Icon name="cart-outline" color={color} size={size} /> )} label="Cart"/> */}
-              <Text>CART</Text>
+              <Text onPress={() => console.log('aca')}>Carrito</Text>
               <Text>VIEW</Text>
               </View>
             </View>

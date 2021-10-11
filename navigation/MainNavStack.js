@@ -85,7 +85,7 @@ export const NavigatorCart = (props) => {
             },
             headerRight: () => <LogoMenu navigation={props.navigation} />
          }}>
-            <Stack.Screen name='Cart' component={Cart} options={{title: 'Sign Up', headerLeft: () => <ArrowBack navigation={props.navigation} to={'Home'}/>}} />
+            <Stack.Screen name='Cart' component={Cart} options={{title: 'Cart', headerLeft: () => <ArrowBack navigation={props.navigation} to={'Home'}/>}} />
         </Stack.Navigator>
     )
 }

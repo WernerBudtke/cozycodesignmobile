@@ -58,27 +58,28 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
     // const viewHandler = (e) => {
     // setView({...view, subcategory: e.target.value})
     // }
-
+    productsSubcategory.map((product) => {
+        return (
+            console.log(product._id)
+        )
+    })
     return (
         <ScrollView>
-
+        
         <View style={styles.main}>
             <Text style={styles.category}>ACA VAN LOS FILTROS?</Text>
-            {/* <FlatList> */}
-            {productsSubcategory.map((product) => {
-                return (
-                    
-                    // <View>
-                    <ProductCard
-                    key={product._id}
-                    product={product}
-                    //   editShowCartCard={editShowCartCard}
-                    setProductAlert={setProductAlert}
-                    />
-                    // </View>
-                    )
-                })}
-        {/* </FlatList> */}
+            <Text onPress={() => console.log('aca')}>Carrito</Text>  
+            <FlatList 
+                data={products}
+                keyExtractor={(product) => product._id}
+                renderItem={({ product }) => (
+                        <ProductCard
+                        product={product}
+                        //   editShowCartCard={editShowCartCard}
+                        setProductAlert={setProductAlert}
+                        />
+                )}
+            />
         </View>
         </ScrollView>
     )

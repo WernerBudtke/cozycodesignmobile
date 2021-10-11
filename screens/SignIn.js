@@ -8,6 +8,7 @@ const SignIn = ({navigation, logIn}) => {
     const [user, setUser] = useState({eMail: '', password: ''})
     
     const submitHandler = async () => {
+      console.log('entra')
       if (Object.values(user).some((value) => !value)) {
         return setError('Fill the empty fields.')
       }
