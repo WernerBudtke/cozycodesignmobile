@@ -118,7 +118,7 @@ const Home = () => {
               return (
                 <View
                   style={{
-                    width:100,
+                    width:80,
                     height:500,
                     justifyContent: "center",
                     alignItems: "center",
@@ -130,7 +130,7 @@ const Home = () => {
                     <Image
                       source={{ uri: item.src }}
                       style={{
-                        width: 100,
+                        width: 70,
                         height: 400,
                         resizeMode: "cover",
                         borderRadius: 16,
