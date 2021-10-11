@@ -106,6 +106,50 @@ const Home = () => {
           });
 
           return (
+              <View>
+                  {item.link == "Categories" && (
+        <View>
+          <FlatList
+            data={categories}
+            keyExtractor={(_, index) => index.toString()}
+            horizontal
+            pagingEnabled
+            renderItem={({ item }) => {
+              return (
+                <View
+                  style={{
+                    width:100,
+                    height:500,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                    <Text style={styles.textCard}>
+                      {item.category}
+                    </Text>
+                    <Image
+                      source={{ uri: item.src }}
+                      style={{
+                        width: 100,
+                        height: 400,
+                        resizeMode: "cover",
+                        borderRadius: 16,
+                        shadowColor: "#000",
+                        shadowOpacity: 0.5,
+                        shadowOffset: {
+                          width: 0,
+                          height: 0,
+                        },
+                        shadowRadius: 20,
+                      }}
+                    />
+                </View>
+              );
+            }}
+          />
+          <Text>Acá van mapeadas las categorías</Text>
+        </View>
+      )}
             <View
               style={{ width, justifyContent: "center", alignItems: "center" }}
             >
@@ -132,49 +176,7 @@ const Home = () => {
                     }}
                   />
                 </View>
-                {item.link == "Categories" && (
-                  <View>
-                    {/* <FlatList
-                      data={categories}
-                      keyExtractor={(_, index) => index.toString()}
-                      horizontal
-                      pagingEnabled
-                      renderItem={({ item }) => {
-                        return (
-                          <View
-                            style={{
-                              width:100,
-                              height:500,
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }}
-                          >
-                              <Text style={styles.textCard}>
-                                {item.category}
-                              </Text>
-                              <Image
-                                source={{ uri: item.src }}
-                                style={{
-                                  width: 100,
-                                  height: 400,
-                                  resizeMode: "cover",
-                                  borderRadius: 16,
-                                  shadowColor: "#000",
-                                  shadowOpacity: 0.5,
-                                  shadowOffset: {
-                                    width: 0,
-                                    height: 0,
-                                  },
-                                  shadowRadius: 20,
-                                }}
-                              />
-                          </View>
-                        );
-                      }}
-                    /> */}
-                    <Text>Acá van mapeadas las categorías</Text>
-                  </View>
-                )}
+                
                   <TouchableOpacity
                     onPress={() => {
                       props.navigation.navigate("/", {
@@ -187,6 +189,7 @@ const Home = () => {
                   </TouchableOpacity>
 
               </View>
+            </View>
             </View>
           );
         }}
