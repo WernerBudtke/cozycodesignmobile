@@ -2,9 +2,9 @@
 // import { StyleSheet, Text, View, Pressable } from 'react-native'
 // import { connect } from "react-redux"
 // import { useEffect, useState } from "react"
-// import ReactCircleModal from "react-circle-modal"
-// import Cart from "../components/Cart"
-// import CartCard from "../components/CartCard"
+// // import ReactCircleModal from "react-circle-modal"
+// // import Cart from "../components/Cart"
+// // import CartCard from "../components/CartCard"
 // import cartActions from "../redux/actions/cartActions"
 // import productsActions from "../redux/actions/productsActions"
 // import ProductCard from "../components/ProductCard"
@@ -132,7 +132,7 @@
 //             <Text>Free shipping on purchases from 200 dollars or more.</Text>
 //           </View>
 //           <Text style={styles.calculateSend}>Calculo de envio - CP</Text>
-//           <ReactCircleModal
+//           {/* <ReactCircleModal
 //             style={{
 //               padding: "0",
 //             }}
@@ -151,7 +151,7 @@
 //             offsetY={0}
 //           >
 //             {(onClick) => <Cart onClickHandler={onClick} />}
-//           </ReactCircleModal>
+//           </ReactCircleModal> */}
 //         </View>
 //       </View>
 //       <View style={styles.suggestionContainer}>

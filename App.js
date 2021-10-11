@@ -6,18 +6,20 @@ import {applyMiddleware, createStore} from 'redux'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
 import rootReducers from './redux/reducers/rootReducers'
+// import Product from './screens/Product';
 
 const store = createStore(rootReducers, applyMiddleware(thunk))
 
-export default function App() {
+
+const App =()=>{
   return (
     <Provider store={store}>
       <NavigationContainer>
         <Navigator />
       </NavigationContainer>
-      <Product/>
+      {/* <Product/> */}
     </Provider>
-  );
+  )
 }
-
+export default App
 

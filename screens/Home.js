@@ -12,17 +12,16 @@ import { StatusBar } from "expo-status-bar";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
 
-
-
-const Home = () => {
+const Home = (props) => {
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const scrollX = React.useRef(new Animated.Value(0)).current;
-
+  console.log(width);
+  console.log(height);
 
   const { width, height } = Dimensions.get("screen");
   const ITEM_WIDTH = width * 0.76;
   const ITEM_HEIGHT = ITEM_WIDTH * 1.47;
-  const imageW = width/2;
+  const imageW = width / 2;
 
   const images = [
     {
@@ -54,13 +53,33 @@ const Home = () => {
     { src: "https://i.postimg.cc/R0mhJ9vz/sale.jpg", category: "sale" },
   ];
 
-  //   const items = categories.map((obj, index) => (
-  //     <div key={index} style={{ backgroundImage: `url('${obj.src}')` }}>
-  //       <Link to={`/products/${obj.category}`}>
-  //         <button className={styles.textButton}>{obj.category}</button>
-  //       </Link>
-  //     </div>
-  //   ))
+  const items = categories.map((obj, index) => (
+    <View key={index}>
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate(`/products/${obj.category}`);
+        }}
+      >
+        <Image
+          source={{ uri: obj.src }}
+          style={{
+            width: 70,
+            height: 400,
+            resizeMode: "cover",
+            borderRadius: 16,
+            shadowColor: "#000",
+            shadowOpacity: 0.5,
+            shadowOffset: {
+              width: 0,
+              height: 0,
+            },
+            shadowRadius: 20,
+          }}
+        />
+        <Text style={styles.textCategory}>{obj.category} </Text>
+      </TouchableOpacity>
+    </View>
+  ));
 
   const info = [
     { src: "./assets/6.png" },
@@ -83,12 +102,11 @@ const Home = () => {
       <Animated.FlatList
         LisHeaderComponent={
           <>
-            <Text>Podría ir el nombre de la section</Text>
+            <Text>{data.categories}</Text>
           </>
         }
         data={data}
         keyExtractor={(item) => item.key}
-        showsHorizontalScrollIndicator={false}
         pagingEnabled
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -102,82 +120,69 @@ const Home = () => {
           ];
           const translateY = scrollY.interpolate({
             inputRange,
-            outputRange: [-height * 0.7, 0, height * 0.7],
+            outputRange: [-height, 0, height],
           });
 
           return (
-              <View>
-                  {item.link == "Categories" && (
-        <View>
-          <FlatList
-            data={categories}
-            keyExtractor={(_, index) => index.toString()}
-            horizontal
-            pagingEnabled
-            renderItem={({ item }) => {
-              return (
-                <View
-                  style={{
-                    width:80,
-                    height:500,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                    <Text style={styles.textCard}>
-                      {item.category}
-                    </Text>
-                    <Image
-                      source={{ uri: item.src }}
-                      style={{
-                        width: 70,
-                        height: 400,
-                        resizeMode: "cover",
-                        borderRadius: 16,
-                        shadowColor: "#000",
-                        shadowOpacity: 0.5,
-                        shadowOffset: {
-                          width: 0,
-                          height: 0,
-                        },
-                        shadowRadius: 20,
-                      }}
-                    />
-                </View>
-              );
-            }}
-          />
-          <Text>Acá van mapeadas las categorías</Text>
-        </View>
-      )}
-            <View
-              style={{ width, justifyContent: "center", alignItems: "center" }}
-            >
-              <View>
-                <View
-                  style={{
-                    width: width,
-                    height: height,
-                    overflow: "hidden",
-                    alignItems: "center",
-                  }}
-                >
-                  <Animated.Image
-                    source={{ uri: item.photo }}
-                    style={{
-                      width: width,
-                      height: height * 1.4,
-                      resizeMode: "cover",
-                      transform: [
-                        {
-                          translateY,
-                        },
-                      ],
+            <View>
+              {item.link == "Categories" ? (
+                <View>
+                  <FlatList
+                    data={categories}
+                    keyExtractor={(_, index) => index.toString()}
+                    horizontal
+                    pagingEnabled
+                    renderItem={({ item }) => {
+                      return (
+                        <View
+                          style={{
+                            width: 80,
+                            height: 500,
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <View key={index}>
+                            <TouchableOpacity
+                              onPress={() => {
+                                props.navigation.navigate(
+                                  `/products/${item.category}`
+                                );
+                              }}
+                            >
+                              <Image
+                                source={{ uri: item.src }}
+                                style={{
+                                  width: 70,
+                                  height: 400,
+                                  resizeMode: "cover",
+                                  borderRadius: 16,
+                                  shadowColor: "#000",
+                                  shadowOpacity: 0.5,
+                                  shadowOffset: {
+                                    width: 0,
+                                    height: 0,
+                                  },
+                                  shadowRadius: 20,
+                                }}
+                              />
+                              <Text style={styles.textCategory}>
+                                {item.category}
+                              </Text>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      );
                     }}
                   />
                 </View>
-                
-                  <TouchableOpacity
+              ):(
+              <View
+                style={{
+                      overflow: "hidden",
+                      alignItems: "center",
+                }}>
+                    <TouchableOpacity
                     onPress={() => {
                       props.navigation.navigate("/", {
                         id: item._id,
@@ -187,9 +192,22 @@ const Home = () => {
                   >
                     <Text style={styles.textCard}>{item.link} </Text>
                   </TouchableOpacity>
-
+                 
+                    <Animated.Image
+                      source={{ uri: item.photo }}
+                      style={{
+                        width: width,
+                        height: height,
+                        resizeMode: "cover",
+                        transform: [
+                          {
+                            translateY,
+                          },
+                        ],
+                      }}
+                    />
               </View>
-            </View>
+            )}
             </View>
           );
         }}
