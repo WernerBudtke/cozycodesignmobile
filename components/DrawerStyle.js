@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
       flex: 1
     },
     drawerContent: {
-      flex: 1,
+      display: 'flex',
+      flex: 1
     },
     userInfoSection: {
       paddingLeft: 20,

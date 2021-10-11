@@ -31,7 +31,7 @@ const SignIn = ({navigation, logIn}) => {
                     </View>
                     {error !== '' && <Text style={{color: 'red', fontSize: 20, textAlign: 'center'}}>{error}</Text>}
                     <Pressable style={styles.button}>
-                      <Button text color="#ad9993" onPress={submitHandler} style={styles.button} title="Sign In" ></Button>
+                      <Button color="#ad9993" onPress={submitHandler} style={styles.button} title="Sign In" ></Button>
                     </Pressable>
                     <Pressable style={styles.button}>
                         <Button color="#ad9993" title="Create account now!" onPress={() => navigation.navigate('SignUp')}></Button>
