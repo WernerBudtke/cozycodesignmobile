@@ -42,53 +42,53 @@ const SignIn = ({navigation, logIn}) => {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    content: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: -70
-    },
-    text:{
-      color: '#ecebe9',
-      fontSize: 28,
-      marginBottom: 10,
-      fontWeight: 'bold',
-      backgroundColor: 'rgba(0, 0, 0, 0.6)',
-      borderRadius: 20,
-      padding: 5
-    },
-    form: {
-      justifyContent: 'space-evenly',
-      width: '90%',
-      alignItems: 'center',
-      borderRadius:15
-    },
-    image: {
-      width: Dimensions.get('window').width,
-      height: Dimensions.get('window').height,
-    },
-    input: {
-      width: 330,
-      height: 45,
-      marginBottom: 20,
-      backgroundColor: 'white',
-      borderRadius: 20,
-      padding: 10,
-      borderWidth: 3,
-      borderColor: '#ad9993'
-    },
-    button: {
-      marginTop: 13,
-      width: 200,
-    },
-})
-
 const mapDispatchToProps = {
   logIn: userActions.logIn
 }
 
 export default connect(null, mapDispatchToProps)(SignIn)
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -70
+  },
+  text:{
+    color: '#ecebe9',
+    fontSize: 28,
+    marginBottom: 10,
+    fontWeight: 'bold',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    borderRadius: 20,
+    padding: 5
+  },
+  form: {
+    justifyContent: 'space-evenly',
+    width: '90%',
+    alignItems: 'center',
+    borderRadius:15
+  },
+  image: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  input: {
+    width: 330,
+    height: 45,
+    marginBottom: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 10,
+    borderWidth: 3,
+    borderColor: '#ad9993'
+  },
+  button: {
+    marginTop: 13,
+    width: 200,
+  },
+})
