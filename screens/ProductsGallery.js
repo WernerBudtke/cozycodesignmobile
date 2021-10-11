@@ -5,28 +5,32 @@ import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 // import CartCard from "../components/CartCard"
 import productsActions from "../redux/actions/productsActions"
+import { ScrollView } from "react-native-gesture-handler"
 
-const ProductsGallery = ({ products, getProducts, productsCategory, match, getProductByCategory}) => {
+const ProductsGallery = ({ products, getProducts, productsCategory, route, getProductByCategory}) => {
     const [showCartCard, setShowCartCard] = useState(false)
     const [productAlert, setProductAlert] = useState(null)
     const [order, setOrder] = useState(null)
     const [view, setView] = useState({category: null, subcategory: null})
 
+
+    console.log()
+
     useEffect(() => {
-        // document.title = "COZY | STORE"
-        // if (!products.length) {
-        //   getProducts()
+        if (!products.length) {
+          getProducts()
+        }
         // } else {
-        //   getProductByCategory(match.params.category)
+        //   getProductByCategory(route.params.category)
         // }
-        // if (match.params.category) {
-        //   setView({category: match.params.category, subcategory: null})
+        // if (route.params.category) {
+        //   setView({category: route.params.category, subcategory: null})
         // } else {
         //   setView({category: null, subcategory: null})
         // }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    //en el array tiene que ir match.params
+    //en el array tendria que ir route.params
     if (!order) {
     productsCategory.sort((a,b) => a.stock - b.stock)
     }
@@ -49,17 +53,34 @@ const ProductsGallery = ({ products, getProducts, productsCategory, match, getPr
     // setOrder(e.target.value)
     // }
 
-    // let productsSubcategory = !view.subcategory ? productsCategory : productsCategory.filter((obj) => obj.subcategory === view.subcategory )
+    let productsSubcategory = !view.subcategory ? productsCategory : productsCategory.filter((obj) => obj.subcategory === view.subcategory )
     
     // const viewHandler = (e) => {
     // setView({...view, subcategory: e.target.value})
     // }
 
     return (
+        <ScrollView>
+
         <View style={styles.main}>
             <Text style={styles.category}>ACA VAN LOS FILTROS?</Text>
-            <ProductCard/>
+            {/* <FlatList> */}
+            {productsSubcategory.map((product) => {
+                return (
+                    
+                    // <View>
+                    <ProductCard
+                    key={product._id}
+                    product={product}
+                    //   editShowCartCard={editShowCartCard}
+                    setProductAlert={setProductAlert}
+                    />
+                    // </View>
+                    )
+                })}
+        {/* </FlatList> */}
         </View>
+        </ScrollView>
     )
 }
 
@@ -81,7 +102,6 @@ const styles = StyleSheet.create({
     main: {
         backgroundColor: "#f8f6f4",
         height: "100%",
-        paddingTop: 40,
         alignItems: "center",
     },
 
