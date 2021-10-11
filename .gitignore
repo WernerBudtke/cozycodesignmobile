@@ -1,5 +1,7 @@
 node_modules/
 .expo/
+_cacache/
+package_lock.json
 npm-debug.*
 *.jks
 *.p8
@@ -8,6 +10,6 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-
+_update-notifier-last-checked
 # macOS
 .DS_Store

@@ -1,21 +1,22 @@
-import { StatusBar } from "expo-status-bar"
+import { NavigationContainer } from "@react-navigation/native"
 import React from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet } from "react-native"
+import Navigator from "./navigation/MainNavDrawer"
+import { applyMiddleware, createStore } from "redux"
+import { Provider } from "react-redux"
+import thunk from "redux-thunk"
+import rootReducers from "./redux/reducers/rootReducers"
+import Product from "./screens/Product"
+
+const store = createStore(rootReducers, applyMiddleware(thunk))
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open hola up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      {/* <NavigationContainer>
+        <Navigator />
+      </NavigationContainer> */}
+      <Product />
+    </Provider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-})
