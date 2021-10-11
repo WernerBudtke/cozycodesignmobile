@@ -77,13 +77,13 @@ const styles = StyleSheet.create ({
         height: "100%",
     },
 
-    top: {
-        height: "100%",
-        width: "100%",
-        overflow: "hidden",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-    },
+    // top: {
+    //     height: "100%",
+    //     width: "100%",
+    //     overflow: "hidden",
+    //     backgroundSize: "cover",
+    //     backgroundRepeat: "no-repeat",
+    // },
 
     bottom: {
         flex: 1,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View, Pressable } from 'react-native'
 import { connect } from "react-redux"
 import { useEffect, useState } from "react"
 import cartActions from "../redux/actions/cartActions"
@@ -74,11 +74,8 @@ const Product = ({
 //     : `https://cozydeco.herokuapp.com/${product.photo}`
 
     return (
-        <View>
-            
-            <Text>Hola</Text>
-            
-            {/* <View className={styles.productSection}>
+        <View style={styles.productSection}>
+            {/* <View style={styles.productSection}>
                 {productAlert && (
                     <CartCard
                     productAlert={productAlert}
@@ -87,33 +84,30 @@ const Product = ({
                     />
                 )}
 
-                <View className={styles.mainContainer}>
-                    <View
-                        className={styles.productImage}
-                        style={{ backgroundImage: `url("${photo}")` }}>
-                    </View>
-                    <View className={styles.productInfo}>
-                        <Text>{product.name}</Text>
-                        <Text>{product.description}</Text>
-                        <View>
+                <View style={styles.mainContainer}>
+                    <ImageBackground style={styles.productImage} source={{uri: '${photo}'}}></ImageBackground>
+                    <View style={styles.productInfo}>
+                        <Text style={styles.name}>{product.name}</Text>
+                        <Text style={styles.description}>{product.description}</Text>
+                        <View style={styles.prince}>
                             {product.discount !== 0 && (
-                            <Text className={product.discount !== 0 ? styles.sale : null}>
+                            <Text style={product.discount !== 0 ? styles.sale : null}>
                                 ${product.price}
                             </Text>
                             )}
-                            <Text>${finalPrice}</Text>
+                            <Text style={styles.finalPrice}>${finalPrice}</Text>
                         </View>
                         <View>
-                            <i className="far fa-credit-card fa-lg"></i>
-                            <Text className={styles.interestCard}>3 payments of ${((1.1 * finalPrice) / 3).toFixed(2)}</Text>
+                            <i style="far fa-credit-card fa-lg"></i>
+                            <Text style={styles.interestCard}>3 payments of ${((1.1 * finalPrice) / 3).toFixed(2)}</Text>
                         </View>
                         <View>
-                            <View className={styles.counter}>
-                                <i className="fas fa-minus"
+                            <View style={styles.counter}>
+                                <i style="fas fa-minus"
                                     onClick={quantity > 1 ? () => setQuantity(quantity - 1) : null}>
                                 </i>
                                 <Text>{quantity}</Text>
-                                <i className="fas fa-plus"
+                                <i style="fas fa-plus"
                                     onClick={() => {
                                     product.stock === quantity
                                         ? alert("no hay stock")
@@ -121,14 +115,16 @@ const Product = ({
                                     }}>
                                 </i>
                             </View>
-                            <button onClick={addToCartHandler}>Add to Cart</button>
+                            <Pressable style={styles.button}>
+                                <Button onPress={addToCartHandler} style={styles.button}>Add to Cart</Button>
+                            </Pressable>
                         </View>
-                        <View className={styles.shippingInfo}>
-                            <i className="fas fa-truck fa-lg"></i>
+                        <View style={styles.shippingInfo}>
+                            <i style="fas fa-truck fa-lg"></i>
                             <Text>Free shipping on purchases from 200 dollars or more.</Text>
                         </View>
-                        <Text className={styles.calculateSend}>Calculo de envio - CP</Text>
-                        <ReactCircleModal
+                        <Text style={styles.calculateSend}>Calculo de envio - CP</Text>
+                        {/* <ReactCircleModal
                             style={{
                             padding: "0",
                             }}
@@ -147,8 +143,8 @@ const Product = ({
                             offsetY={0}
                             >
                             {(onClick) => <Cart onClickHandler={onClick} />}
-                        </ReactCircleModal>
-                    </View>
+                        </ReactCircleModal> */}
+                    {/* </View>
                 </View>
             </View> */}
         </View>
@@ -157,7 +153,66 @@ const Product = ({
 
 
 
-const styles = StyleSheet.create({ })
+const styles = StyleSheet.create({ 
+    productSection: {
+        flex: 1,
+        width: "100%",
+        backgroundColor: "#f8f6f4",
+        alignItems: "center",
+    },
+    mainContainer: {
+        width: "80%",
+        borderRadius: 20,   
+        alignItems: "center",
+        padding: 10,
+    },
+    productImage: {
+        alignItems: "center",
+        width: 300,
+        height: 300,
+    },
+    productInfo: {
+        justifyContent: "space-around",
+        color: "rgb(75, 69, 69)",
+    },
+    name: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: "#c58b7b",
+    },
+    description: {
+        fontSize: 18,
+    },
+    prince:{
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+    },
+    discount:{
+        fontSize: 14,
+        color: "#dd3e2c",
+    },
+    finalPrice:{
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    button: {
+        backgroundColor: "#d4c5bf",
+        color: "#7e6661",
+        width: "50%",
+        height: 20,
+        borderRadius: 10,  
+    },
+    suggestion: {
+        backgroundColor: "#d4c5bf",
+    },
+    counter: {
+        width: "50%",
+    },
+    interestCard:{
+        color: "rgb(114, 107, 107)",
+    },
+})
 const mapStateTopProps = (state) => {
     return {
         product: state.products.product,
@@ -172,7 +227,5 @@ const mapDispatchToProps = {
     getProductByCategory: productsActions.getProductByCategory,
     getProducts: productsActions.getProducts
 } 
-
-
 
 export default connect(mapStateTopProps, mapDispatchToProps)(Product)
