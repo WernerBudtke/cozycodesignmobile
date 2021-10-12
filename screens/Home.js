@@ -183,7 +183,7 @@ const Home = (props) => {
                       
                     }}
                   >
-                    <Text style={styles.textCard}>{item.link} </Text>
+                    <Text style={styles.textCard}>{item.link}</Text>
                   </TouchableOpacity>
                   )}
                   {item.link.includes("home") &&(
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     marginBottom:width,
     padding:10,
     borderTopRightRadius:15,
-    borderEndEndRadius:15,
+    // borderEndRadius:15,
     shadowColor: '#000',
     shadowOpacity:.1,
     shadowOffset: {
