@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {createDrawerNavigator} from '@react-navigation/drawer'
-import {  NavigatorHome, NavigatorSignIn, NavigatorSignUp, NavigatorProductGallery, NavigatorCart } from './MainNavStack'
+import {  NavigatorHome, NavigatorSignIn, NavigatorSignUp, NavigatorProductGallery, NavigatorCart, NavigatorPayment } from './MainNavStack'
 import DrawerStyle from '../components/DrawerStyle'
 import { connect } from "react-redux";
 import userActions from '../redux/actions/userActions'
@@ -35,6 +35,7 @@ const Navigator = ({logFromSession, addCartLS, loginUser}) => {
             <Drawer.Screen name='Cart' component={NavigatorCart} options={{headerShown: false}} />
             <Drawer.Screen name='LogIn' component={NavigatorSignIn} options={{headerShown: false}} />
             <Drawer.Screen name='SignUp' component={NavigatorSignUp} options={{headerShown: false}} />
+            <Drawer.Screen name='Payment' component={NavigatorPayment} options={{headerShown: false}} />
         </Drawer.Navigator>
     )
 }

@@ -174,16 +174,15 @@ const Home = (props) => {
                     />
                     {item.link.includes("Check") &&(
                           <TouchableOpacity
-                    onPress={() => {
-                      props.navigation.navigate("/", {
-                        id: item._id,
-                        title: item.link,
-                        
-                      });
-                      
-                    }}
-                  >
-                    <Text style={styles.textCard}>{item.link}</Text>
+                          style={styles.boxCallToAction}
+                        onPress={() => {
+                          props.navigation.navigate("/", {
+                          id: item._id,
+                          title: item.link,
+                        });
+                      }}
+                    >
+                    <Text style={styles.textCallToAction}>{item.link} </Text>
                   </TouchableOpacity>
                   )}
                   {item.link.includes("home") &&(
@@ -306,6 +305,30 @@ const styles = StyleSheet.create({
     lineHeight:20,
     paddingStart:10,
     paddingTop:10,
-  }
-
+  },
+  boxCallToAction: {
+    backgroundColor: "#dabea8de",
+    width:100,
+    height:140,
+    position: "absolute",
+    zIndex: 200,
+    bottom:width+100,
+    left:40,
+    borderRadius:15,
+    shadowColor: '#000',
+    shadowOpacity:.5,
+    shadowOffset: {
+        width:0,
+        height:0,
+    },
+    shadowRadius: 20,
+  },
+  textCallToAction: {
+    color: "#060B34",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold", 
+    marginBottom:width*1.5,
+    padding:10,
+  },
 });

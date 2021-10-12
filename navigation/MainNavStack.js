@@ -7,6 +7,7 @@ import LogoMenu, { ArrowBack } from '../components/LogoMenu'
 import ProductsGallery from '../screens/ProductsGallery'
 import Product from '../screens/Product'
 import Cart from '../screens/Cart'
+import PaymentGateway from '../screens/PaymentGateway'
 
 const Stack = createNativeStackNavigator()
 
@@ -88,6 +89,24 @@ export const NavigatorCart = (props) => {
             headerRight: () => <LogoMenu navigation={props.navigation} />
          }}>
             <Stack.Screen name='Cart' component={Cart} options={{title: 'Cart', headerLeft: () => <ArrowBack navigation={props.navigation} to={'Home'}/>}} />
+        </Stack.Navigator>
+    )
+}
+
+export const NavigatorPayment = (props) => {
+    return (
+        <Stack.Navigator navigation={props.navigation} screenOptions={{
+            headerStyle: {
+                backgroundColor: "#e3cebc",
+            },
+            headerTintColor: "black",
+            headerTitleStyle: {
+               fontSize: 24,
+               color: 'black'
+            },
+            headerRight: () => <LogoMenu navigation={props.navigation} />
+         }}>
+            <Stack.Screen name='Payment' component={PaymentGateway} options={{title: 'Payment', headerLeft: () => <ArrowBack navigation={props.navigation} to={'Cart'}/>}} />
         </Stack.Navigator>
     )
 }
