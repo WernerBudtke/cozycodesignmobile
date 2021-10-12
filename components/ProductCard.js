@@ -29,16 +29,10 @@ const ProductCard = ({
         addCartProduct(newProducts)
     }
 
-    const apreteElBoton = () => {
-      console.log("LA CONCHA DE TU MADRE ALL BOYS")
-    }
-
-
     const photo = product.photo?.includes("http")
         ? product.photo
         : `https://cozydeco.herokuapp.com/${product.photo}`
         
-
     return (
       <View style={styles.wrapper} >
       {product.discount !== 0 && (

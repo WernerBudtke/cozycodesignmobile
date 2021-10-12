@@ -54,9 +54,8 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
     // const viewHandler = (e) => {
     // setView({...view, subcategory: e.target.value})
     // }
-    console.log(products)
-    return (
 
+    return (
         <View style={styles.main}>
             <Text style={styles.category}>ACA VAN LOS FILTROS</Text>
             <FlatList

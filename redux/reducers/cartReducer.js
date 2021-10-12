@@ -5,15 +5,14 @@ const cartReducer = (state = { products: [] }, action) => {
       let productExists = state.products.find(
         (obj) => obj.product._id === action.payload.product._id
       )
-      cartLS = !productExists
-        ? state.products.concat(action.payload)
-        : state.products.map((obj) =>
-            obj.product._id === action.payload.product._id
-              ? { ...obj, quantity: obj.quantity + action.payload.quantity }
-              : obj
-          )
-      localStorage.setItem("cart", JSON.stringify(cartLS))
-
+      // cartLS = !productExists
+      //   ? state.products.concat(action.payload)
+      //   : state.products.map((obj) =>
+      //       obj.product._id === action.payload.product._id
+      //         ? { ...obj, quantity: obj.quantity + action.payload.quantity }
+      //         : obj
+      //     )
+      // localStorage.setItem("cart", JSON.stringify(cartLS))
       return {
         products: !productExists
           ? state.products.concat(action.payload)
@@ -24,10 +23,10 @@ const cartReducer = (state = { products: [] }, action) => {
             ),
       }
     case "DELETE_ONE_CART_PRODUCT":
-      cartLS = state.products.filter(
-        (obj) => obj.product._id !== action.payload
-      )
-      localStorage.setItem("cart", JSON.stringify(cartLS))
+      // cartLS = state.products.filter(
+      //   (obj) => obj.product._id !== action.payload
+      // )
+      // localStorage.setItem("cart", JSON.stringify(cartLS))
       return {
         products: state.products.filter(
           (obj) => obj.product._id !== action.payload
