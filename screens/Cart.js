@@ -11,4 +11,6 @@ const Cart = () => {
 
 export default Cart
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+   
+})
