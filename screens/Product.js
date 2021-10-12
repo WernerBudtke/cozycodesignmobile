@@ -16,12 +16,9 @@ const Product = ({
   getProductByCategory,
 }) => {
 
-console.log(product)
-
   return (
     <View>
-        <Text>Producto Individual</Text> 
-        <Text>{product.name}</Text>        
+        <Text>Producto Individual</Text>        
     </View>
   )
 }

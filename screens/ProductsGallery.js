@@ -105,6 +105,14 @@ const styles = StyleSheet.create({
         height: 100, 
         backgroundColor: "#ead8ca", 
         width: "100%",
+        shadowColor: "black",
+		shadowOffset: {
+		width: 5,
+		height: 35,
+		},
+		shadowOpacity: 1,
+		shadowRadius: 15,
+		elevation: 5,
     },
 
     list: {

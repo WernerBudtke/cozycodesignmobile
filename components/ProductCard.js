@@ -1,5 +1,5 @@
 import React from "react" 
-import { Text, View, StyleSheet, Image, Pressable, TouchableOpacity, Button} from "react-native"
+import { Text, View, StyleSheet, Image, Pressable, Button} from "react-native"
 import { connect } from "react-redux"
 import { useEffect, useState } from "react"
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -26,9 +26,6 @@ const ProductCard = ({
           product: product,
           quantity: 1,
         }
-        console.log("agregué al carrito")
-        editShowCartCard(true)
-        setProductAlert(newProducts)
         addCartProduct(newProducts)
     }
 
@@ -43,8 +40,7 @@ const ProductCard = ({
         
 
     return (
-      <View style={styles.wrapper} > 
-      {/* width: Dimensions.get('window').width, */}
+      <View style={styles.wrapper} >
       {product.discount !== 0 && (
         <View style={styles.inside}>
           <Text style={styles.icon}>
@@ -57,38 +53,31 @@ const ProductCard = ({
           onPress={() => navigation.navigate("Product")}>
             <Image source={{ uri: photo}} style={styles.top} resizeMode="cover"/>
           </Pressable>
-            <View style={styles.bottom}>
+        </View>
               <View style={styles.nameAndPrice}>
                 <Text style={styles.productName}>
                     {product.name}
                 </Text>
                 <View style={styles.priceContainer}>
-                  {product.discount !== 0 && (
-                    <Text style={styles.price}>
-                      {(((100 - product.discount) / 100) * product.price).toFixed(2)}
-                    </Text>
-                  )} 
-                  <Text style={product.discount !== 0 ? styles.sale : null} >
+                  <Text style={product.discount !== 0 ? styles.sale : styles.price} >
                     ${product.price}
                   </Text>
+                  {product.discount !== 0 && (
+                    <Text style={styles.price}>
+                      ${(((100 - product.discount) / 100) * product.price).toFixed(2)}
+                    </Text>
+                  )} 
                 </View>
               </View>
-              <View style={styles.cardButtons}>
-              {/* <Pressable icon={({ color, size }) => ( <Icon name="cart-outline" color={color} size={size} /> )} label="Cart"/> */}
-              {!admin && (
-                <View style={styles.buttonContainer}>
-                  <TouchableOpacity onPress={() => apreteElBoton()}>
-                    <Text style={styles.button}>CART</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                  onPress={() => navigation.navigate("Product")}>
-                    <Text style={styles.button}>VIEW</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-              </View>
-            </View>
-          </View>
+        <View style={styles.buttonContainer}>
+          <Pressable
+          onPress={() => navigation.navigate("Product")}>
+            <Text style={styles.button}>VIEW</Text>
+          </Pressable>
+        <Pressable onPress={() => apreteElBoton()}>
+          <Text style={styles.button}>CART</Text>
+        </Pressable>
+        </View>
       </View>
     )
 }
@@ -99,7 +88,7 @@ const mapStateToProps = (states) => {
     }
   }
   
-  const mapDispatchToProps = {
+const mapDispatchToProps = {
     addCartProduct: cartActions.addCartProduct,
 }
 
@@ -109,20 +98,26 @@ const styles = StyleSheet.create ({
   
   wrapper: {
     minWidth: "85%",
-    height: 420,
+    height: 450,
     marginVertical: "5%",
     marginHorizontal: 0.5,
     backgroundColor: "#ead8ca", 
-    position: "relative",
     overflow: "hidden",
     borderRadius: 20,
-    // boxShadow: 0 0 3 .5 "#cac5c5",
+    shadowColor: "#000",
+		shadowOffset: {
+		width: 5,
+		height: 5,
+		},
+		shadowOpacity: 1,
+		shadowRadius: 20,
+		elevation: 5,
+		marginBottom: 15,
   },
   
   container: {
       backgroundColor: "#ead8ca",
       height: 300,
-      flexDirection: "column",
       width: "100%",
   },
 
@@ -155,7 +150,7 @@ const styles = StyleSheet.create ({
 
   price: {
     color: "black",
-    fontSize: 15,
+    fontSize: 17,
   },
 
   sale: {
@@ -176,30 +171,22 @@ const styles = StyleSheet.create ({
 
   inside: {
     backgroundColor: "#d16b5f",
-    width: 150,
-    height: 150,
-    position: "absolute",
-    top: -60,
-    right: -60,
-    overflow: "hidden",
-    borderBottomLeftRadius: 200,
-    zIndex: 1,
+    alignItems: "center", 
   }, 
 
   icon: {
     color: "white",
-    fontSize: 38,
+    fontSize: 15,
   },
 
   button: {
     paddingVertical: 10,
     paddingHorizontal: 15,
-    zIndex: 5,
   }, 
 
   buttonContainer: {
     flexDirection: "row",
     width: "100%",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
   }
 })
