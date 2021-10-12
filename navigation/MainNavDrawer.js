@@ -1,11 +1,29 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import {  NavigatorHome, NavigatorSignIn, NavigatorSignUp, NavigatorProductGallery, NavigatorCart } from './MainNavStack'
 import DrawerStyle from '../components/DrawerStyle'
+import { connect } from "react-redux";
+import userActions from '../redux/actions/userActions'
+import cartActions from '../redux/actions/cartActions'
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const Drawer = createDrawerNavigator()
 
-const Navigator = (props) => {
+const Navigator = ({logFromSession, addCartLS, loginUser}) => {
+
+    useEffect(() => {
+        !loginUser && logFromSession()
+        const addCart = async () => {
+           addCartLS(JSON.parse(await AsyncStorage.getItem("cart")))
+        }
+        let getItemFromLS = null
+        const getFromLS = async () => {
+            getItemFromLS = await AsyncStorage.getItem('cart')
+            getItemFromLS && addCart()
+        }
+        getFromLS()
+      }, [])
+
     return (
         <Drawer.Navigator drawerContent={props =><DrawerStyle {...props} />} screenOptions={{headerStyle: {
             backgroundColor: '#e3cebc'
@@ -21,4 +39,16 @@ const Navigator = (props) => {
     )
 }
 
-export default Navigator
+const mapStateToProps = (state) => {
+    return {
+      loginUser: state.users.user,
+    }
+  }
+  
+  const mapDispatchToProps = {
+    logFromSession: userActions.logFromSession,
+    addCartLS: cartActions.addCartLS,
+  }
+  
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigator)

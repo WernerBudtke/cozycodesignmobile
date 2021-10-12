@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, Button } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import ProductInCart from '../components/ProductInCart'
+import Icon from 'react-native-vector-icons/Ionicons'
 
-const Cart = ({products, loginUser}) => {
+const Cart = ({products, loginUser, navigation}) => {
     const [view, setView] = useState(false)
     const totalPrice = products.map((obj) =>
         obj.product.discount === 0
@@ -22,16 +23,24 @@ const Cart = ({products, loginUser}) => {
       console.log(products)
       products.map((product) => console.log(product.product.name))
     return (
-        <View style={styles.mainContainer}>
+        products.length 
+        ? <View style={styles.mainContainer}>
+            <Text>Total: $ {totalPrice.reduce((a, b) => a + b).toFixed(2)}</Text>
             <Text style={styles.title}>SHOPPING CART</Text>
             <FlatList 
             data={products}
             keyExtractor={(item) => item.product._id}
             renderItem={({item}) => (
                 <ProductInCart cartItem={item} />
-            )}
-            />    
+                )}
+                />    
         </View>
+        : <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={{fontSize: 20, marginVertical: 20}}><Icon size={25} name="warning-outline" />You don't have any items in your cart.</Text>
+            <Button onPress={() => navigation.navigate("Gallery")} title="START SHOPPING"></Button>
+            {!loginUser && (<Button onPress={() => navigation.navigate("LogIn")} title="SIGN IN"></Button>)}
+         </View>
+
     )
 }
 

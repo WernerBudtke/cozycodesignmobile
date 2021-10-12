@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import cartActions from '../redux/actions/cartActions'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const ProductInCart = ({cartItem, updateCartProduct}) => {
+const ProductInCart = ({cartItem, updateCartProduct, deleteACartProduct}) => {
     const [enableCounter, setEnableCounter] = useState(true)
 
     const updateCartProductHandler = (operation) => {
@@ -24,7 +24,7 @@ const ProductInCart = ({cartItem, updateCartProduct}) => {
     : `https://cozydeco.herokuapp.com/${cartItem.product.photo}`
 
     return (
-        <View style={styles.wrapper} > 
+        <ScrollView style={styles.wrapper} > 
         <View style={styles.container}>
             <Image source={{ uri: photo}} style={styles.top} resizeMode="cover"/>
             <View style={styles.bottom}>
@@ -48,8 +48,18 @@ const ProductInCart = ({cartItem, updateCartProduct}) => {
                     <Icon onPress={cartItem.product.stock > cartItem.quantity && enableCounter
                   ? () => updateCartProductHandler("+")
                   : null} name="add" size={45} name="add" size={45} />
+                  <Icon name="trash" size={45} onPress={() => deleteACartProduct(cartItem.product._id)} />
                 </View>
-      </View>
+                <Text>
+                $
+                {(
+                  (cartItem.product.discount === 0
+                    ? cartItem.product.price
+                    : ((100 - cartItem.product.discount) / 100) *
+                      cartItem.product.price) * cartItem.quantity
+                ).toFixed(2)}
+                </Text>
+      </ScrollView>
     )
 }
 
