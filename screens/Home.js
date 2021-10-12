@@ -64,6 +64,12 @@ const Home = (props) => {
       >
         <Image
           source={{ uri: obj.src }}
+          style={{
+            minWidth: 150,
+            display: "flex",
+            height: 150,
+            flex:1,
+          }} 
         />
         <Text style={styles.textCategory}>{obj.category} </Text>
       </TouchableOpacity>
@@ -100,19 +106,21 @@ const Home = (props) => {
           return (
             <View>
               {item.link == "Categories" ? (
-                <View>
+                <View style={styles.containerCategory}>
                     <Text style={styles.titleCategory}>CATEGORIES</Text>
                   <FlatList
                     data={categories}
                     keyExtractor={(_, index) => index.toString()}
-                    horizontal
-                    pagingEnabled
+                    numColumns={2}
+                    columnWrapperStyle={{justifyContent:'space-evenly', margin: 15}}
                     renderItem={({ item }) => {
                       return (
                         <View
                           style={{
-                            width: 80,
-                            height: 500,
+                            display: "flex",
+                            minWidth: 150,
+                            height: 150,
+                            flex:1,
                             justifyContent: "center",
                             alignItems: "center",
                           }}
@@ -128,8 +136,10 @@ const Home = (props) => {
                               <Image
                                 source={{ uri: item.src }}
                                 style={{
-                                  width: 70,
-                                  height: 400,
+                                  display: "flex",
+                                  minWidth: 150,
+                                  height: 150,
+                                  flex:1,
                                   resizeMode: "cover",
                                   borderRadius: 16,
                                   shadowColor: "#000",
@@ -242,7 +252,10 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 20,
   },
-
+  containerCategory:{
+      display:"flex",
+      alignContent:"center",
+  },
   galleryWrap:{
     width: 82,
     height: 60,
@@ -262,10 +275,14 @@ const styles = StyleSheet.create({
     fontWeight: "bolder",
     alignSelf: "center",
     paddingTop:10,
-    color:"rgba(0, 0, 0, 0.638)"
+    color:"rgba(0, 0, 0, 0.638)",
+    marginBottom:15,
   },
   textCategory:{
     alignItems:"center",
+    fontSize:14, 
+    fontWeight:"bolder", 
+    textTransform: 'capitalize',
   },
   boxQuote: {
     color: "#060B34",
