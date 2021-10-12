@@ -186,13 +186,10 @@ export default connect(mapStateTopProps, mapDispatchToProps)(Product)
 const styles = StyleSheet.create({ 
   productSection :{
     backgroundColor: "#f8f6f4",
-    display: "flex",
-    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
   mainContainer :{
-    display: "flex",
     alignSelf: "center",
     width: 80,
     minHeight: 65,
@@ -206,140 +203,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   productInfo :{
-    display: "flex",
-    flexDirection: "column",
     justifyContent: "space-around",
     padding: 1,
     color: "rgb(75, 69, 69)",
   },
-  
-  // productInfo div :{
-  //   display: "flex",
-  //   justifyContent: "flex-start",
-  //   alignItems: "center",
-  //   gap: 20,
-  //   fontWeight: "bold",
-  //   color: "rgb(75, 69, 69)",
-  // },
-  // productInfo > p:nth-child(2) :{
-  //   font-size: 4vmin,
-  // },
-  // productInfo > p:nth-child(3) :{
-  //   font-size: 3vmin,
-  // },
-  // productInfo > div:nth-child(3) :{
-  //   justify-content: center,
-  //   font-size: 4vmin,
-  // },
-  
-  // productInfo h2 :{
-  //   font-size: 4vmin,
-  //   color: #c58b7b,
-  // },
-  
-  // productInfo button :{
-  //   background: #d4c5bf,
-  //   border: 0,
-  //   color: #7e6661,
-  //   padding: 1vh,
-  //   font-size: 1.5vmin,
-  //   font-weight: 300,
-  //   width: 50%,
-  //   display: block,
-  //   cursor: pointer,
-  //   -webkit-transition: all 0.4s,
-  //   transition: all 0.4s,
-  //   border-radius: 2px,
-  // },
-  
-  // productInfo button:active :{
-  //   background: #d4c5bf,
-  //   color: #263238,
-  // },
-  
-  // productInfo button:hover :{
-  //   background: #bf988f,
-  //   color: #fff,
-  //   -webkit-transition: all 0.4s,
-  //   transition: all 0.4s,
-  // },
-  
-  // .shippingInfo p :{
-  //   padding-left: 1vw,
-  // }
-  
-  // div.suggestionContainer :{
-  //   background-color: #d4c5bf,
-  //   padding-left: 0.5rem,
-  //   padding-top: 0.5rem,
-  // }
-  
-  // div.suggestionContainer h3 :{
-  //   color: rgba(0, 0, 0, 0.781),
-  //   letter-spacing: 0.1vw,
-  //   margin-bottom: 2vh,
-  //   margin-left: 0.5rem,
-  // }
-  
-  // div.suggestion :{
-  //   width: 98vw,
-  //   min-height: 65vh,
-  //   background-color: #d4c5bf,
-  //   display: flex,
-  //   overflow-y: scroll,
-  // }
-  
-  // div.suggestion::-webkit-scrollbar :{
-  //   height: 0.5rem !important,
-  // }
-  
-  // div.suggestion::-webkit-scrollbar-thumb :{
-  //   background-color: #ad9993,
-  //   border-radius: 10px,
-  // }
-  
-  // div.productCardContainer :{
-  //   padding: 0.5rem,
-  //   height: 50vh,
-  // },
-  
-  // div.productCardContainer > div :{
-  //   width: 20rem,
-  // },
-  
-  // counter :{
-  //   display: flex,
-  //   width: 50%,
-  //   text-align: center,
-  // },
-  
-  // counter p :{
-  //   width: 30%,
-  //   align-items: center,
-  // },
-  
-  // sc-bdfBQB,
-  // efwhzj :{
-  //   padding: 0 !important,
-  // },
-  // interestCard :{
-  //   color: rgb(114, 107, 107),
-  //   margin: 1vh 0,
-  // },
-  // calculateSend :{
-  //   font-size: 3vmin,
-  // },
-  // sale :{
-  //   text-decoration: line-through,
-  //   color: #dd3e2c !important,
-  //   font-size: 5vmin !important,
-  // },
-  
-  // fa-plus,
-  // fa-minus,
-  // fa-trash-alt :{
-  //   cursor: pointer,
-  // },
   
   
 })
