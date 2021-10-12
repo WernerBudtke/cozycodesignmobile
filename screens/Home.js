@@ -29,13 +29,12 @@ const Home = (props) => {
       img: "https://i.postimg.cc/28fhfXP2/home1.png",
       link: "Check out our latest trends",
     },
-    { img: "https://i.postimg.cc/cCsFRrC2/home2.png", link: "Categories" },
     {
-      img: "https://i.postimg.cc/nrKszp6T/home3.png",
+      img: "https://i.postimg.cc/66G4VjPx/home3.png",
       link: "There is no place like home", description: "In Cozy we offer a wide variety of well-designed, functional home products. Whether your home decor leans towards minimalist or maximalist aesthetic, you'll find something to suit your style."
     },
-    { img: "https://i.postimg.cc/GpdXhsJ6/home4.png", link: "" },
-    { img: "https://i.postimg.cc/Wb6rpwVj/home5.png", link: "" },
+    // { img: "https://i.postimg.cc/fRkNXFHx/home4.png", link: "" },
+    { img: "https://i.postimg.cc/cCsFRrC2/home2.png", link: "Categories" },
   ];
   const data = images.map((image, index) => ({
     key: String(index),
@@ -64,12 +63,6 @@ const Home = (props) => {
       >
         <Image
           source={{ uri: obj.src }}
-          style={{
-            minWidth: 150,
-            display: "flex",
-            height: 150,
-            flex:1,
-          }} 
         />
         <Text style={styles.textCategory}>{obj.category} </Text>
       </TouchableOpacity>
@@ -102,25 +95,23 @@ const Home = (props) => {
             inputRange,
             outputRange: [-height, 0, height],
           });
-
           return (
             <View>
               {item.link == "Categories" ? (
-                <View style={styles.containerCategory}>
+                <View style={styles.categoriesContainer}>
                     <Text style={styles.titleCategory}>CATEGORIES</Text>
                   <FlatList
                     data={categories}
                     keyExtractor={(_, index) => index.toString()}
-                    numColumns={2}
-                    columnWrapperStyle={{justifyContent:'space-evenly', margin: 15}}
                     renderItem={({ item }) => {
                       return (
                         <View
                           style={{
                             display: "flex",
-                            minWidth: 150,
-                            height: 150,
-                            flex:1,
+                            width: width-40,
+                            height: width-40,
+                            marginTop:15,
+                            margin:"auto",
                             justifyContent: "center",
                             alignItems: "center",
                           }}
@@ -137,13 +128,14 @@ const Home = (props) => {
                                 source={{ uri: item.src }}
                                 style={{
                                   display: "flex",
-                                  minWidth: 150,
-                                  height: 150,
-                                  flex:1,
+                                  width: width-40,
+                                  height: width-40,
                                   resizeMode: "cover",
-                                  borderRadius: 16,
+                                 
                                   shadowColor: "#000",
                                   shadowOpacity: 0.5,
+                                  borderRadius:16,
+                                  margin:"auto",
                                   shadowOffset: {
                                     width: 0,
                                     height: 0,
@@ -171,7 +163,7 @@ const Home = (props) => {
                       source={{ uri: item.photo }}
                       style={{
                         width: width*1.04,
-                        height: height*1.04,
+                        height: height*1,
                         resizeMode: "cover",
                         transform: [
                           {
@@ -232,17 +224,18 @@ const styles = StyleSheet.create({
   },
   textCard: {
     color: "#060B34",
-    fontSize: 14,
-    // fontWeight: "bolder", 
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold", 
     backgroundColor: "#dabea8de",
-    height:80,
-    width:80,
+    width:100,
+    height:140,
     position: "absolute",
     zIndex: 200,
     bottom:-60,
     left:40,
     marginBottom:width*1.5,
-    padding:5,
+    padding:10,
     borderRadius:15,
     shadowColor: '#000',
     shadowOpacity:.5,
@@ -252,37 +245,32 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 20,
   },
-  containerCategory:{
-      display:"flex",
-      alignContent:"center",
-  },
-  galleryWrap:{
-    width: 82,
-    height: 60,
-    display: "flex",
+  categoriesContainer:{
+      minHeight:"100%",
+      flex:1,
   },
 
-  galleryWrapOnFocus:{
-    height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems:"flex-end",
-    // transition: 0.8,
-  },
-  
   titleCategory: {
     fontSize:30,
-    // fontWeight: "bolder",
+    fontWeight: "bold",
     alignSelf: "center",
     paddingTop:10,
     color:"rgba(0, 0, 0, 0.638)",
     marginBottom:15,
   },
   textCategory:{
-    alignItems:"center",
-    fontSize:14, 
-    // fontWeight:"bolder", 
+    fontSize:20, 
+    textAlign: "center",
     textTransform: 'capitalize',
+    color: "rgba(0, 0, 0, 0.638)",
+    fontWeight: "bold", 
+    backgroundColor: "rgba(255, 255, 255, 0.69)",
+    height:40,
+    width:width,
+    position: "absolute",
+    zIndex: 200,
+    top:35,
+   
   },
   boxQuote: {
     color: "#060B34",
@@ -293,18 +281,18 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 200,
     bottom:-60,
-    left:20,
+    left:0,
     marginBottom:width,
     padding:10,
     borderTopRightRadius:15,
-    // borderEndEndRadius:15,
-    // shadowColor: '#000',
-    // shadowOpacity:.1,
-    // shadowOffset: {
-    //     width:0,
-    //     height:0,
-    // },
-    // shadowRadius: 5,
+    borderEndEndRadius:15,
+    shadowColor: '#000',
+    shadowOpacity:.1,
+    shadowOffset: {
+        width:0,
+        height:0,
+    },
+    shadowRadius: 5,
   },
   textQuote: {
     color: "#060B34",
