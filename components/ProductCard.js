@@ -9,8 +9,6 @@ const ProductCard = ({
     user,
     product,
     navigation,
-    editShowCartCard,
-    setProductAlert,
     addCartProduct,
   }) => {
 
