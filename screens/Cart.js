@@ -4,9 +4,8 @@ import { FlatList } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import ProductInCart from '../components/ProductInCart'
 
-const Cart = ({cartItem, products, loginUser}) => {
+const Cart = ({products, loginUser}) => {
     const [view, setView] = useState(false)
-    console.log(products)
     const totalPrice = products.map((obj) =>
         obj.product.discount === 0
         ? obj.product.price * obj.quantity
@@ -20,18 +19,17 @@ const Cart = ({cartItem, products, loginUser}) => {
       const redirectHandler = () => {
         loginUser ? redirectPayment() : setView(true)
       }
-
+      console.log(products)
+      products.map((product) => console.log(product.product.name))
     return (
         <View style={styles.mainContainer}>
             <Text style={styles.title}>SHOPPING CART</Text>
             <FlatList 
             data={products}
-            keyExtractor={(product) => product._id}
-            renderItem={({obj}) => {
-                    return (
-                        <ProductInCart cartItem={obj} />
-                    )
-                }}
+            keyExtractor={(item) => item.product._id}
+            renderItem={({item}) => (
+                <ProductInCart cartItem={item} />
+            )}
             />    
         </View>
     )

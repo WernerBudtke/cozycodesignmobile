@@ -2,9 +2,9 @@ const cartReducer = (state = { products: [] }, action) => {
   let cartLS = null
   switch (action.type) {
     case "ADD_CART_PRODUCT":
-      // let productExists = state.products.find(
-      //   (obj) => obj.product._id === action.payload.product._id
-      // )
+      let productExists = state.products.find(
+        (obj) => obj.product._id === action.payload.product._id
+      )
       // cartLS = !productExists
       //   ? state.products.concat(action.payload)
       //   : state.products.map((obj) =>
