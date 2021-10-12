@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   textCard: {
     color: "#060B34",
     fontSize: 14,
-    fontWeight: "bolder",
+    // fontWeight: "bolder", 
     backgroundColor: "#dabea8de",
     height:80,
     width:80,
@@ -266,13 +266,13 @@ const styles = StyleSheet.create({
     height: "100%",
     display: "flex",
     justifyContent: "center",
-    alignitems:"flex-end",
-    transition: 0.8,
+    alignItems:"flex-end",
+    // transition: 0.8,
   },
   
   titleCategory: {
     fontSize:30,
-    fontWeight: "bolder",
+    // fontWeight: "bolder",
     alignSelf: "center",
     paddingTop:10,
     color:"rgba(0, 0, 0, 0.638)",
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
   textCategory:{
     alignItems:"center",
     fontSize:14, 
-    fontWeight:"bolder", 
+    // fontWeight:"bolder", 
     textTransform: 'capitalize',
   },
   boxQuote: {
@@ -297,19 +297,19 @@ const styles = StyleSheet.create({
     marginBottom:width,
     padding:10,
     borderTopRightRadius:15,
-    borderEndEndRadius:15,
-    shadowColor: '#000',
-    shadowOpacity:.1,
-    shadowOffset: {
-        width:0,
-        height:0,
-    },
-    shadowRadius: 5,
+    // borderEndEndRadius:15,
+    // shadowColor: '#000',
+    // shadowOpacity:.1,
+    // shadowOffset: {
+    //     width:0,
+    //     height:0,
+    // },
+    // shadowRadius: 5,
   },
   textQuote: {
     color: "#060B34",
     fontSize: 14,
-    fontWeight: "bolder",
+    // fontWeight: "bolder",
     paddingStart:10,
   },
   bodyQuote:{

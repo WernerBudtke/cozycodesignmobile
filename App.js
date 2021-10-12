@@ -6,7 +6,6 @@ import {applyMiddleware, createStore} from 'redux'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
 import rootReducers from './redux/reducers/rootReducers'
-// import Product from './screens/Product';
 
 const store = createStore(rootReducers, applyMiddleware(thunk))
 
@@ -17,7 +16,6 @@ const App =()=>{
       <NavigationContainer>
         <Navigator />
       </NavigationContainer>
-      {/* <Product/> */}
     </Provider>
   )
 }

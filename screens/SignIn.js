@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     color: '#ecebe9',
     fontSize: 28,
     marginBottom: 10,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     borderRadius: 20,
     padding: 5

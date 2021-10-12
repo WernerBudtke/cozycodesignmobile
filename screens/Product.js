@@ -2,9 +2,6 @@ import React from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import { connect } from "react-redux"
 import { useEffect, useState } from "react"
-// import ReactCircleModal from "react-circle-modal"
-// import Cart from "../components/Cart"
-// import CartCard from "../components/CartCard"
 import cartActions from "../redux/actions/cartActions"
 import productsActions from "../redux/actions/productsActions"
 import ProductCard from "../components/ProductCard"
@@ -103,7 +100,7 @@ const Product = ({
             <Text>${finalPrice}</Text>
           </View>
           <View>
-            <i style="far fa-credit-card fa-lg"></i>
+            {/* <i style="far fa-credit-card fa-lg"></i> */}
             <Text style={styles.interestCard}>
               3 payments of ${((1.1 * finalPrice) / 3).toFixed(2)}
             </Text>
@@ -127,14 +124,14 @@ const Product = ({
             <Pressable onPress={addToCartHandler}><Text>Add to Cart</Text></Pressable>
           </View>
           <View style={styles.shippingInfo}>
-            <i style="fas fa-truck fa-lg"></i>
+            {/* <i style="fas fa-truck fa-lg"></i> */}
             <Text>Free shipping on purchases from 200 dollars or more.</Text>
           </View>
           <Text style={styles.calculateSend}>Calculo de envio - CP</Text>
           <Pressable
            onPress={() => {
             props.navigation.navigate("/cart", {
-              onClickHandler={onClick}
+              onClickHandler:onClick
             });
           }}
               >
