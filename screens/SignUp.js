@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, Dimensions, ImageBackground, TextInput, TouchableOpacity, Button, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, ImageBackground, TextInput, TouchableOpacity, Button, Pressable, Image } from 'react-native'
 import userActions from '../redux/actions/userActions'
 import { connect } from 'react-redux'
 
 const SignUp = ({signUp, navigation}) => {
 
-    const [user, setUser] = useState({firstName: '', lastName: '', eMail: '', password: '', photo: 'xxxxxxxxx', admin: false, google: false})
+    const [user, setUser] = useState({firstName: '', lastName: '', eMail: '', password: '', photo: 'xxxxxxxxx', admin: false, google: false, native: true})
     const [error, setError] = useState([])
 
     const signup=async()=>{
@@ -37,6 +37,18 @@ const SignUp = ({signUp, navigation}) => {
                         <TextInput placeholder="Email" style={styles.input} value={user.eMail} onChangeText={(value)=>setUser({...user, eMail: value})}/>
                         <TextInput placeholder="Password" secureTextEntry value={user.password} style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/>
                     </View>
+                    <Text style={styles.title}>Choose profile picture</Text>
+                    <View style={styles.imagesContainer}>
+                        <TouchableOpacity onPress={() => setUser({...user, photo: 'https://i.imgur.com/SrCMGbp.jpeg'})}>
+                            <Image style={styles.chooseImage} source={{ uri: 'https://i.imgur.com/SrCMGbp.jpeg' }} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setUser({...user, photo: 'https://i.imgur.com/Z0BrctE.jpeg'})}>
+                            <Image style={styles.chooseImage} source={{ uri: 'https://i.imgur.com/Z0BrctE.jpeg' }} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setUser({...user, photo: 'https://i.imgur.com/gaxfLhe.jpeg'})}>
+                            <Image style={styles.chooseImage} source={{ uri: 'https://i.imgur.com/gaxfLhe.jpeg' }} />
+                        </TouchableOpacity>
+                    </View>
                     <TouchableOpacity style={styles.button} >
                         <Button color="#ad9993" title="Sign Up" onPress={signup}></Button>
                     </TouchableOpacity>
@@ -50,30 +62,29 @@ const SignUp = ({signUp, navigation}) => {
 }
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+        flex: 1,
     },
     content: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: -70
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: -70
     },
     text:{
         color: '#ecebe9',
         fontSize: 28,
         marginBottom: 10,
-        // fontWeight: 'bold',
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
         borderRadius: 20,
         padding: 5
     },
     form: {
-      justifyContent: 'space-evenly',
-      alignItems: 'center',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
     },
     image: {
-      width: Dimensions.get('window').width,
-      height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
     },
     input: {
         width: 330,
@@ -86,8 +97,28 @@ const styles = StyleSheet.create({
         borderColor: '#ad9993'
     },
     button: {
-      marginTop: 10
+        marginTop: 10
     },
+    imagesContainer: {
+        height: 150,
+        width: Dimensions.get('window').width,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    },
+    chooseImage: {
+        width: 100,
+        height: 100,
+        marginVertical: 10,
+        borderRadius: 50,
+        borderWidth: 2,
+        borderColor: 'black'
+    },
+    title: {
+        color: 'black',
+        fontSize: 25,
+        fontWeight: 'bold'
+    }
 })
 
 const mapDispatchToProps = {
