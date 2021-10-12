@@ -204,6 +204,4 @@ const styles = StyleSheet.create({
     padding: 1,
     color: "rgb(75, 69, 69)",
   },
-  
-  
 })
