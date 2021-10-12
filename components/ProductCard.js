@@ -9,8 +9,6 @@ const ProductCard = ({
     user,
     product,
     navigation,
-    editShowCartCard,
-    setProductAlert,
     addCartProduct,
   }) => {
 
@@ -68,7 +66,7 @@ const ProductCard = ({
           onPress={() => navigation.navigate("Product")}>
             <Text style={styles.button}>VIEW</Text>
           </Pressable>
-        <Pressable onPress={() => apreteElBoton()}>
+        <Pressable onPress={addToCartHandler}>
           <Text style={styles.button}>CART</Text>
         </Pressable>
         </View>

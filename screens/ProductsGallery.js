@@ -5,28 +5,30 @@ import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 // import CartCard from "../components/CartCard"
 import productsActions from "../redux/actions/productsActions"
+import { FontAwesome5, Foundation, MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
+import SelectDropdown from 'react-native-select-dropdown'
 
-const ProductsGallery = ({ products, getProducts, productsCategory, route, getProductByCategory, navigation}) => {
+const ProductsGallery = ({ products, getProducts, productsCategory, route, getProductByCategory, navigation}, props) => {
     const [showCartCard, setShowCartCard] = useState(false)
     const [productAlert, setProductAlert] = useState(null)
     const [order, setOrder] = useState(null)
     const [view, setView] = useState({category: null, subcategory: null})
+    const [category, setCategory] = useState(null)
 
     useEffect(() => {
         if (!products.length) {
           getProducts()
+        } else {
+          getProductByCategory(category)
         }
-        // } else {
-        //   getProductByCategory(route.params.category)
-        // }
-        // if (route.params.category) {
-        //   setView({category: route.params.category, subcategory: null})
-        // } else {
-        //   setView({category: null, subcategory: null})
-        // }
+        if (route.params?.category) {
+          setView({category: route.params?.category, subcategory: null})
+        } else {
+          setView({category: null, subcategory: null})
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-    //en el array tendria que ir match.params (que creo que ahora serie routes)
+    }, [category])
+
     if (!order) {
     productsCategory.sort((a,b) => a.stock - b.stock)
     }
@@ -34,20 +36,19 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
     setShowCartCard(newState)
     }
 
-    // if(productAlert){
-    //     setTimeout(() => {
-    //     setProductAlert(null)
-    //     },2500)
-    // }
+    const sorting = ["Most relevant", "Lower to higher", "Higher to lower"]
 
-    // const sortProducts = (e) => {
-    // if (e.target.value !== "relevant") {
-    //     productsCategory.sort((a, b) => e.target.value === "minor" ? a.price - b.price : b.price - a.price)
-    // } else {
-    //     productsCategory.sort((a,b) => a.stock - b.stock)
-    // }
-    // setOrder(e.target.value)
-    // }
+    console.log(category)
+
+    const sortProducts = (e) => {
+        console.log(e)
+    if (e !== "Most relevant") {
+        productsCategory.sort((a, b) => e === "Lower to higher" ? a.price - b.price : b.price - a.price)
+    } else {
+        productsCategory.sort((a,b) => a.stock - b.stock)
+    }
+    setOrder(e)
+    }
 
     let productsSubcategory = !view.subcategory ? productsCategory : productsCategory.filter((obj) => obj.subcategory === view.subcategory )
     
@@ -57,9 +58,49 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
 
     return (
         <View style={styles.main}>
-            <Text style={styles.category}>ACA VAN LOS FILTROS</Text>
+            <View style={styles.filters}>
+                <View style={styles.icons}>
+                    <FontAwesome5 onPress={() => setCategory("Bathroom")} name="toilet" size={24} color="black"  style={styles.icon}/>
+                    <FontAwesome5 onPress={() => setCategory("Kitchenware")} name="utensils" size={24} color="black" style={styles.icon}/>
+                    <MaterialCommunityIcons onPress={() => setCategory("Decor")} name="lamp" size={26} color="black" style={styles.icon} />
+                    <MaterialIcons onPress={() => setCategory("GitfCard")} name="card-giftcard" size={26} color="black" style={styles.icon} />
+                    <Foundation onPress={() => setCategory("sale")} name="burst-sale" size={30} color="black" style={styles.icon}/>
+                </View>
+            <View style={styles.subcategory}>
+                <View>
+                    <Text>subcategories</Text>
+                </View>
+            </View>
+            </View>
+            <View style={styles.generalFilters}>
+                <Text onPress={() => setCategory(null)} style={styles.all}>Show all</Text>
+                <SelectDropdown
+                    data={sorting}
+                    onSelect={(selectedItem, index) => {
+                        sortProducts(selectedItem, "order")
+                    }}
+                    defaultButtonText={"Most relevant"}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                        return selectedItem
+                    }}
+                    rowTextForSelection={(item, index) => {
+                        return item
+                    }}
+                    buttonStyle={styles.select}
+                    buttonTextStyle={styles.dropdownTxtStyle}
+                    renderDropdownIcon={() => {
+                      return (
+                        <FontAwesome name="sort-down" size={24} color="black" />
+                      )
+                    }}
+                    dropdownIconPosition={"right"}
+                    dropdownStyle={styles.dropdownStyle}
+                    rowStyle={styles.rowStyle}
+                    rowTextStyle={styles.rowTxtStyle}
+                />
+            </View>
             <FlatList
-                data={products}
+                data={productsSubcategory}
                 style={styles.list}
                 contentContainerStyle={{alignItems: "center"}}
                 keyExtractor={(product) => product._id}
@@ -100,8 +141,10 @@ const styles = StyleSheet.create({
         width: "100%"
     },
 
-    category: {
+    filters: {
         height: 100, 
+        justifyContent: "space-around",
+        paddingTop: 10,
         backgroundColor: "#ead8ca", 
         width: "100%",
         shadowColor: "black",
@@ -114,7 +157,72 @@ const styles = StyleSheet.create({
 		elevation: 5,
     },
 
+    icons: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        paddingTop: 10,
+        backgroundColor: "#ead8ca", 
+        width: "100%",
+    },
+
+    subcategory: {
+        width: "100%",
+        height: 60,
+        backgroundColor: "#ead8ca",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
     list: {
         width: "90%",
+    },
+
+    icon: {
+        padding: 10,
+    }, 
+
+    generalFilters: {
+        flexDirection: "row",
+        marginVertical: 15,
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "space-around"
+    },
+
+    all: {
+        fontSize: 18,
+        borderColor: "#d16b5f",
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 5
+    },
+
+    select: {
+        width: "40%",
+        height: 50,
+        backgroundColor: "transparent",
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: "#d16b5f",
+    },
+
+    dropdownTxtStyle: {
+        color: "black", 
+        textAlign: "left",
+    },
+
+    dropdownStyle: { 
+        backgroundColor: "#EFEFEF" 
+    },
+
+    rowStyle: {
+        backgroundColor: "#EFEFEF",
+        borderBottomColor: "#C5C5C5",
+    },
+
+    rowTxtStyle: { 
+        color: "#444", 
+        textAlign: "left",
+        paddingLeft: 3,
     }
 })
