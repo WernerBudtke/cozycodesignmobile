@@ -33,12 +33,12 @@ const cartReducer = (state = { products: [] }, action) => {
         ),
       }
     case "UPDATE_CART_PRODUCT":
-      cartLS = state.products.map((obj) =>
-        obj.product._id === action.payload.product._id
-          ? { ...obj, quantity: action.payload.quantity }
-          : obj
-      )
-      localStorage.setItem("cart", JSON.stringify(cartLS))
+      // cartLS = state.products.map((obj) =>
+      //   obj.product._id === action.payload.product._id
+      //     ? { ...obj, quantity: action.payload.quantity }
+      //     : obj
+      // )
+      // localStorage.setItem("cart", JSON.stringify(cartLS))
       return {
         products: state.products.map((obj) =>
           obj.product._id === action.payload.product._id

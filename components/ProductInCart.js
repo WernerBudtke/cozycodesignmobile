@@ -4,18 +4,10 @@ import { connect } from 'react-redux'
 import cartActions from '../redux/actions/cartActions'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const ProductInCart = ({cartItem}) => {
+const ProductInCart = ({cartItem, updateCartProduct}) => {
     const [enableCounter, setEnableCounter] = useState(true)
 
-    const restar = () => {
-        cartItem.quantity > 1 && enableCounter ? updateCartProductHandler("-") : null
-    }
-
-    const sumar = () => {
-        cartItem.quantity > 1 && enableCounter ? updateCartProductHandler("+") : null
-    }
-
-    const updateCartProductHandler = () => {
+    const updateCartProductHandler = (operation) => {
         console.log('entra')
         setEnableCounter(false)
         let updatedCartItem = {
@@ -49,9 +41,13 @@ const ProductInCart = ({cartItem}) => {
             </View>
           </View>
                 <View style={styles.counter}>
-                    <Icon onPress={restar} name="remove-outline" size={45} />
+                    <Icon onPress={cartItem.quantity > 1 && enableCounter
+                  ? () => updateCartProductHandler("-")
+                  : null} name="remove-outline" size={45} />
                     <Text>{cartItem.quantity}</Text>
-                    <Icon onPress={sumar} name="add" size={45} name="add" size={45} />
+                    <Icon onPress={cartItem.product.stock > cartItem.quantity && enableCounter
+                  ? () => updateCartProductHandler("+")
+                  : null} name="add" size={45} name="add" size={45} />
                 </View>
       </View>
     )
