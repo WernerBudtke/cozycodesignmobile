@@ -232,7 +232,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   shippingInfo:{
-    backgroundColor: "#bf988f",
     flexDirection: "row",
     padding:2,
     margin:3,
