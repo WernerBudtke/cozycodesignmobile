@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet ,Button } from "react-native"
 import userActions from "../redux/actions/userActions"
 import cartActions from "../redux/actions/cartActions"
 import productsActions from "../redux/actions/productsActions"
@@ -113,7 +113,7 @@ const PaymentGateway = ({
     })
     add && setSharedPayment(true)
   }
-  console.log(order)
+  
   const addNewOrderHandler = () => {
     if (giftCard) {
       addCard(giftCard).then((res) => console.log(res))
@@ -272,10 +272,12 @@ const PaymentGateway = ({
         </View>
         <Text style={styles.h1}>Payment</Text>
         <View>
-          <RadioForm
+         {hideRadio ? <RadioForm
             style={styles.radioButtons}
             radio_props={paymentOptions}
             onPress={(value) => fillOrderInfo(value)}
+            onPress={() => setEnablePayment(false)}
+            disabled={enableInput}
             buttonColor={"#ad999393"}
             selectedButtonColor={"#ad999393"}
             labelHorizontal={false}
@@ -283,9 +285,14 @@ const PaymentGateway = ({
               fontSize: 18,
               color: "black",
               fontFamily: "Roboto_500Medium",
-            }}
-          />
+            }}/> 
+            : <Test>{order.paymentMethod.type}</Test>}
         </View>
+        <Button style={styles.checkOut}
+            title='Checkout Order'
+            disabled={enablePayment}
+            onPress={validate}/>
+        <Text style={styles.error}>{renderError}</Text>
       </View>
     </View>
   )
@@ -348,4 +355,10 @@ const styles = StyleSheet.create({
 
     height: 35,
   },
+  error:{
+    textAlign: 'center',
+    fontSize: 15,
+    color: 'rgb(216, 34, 34)',
+    paddingTop:10,
+  }
 })

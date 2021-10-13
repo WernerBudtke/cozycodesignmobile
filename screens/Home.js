@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import {
   Animated,
   Dimensions,
@@ -7,10 +7,6 @@ import {
   Text,
   View,
   StyleSheet,
-  Button,
-  TextInput,
-  ImageBackground,
-  Pressable,
 } from "react-native"
 import { StatusBar } from "expo-status-bar"
 import { TouchableOpacity } from "react-native-gesture-handler"
