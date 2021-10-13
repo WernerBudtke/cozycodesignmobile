@@ -83,7 +83,8 @@ export default connect(mapStateTopProps)(Cart)
 const styles = StyleSheet.create({
     mainContainer: {
         display: 'flex',
-        flex: 1
+        flex: 1,
+        paddingHorizontal: 6
     },
     title: {
         textAlign: 'center',

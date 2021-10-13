@@ -1,20 +1,20 @@
 import React, {useState} from 'react'
 import { StyleSheet, Text, View, Dimensions, ImageBackground, TextInput, TouchableOpacity, Button, Pressable, Image } from 'react-native'
 import userActions from '../redux/actions/userActions'
-import { connect } from 'react-redux'
+import { connect, useStore } from 'react-redux'
+import * as ImagePicker from 'expo-image-picker';
 
 const SignUp = ({signUp, navigation}) => {
-
-    const [user, setUser] = useState({firstName: '', lastName: '', eMail: '', password: '', photo: 'xxxxxxxxx', admin: false, google: false, native: true})
+    const [user, setUser] = useState({firstName: '', lastName: '', eMail: '', password: '', photo: 'c.png', admin: false, google: false, native: true})
     const [error, setError] = useState([])
+    const [selectedImage, setSelectedImage] = useState(null)
 
-    const signup=async()=>{
+    const signup = async () => {
         const response = await signUp(user)
-        console.log(response)
         if (response.success) {
-          setUser('')
           navigation.navigate('Home')
         }
+        console.log(response)
     //     if (response.data.error === 'Username already in use, try another.') {
     //       setError(response.data.error)
     //     }
@@ -37,29 +37,19 @@ const SignUp = ({signUp, navigation}) => {
                         <TextInput placeholder="Email" style={styles.input} value={user.eMail} onChangeText={(value)=>setUser({...user, eMail: value})}/>
                         <TextInput placeholder="Password" secureTextEntry value={user.password} style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/>
                     </View>
-                    <Text style={styles.title}>Choose profile picture</Text>
-                    <View style={styles.imagesContainer}>
-                        <TouchableOpacity onPress={() => setUser({...user, photo: 'https://i.imgur.com/SrCMGbp.jpeg'})}>
-                            <Image style={styles.chooseImage} source={{ uri: 'https://i.imgur.com/SrCMGbp.jpeg' }} />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => setUser({...user, photo: 'https://i.imgur.com/Z0BrctE.jpeg'})}>
-                            <Image style={styles.chooseImage} source={{ uri: 'https://i.imgur.com/Z0BrctE.jpeg' }} />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => setUser({...user, photo: 'https://i.imgur.com/gaxfLhe.jpeg'})}>
-                            <Image style={styles.chooseImage} source={{ uri: 'https://i.imgur.com/gaxfLhe.jpeg' }} />
-                        </TouchableOpacity>
-                    </View>
                     <TouchableOpacity style={styles.button} >
                         <Button color="#ad9993" title="Sign Up" onPress={signup}></Button>
                     </TouchableOpacity>
                     <Pressable style={styles.button} >
                         <Button color="#ad9993" title="Already have an account? Log In!" onPress={()=> navigation.navigate('LogIn')} ></Button>
                     </Pressable>
+                    {selectedImage && <Image source={{ uri: selectedImage.localUri }} style={{ width: 200, height: 200 }} />}
                 </View>
             </ImageBackground>
         </View>
     )
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

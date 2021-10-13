@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import userActions from '../redux/actions/userActions'
 
 function DrawerStyle({user, logOut, navigation, props}) {
+  console.log(user)
     return(
       <View style={styles.mainView}>
         <ImageBackground source={{uri: 'https://i.imgur.com/ZFwIqq5.jpg'}} style={styles.drawerHeader}>
@@ -29,7 +30,8 @@ function DrawerStyle({user, logOut, navigation, props}) {
         </DrawerContentScrollView>
         {user && 
           <View style={styles.userImageContainer}>
-            <Image style={styles.userImage} source={{ uri: `${user.photo}` }} />
+            {!user.native ? <Image style={styles.userImage} source={{ uri: `${user.photo}` }} /> :
+             <ImageBackground style={{backgroundColor: user.photoNativeColor, width: 100, height: 100, borderRadius: 50, display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Text style={{color: 'white', fontSize: 40, fontFamily: 'Cormorant'}}>{user.firstName.charAt(0).toUpperCase()}</Text></ImageBackground>}
             <Text>Logged as, {user.firstName}</Text>
           </View>}
       </View>
