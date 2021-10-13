@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { StyleSheet, Text, View, TextInput, Dimensions, ImageBackground, Button, Pressable } from 'react-native'
 import { connect } from 'react-redux'
 import userActions from '../redux/actions/userActions'
@@ -8,22 +8,22 @@ const SignIn = ({navigation, logIn}) => {
     const [user, setUser] = useState({eMail: '', password: ''})
     
     const submitHandler = async () => {
-      console.log('entra')
       if (Object.values(user).some((value) => !value)) {
         return setError('Fill the empty fields.')
       }
       const response = await logIn(user)
         if (response.success) {
-          setUser('')
+          setUser(user)
           setError('')
           navigation.navigate('Home')
         } else {
           setError(response.response)
         }
     }
+
     return (
         <View style={styles.container}>
-            <ImageBackground style={styles.image} source={{uri: 'https://i.imgur.com/Tc1vKCs.jpg'}}>
+            <ImageBackground style={styles.image} source={{uri: 'https://i.imgur.com/jmu7dkR.jpg'}}>
                 <View style={styles.content}>
                     <Text style={styles.text}>Sign In</Text>
                     <View>
@@ -50,9 +50,6 @@ const mapDispatchToProps = {
 export default connect(null, mapDispatchToProps)(SignIn)
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   content: {
     flex: 1,
     justifyContent: 'center',
@@ -63,16 +60,7 @@ const styles = StyleSheet.create({
     color: '#ecebe9',
     fontSize: 28,
     marginBottom: 10,
-    // fontWeight: 'bold',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    borderRadius: 20,
-    padding: 5
-  },
-  form: {
-    justifyContent: 'space-evenly',
-    width: '90%',
-    alignItems: 'center',
-    borderRadius:15
+    fontWeight: 'bold'
   },
   image: {
     width: Dimensions.get('window').width,

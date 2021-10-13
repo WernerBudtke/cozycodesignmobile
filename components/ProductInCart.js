@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, Image, ScrollView, Button } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import cartActions from '../redux/actions/cartActions'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -8,7 +8,6 @@ const ProductInCart = ({cartItem, updateCartProduct, deleteACartProduct}) => {
     const [enableCounter, setEnableCounter] = useState(true)
 
     const updateCartProductHandler = (operation) => {
-        console.log('entra')
         setEnableCounter(false)
         let updatedCartItem = {
           product: cartItem.product,
@@ -17,12 +16,12 @@ const ProductInCart = ({cartItem, updateCartProduct, deleteACartProduct}) => {
         }
         updateCartProduct(updatedCartItem)
         setEnableCounter(true)
-      }
+    }
 
     const photo = cartItem.product.photo.includes("http")
     ? cartItem.product.photo
     : `https://cozydeco.herokuapp.com/${cartItem.product.photo}`
-      console.log(cartItem)
+
     return (
       <ScrollView style={styles.wrapper} > 
         <View style={styles.container}>
@@ -30,26 +29,29 @@ const ProductInCart = ({cartItem, updateCartProduct, deleteACartProduct}) => {
             <View>
               <View style={styles.cardButtons}>
                 <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', width: '100%'}}>
-                  <Icon onPress={cartItem.quantity > 1 && enableCounter
-                  ? () => updateCartProductHandler("-")
-                  : null} name="remove-outline" size={25} />
-                    <Text>{cartItem.quantity}</Text>
-                    <Icon onPress={cartItem.product.stock > cartItem.quantity && enableCounter
-                  ? () => updateCartProductHandler("+")
-                  : null} name="add" size={25} name="add" />
+                  <Icon name="remove-outline" size={25} onPress={cartItem.quantity > 1 
+                    && enableCounter
+                      ? () => updateCartProductHandler("-")
+                      : null
+                    } 
+                  />
+                  <Text>{cartItem.quantity}</Text>
+                  <Icon  name="add" size={25} onPress={cartItem.product.stock > cartItem.quantity 
+                    && enableCounter
+                      ? () => updateCartProductHandler("+")
+                      : null
+                    }
+                  />
                   <Icon name="trash" size={25} onPress={() => deleteACartProduct(cartItem.product._id)} />
                   <Text>
-                    $
-                    {(
-                      (cartItem.product.discount === 0
-                        ? cartItem.product.price
-                        : ((100 - cartItem.product.discount) / 100) *
-                          cartItem.product.price) * cartItem.quantity
-                    ).toFixed(2)}
-                    </Text>
+                    ${((cartItem.product.discount === 0 ? cartItem.product.price : ((100 - cartItem.product.discount) / 100) * cartItem.product.price) * cartItem.quantity).toFixed(2)}
+                  </Text>
                 </View>
                 <View>
-                <Text style={styles.price}> ${cartItem.product.price} - {cartItem.product.name}</Text>
+                  <Text style={styles.price}> ${cartItem.product.discount === 0 
+                    ? cartItem.product.price 
+                    : (((100 - cartItem.product.discount) / 100) * cartItem.product.price).toFixed(2)} - {cartItem.product.name}
+                    </Text>
                 </View>
               </View>
             </View>
