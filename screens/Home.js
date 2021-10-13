@@ -104,12 +104,10 @@ const Home = ({navigation}, props) => {
                         >
                           <View key={index}>
                             <TouchableOpacity
-                              onPress={() => {
-                                navigation.navigate("Gallery", {
-                                  category: item.category
-                                });
-                              }}
-                            >
+                             onPress={() => navigation.navigate("Gallery", {
+                                category: item.category
+                              })
+                            }>
                               <Image
                                 source={{ uri: item.src }}
                                 style={{
@@ -132,7 +130,6 @@ const Home = ({navigation}, props) => {
                               <Text style={styles.textCategory}>
                                 {item.category}
                               </Text>
-                              <FontAwesome5 name="gift" size={20} color="black"  style={styles.icon} />
                             </TouchableOpacity>
                           </View>
                         </View>
@@ -169,6 +166,7 @@ const Home = ({navigation}, props) => {
                   {item.link.includes("home") && (
                     <View style={styles.boxQuote}>
                       <Text style={styles.textQuote}>{item.link} </Text>
+                      <FontAwesome5 name="couch" size={25} color="black"  style={styles.icon} />
                     </View>
                   )}
                 </View>
@@ -296,6 +294,7 @@ const styles = StyleSheet.create({
 
   icon:{
       alignSelf: "center",
-      color: "rgb(41, 40, 40)"
+      color: "rgb(41, 40, 40)",
+      marginTop:12,
   }
 })
