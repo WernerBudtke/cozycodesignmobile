@@ -6,6 +6,11 @@ import productsActions from "../redux/actions/productsActions"
 import Paypal from "../components/Paypal"
 import { TextInput } from "react-native-gesture-handler"
 import { connect } from "react-redux"
+import RadioForm, {
+  RadioButton,
+  RadioButtonInput,
+  RadioButtonLabel,
+} from "react-native-simple-radio-button"
 
 const PaymentGateway = ({
   loginUser,
@@ -14,7 +19,6 @@ const PaymentGateway = ({
   getProducts,
   editCard,
   addNewOrder,
-  history,
   addCard,
   getCard,
   deleteAllCartProduct,
@@ -37,11 +41,11 @@ const PaymentGateway = ({
     street: "",
     phone: "",
     dni: "",
-    firstName: "loginUser.firstName",
-    lastName: "loginUser.lastName",
-    eMail: "loginUser.eMail",
+    firstName: loginUser.firstName,
+    lastName: loginUser.lastName,
+    eMail: loginUser.eMail,
   })
-  console.log(loginUser)
+
   const totalPrice = products.map((obj) =>
     obj.product.discount === 0
       ? obj.product.price * obj.quantity
@@ -99,19 +103,17 @@ const PaymentGateway = ({
       paymentMethod: {
         extraInfo: !add
           ? null
-          : `giftCArd : $${balance} - ${e.target.value} : $${sharedPaymentPrice} `,
-        type: !add
-          ? e.target.value
-          : `${order.paymentMethod.type} - ${e.target.value}`,
+          : `giftCArd : $${balance} - ${e} : $${sharedPaymentPrice} `,
+        type: !add ? e : `${order.paymentMethod.type} - ${e}`,
       },
     })
     setChosenMethod({
       ...chosenMethod,
-      type: !add ? e.target.value : `${chosenMethod.type} - ${e.target.value}`,
+      type: !add ? e : `${chosenMethod.type} - ${e}`,
     })
     add && setSharedPayment(true)
   }
-
+  console.log(order)
   const addNewOrderHandler = () => {
     if (giftCard) {
       addCard(giftCard).then((res) => console.log(res))
@@ -167,6 +169,15 @@ const PaymentGateway = ({
     //   ) //AGREGAR UNA ALERTA DE REACT NATIVE
   }
 
+  const paymentOptions = [
+    { label: "Paypal", value: "PayPal" },
+    { label: "Mercado Pago / Credit", value: "MercadoPago" },
+    {
+      label: "Giftcard",
+      value: "GiftCard",
+    },
+  ]
+
   return (
     <View style={styles.gatewayContaine}>
       <View styles={styles.checkoutInfo}>
@@ -198,7 +209,7 @@ const PaymentGateway = ({
             <Text>Phone Number</Text>
             <TextInput
               editable={!enableInput}
-              defaultValue={info.dni}
+              defaultValue={info.phone}
               onChangeText={(e) => fillUserInfo(e, "phone")}
             />
           </View>
@@ -242,6 +253,10 @@ const PaymentGateway = ({
           </View>
         </View>
         <Text>Payment</Text>
+        <RadioForm
+          radio_props={paymentOptions}
+          onPress={(value) => fillOrderInfo(value)}
+        />
       </View>
     </View>
   )

@@ -6,6 +6,7 @@ import {
   NavigatorSignUp,
   NavigatorProductGallery,
   NavigatorCart,
+  NavigatorPayment,
 } from "./MainNavStack"
 import DrawerStyle from "../components/DrawerStyle"
 import { connect } from "react-redux"
@@ -60,6 +61,11 @@ const Navigator = ({ logFromSession, addCartLS, loginUser }) => {
       <Drawer.Screen
         name="SignUp"
         component={NavigatorSignUp}
+        options={{ headerShown: false }}
+      />
+      <Drawer.Screen
+        name="Payment"
+        component={NavigatorPayment}
         options={{ headerShown: false }}
       />
     </Drawer.Navigator>
