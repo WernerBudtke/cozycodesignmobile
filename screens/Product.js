@@ -93,6 +93,7 @@ const Product = ({
           <Text style={styles.productName}>{product.name}</Text>
           <Text style={styles.productDescription}>{product.description}</Text>
           <View style={styles.rowPrice}>
+             <View style={styles.rowPrice}>
             {product.discount !== 0 ? (
               <Text style={product.discount !== 0 ? styles.sale : null}>
                 ${product.price}
@@ -106,14 +107,16 @@ const Product = ({
               3 payments of ${((1.1 * finalPrice) / 3).toFixed(2)}
             </Text>
           </View>
+          </View>
+         
           <View style={styles.addToCart}>
             <View style={styles.rowPrice}>
              
-            <FontAwesome5 name="minus" size={16} color="black"  style={styles.icon}          
+            <FontAwesome5 name="minus" size={24} color="black"  style={styles.icon}          
                 onPress={quantity > 1 ? () => setQuantity(quantity - 1) : (null)}
               />
-              <Text>{quantity}</Text>
-              <FontAwesome5 name="plus" size={16} color="black"  style={styles.icon} 
+              <Text style={styles.quantity}>{quantity}</Text>
+              <FontAwesome5 name="plus" size={24} color="black"  style={styles.icon} 
                 
                 onPress={() => {
                   product.stock === quantity
@@ -122,13 +125,12 @@ const Product = ({
                 }}
               />
             </View>
-            <Pressable style={styles.buttonAdd} onPress={addToCartHandler}><Text>Add to Cart</Text></Pressable>
+            <Pressable onPress={addToCartHandler}><Text style={styles.buttonAdd}>Add to Cart</Text></Pressable>
           </View>
           <View style={styles.shippingInfo}>
           <FontAwesome5 name="truck" size={24} color="black"  style={styles.icon} />
             <Text style={styles.productShipping}>Free shipping on purchases from 200 dollars or more.</Text>
           </View>
-          <Text style={styles.calculateSend}>Calculo de envio - CP</Text>
           <Pressable
            onPress={() => {
             navigation.navigate("/cart", {
@@ -168,22 +170,22 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 15,
     width: width,
-    height: width*1.5,
+    height: width*2,
     borderRadius: 20,
 
   },
   mainContainer :{
     alignSelf: "center",
     width: width-10,
-    height: width*1.5-10,
+    height: width*2-10,
     marginTop: 5,
     borderRadius: 20,
     overflow: "hidden",
     padding:10,
   },
   productImage :{
-    width: 200,
-    height: 200,
+    width: 330,
+    height: 330,
     alignSelf: "center",
     borderRadius:16,
     shadowColor: "black",
@@ -201,68 +203,97 @@ const styles = StyleSheet.create({
     color: "rgb(75, 69, 69)",
   },
   productName:{
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: "bold",
     textAlign:"center",
+    marginTop:10,
   },
   productDescription:{
-    fontSize:12,
+    fontSize:16,
     color:"grey",
+    textAlign: "center",
+    marginTop:10,
   },
   rowPrice:{
     flexDirection: "row",
     alignSelf: "center",
     padding:3,
     textAlignVertical:"center",
+    marginTop:5,
+    height:45,
   },
   sale:{
     textDecorationLine: 'line-through', 
     textDecorationStyle: 'solid',
     color: "#dd3e2c",
-    fontSize:16,
-    padding:3,
-  },
-  productPrice:{
     fontSize:18,
     padding:3,
   },
+  productPrice:{
+    fontSize:24,
+    padding:3,
+    textAlignVertical: "center",
+    alignItems: "center",
+  },
   interestCard:{
     color: "rgb(114, 107, 107)",
+    textAlignVertical: "center",
+    alignItems: "center",
+
   },
   addToCart:{
     flexDirection: "row",
-    alignSelf: "center",
-    padding:1,
+    alignItems: "center",
+    marginTop:10,
     textAlignVertical:"center",
+    justifyContent:"space-evenly",
+    width:width,
+
   },
   counter:{
     flexDirection: "row",
-    width: "50%",
+    width: "30%",
     textAlign: "center",
   },
   shippingInfo:{
     flexDirection: "row",
     padding:2,
-    margin:3,
-    borderRadius:4,
+    marginVertical:10,
+    marginHorizontal:-15,
+    backgroundColor: "#ead8ca",
+    width:width,
+    borderRadius:5,
+    justifyContent: "space-evenly"
   },
   productShipping:{
     color:"black",
     fontSize:12,
-    width:width-80,
+    width:width-100,
+    marginLeft:5,
   },
   calculateSend:{
     fontSize:16,
     alignSelf: "center",
   },
   icon:{
-    margin:4,
+    padding:6,
+  },
+  quantity:{
+    fontSize:22,
+    textAlignVertical:"center",
+    marginHorizontal:13, 
   },
   buttonAdd:{
     backgroundColor: "#bf988f",
     color: "#fff",
     borderRadius:10,
-    margin:3,
+    fontWeight:"bold",
+    fontSize:16,
+    margin:"auto",
+    textAlignVertical:"center",
+    width:150,
+    textAlign:"center",
+    alignSelf: "center",
     padding:5,
   },
 
@@ -271,10 +302,10 @@ const styles = StyleSheet.create({
     color: "#fff",
     borderRadius:10,
     fontWeight:"bold",
-    fontSize:16,
+    fontSize:22,
     margin:3,
-    padding:5,
-    width:100,
+    padding:8,
+    width:200,
     textAlign:"center",
     alignSelf: "center",
   },
