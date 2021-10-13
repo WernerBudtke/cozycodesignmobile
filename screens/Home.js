@@ -58,7 +58,7 @@ const Home = (props) => {
     <View key={index} style={styles.galleryWrapOnFocus}>
       <TouchableOpacity
         onPress={() => {
-          props.navigation.navigate(`/products/${obj.category}`);
+          navigation.navigate(`/products/${obj.category}`);
         }}
       >
         <Image
@@ -173,20 +173,9 @@ const Home = (props) => {
                       }}
                     />
                     {item.link.includes("Check") &&(
-                          <TouchableOpacity
-                          style={styles.boxCallToAction}
-                        onPress={() => {
-                        props.navigation.navigate("/", {
-                        id: item._id,
-                        title: item.link,
-                        
-                      });
-                    
-                      
-                    }}
-                  >
+                      <View  style={styles.boxCallToAction}>
                     <Text style={styles.textCallToAction}>{item.link} </Text>
-                  </TouchableOpacity>
+                    </View>
                   )}
                   {item.link.includes("home") &&(
                       <View  style={styles.boxQuote}>
@@ -230,8 +219,8 @@ const styles = StyleSheet.create({
     height:140,
     position: "absolute",
     zIndex: 300,
-    bottom:width+100,
-    left:40,
+    bottom:width+200,
+    right:60,
     borderRadius:15,
     shadowColor: '#000',
     shadowOpacity:.5,
