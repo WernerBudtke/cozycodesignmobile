@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet ,Button } from "react-native"
 import userActions from "../redux/actions/userActions"
 import cartActions from "../redux/actions/cartActions"
 import productsActions from "../redux/actions/productsActions"
@@ -113,7 +113,7 @@ const PaymentGateway = ({
     })
     add && setSharedPayment(true)
   }
-  console.log(order)
+  
   const addNewOrderHandler = () => {
     if (giftCard) {
       addCard(giftCard).then((res) => console.log(res))
@@ -179,84 +179,120 @@ const PaymentGateway = ({
   ]
 
   return (
-    <View style={styles.gatewayContaine}>
-      <View styles={styles.checkoutInfo}>
-        <Text>Personal Info</Text>
-        <View styles={styles.inputMail}>
-          <Text>Email</Text>
-          <TextInput editable={false} defaultValue={info.eMail} />
+    <View style={styles.gatewayContainer}>
+      <View style={styles.checkoutInfo}>
+        <Text style={styles.h1}>Personal Info</Text>
+        <View style={styles.uniqueInput}>
+          <Text style={styles.label}>Email:</Text>
+          <TextInput
+            style={styles.input}
+            editable={false}
+            defaultValue={info.eMail}
+          />
         </View>
-        <View styles={styles.inputDiv}>
-          <View>
-            <Text>Name</Text>
-            <TextInput editable={false} defaultValue={info.firstName} />
-          </View>
-          <View>
-            <Text>Lastname</Text>
-            <TextInput editable={false} defaultValue={info.lastName} />
-          </View>
-        </View>
-        <View styles={styles.inputDiv}>
-          <View>
-            <Text>DNI</Text>
+        <View style={styles.inputDiv}>
+          <View style={styles.uniqueInput}>
+            <Text style={styles.label}>Name:</Text>
             <TextInput
+              style={styles.input}
+              editable={false}
+              defaultValue={info.firstName}
+            />
+          </View>
+          <View style={styles.uniqueInput}>
+            <Text style={styles.label}>Lastname:</Text>
+            <TextInput
+              style={styles.input}
+              editable={false}
+              defaultValue={info.lastName}
+            />
+          </View>
+        </View>
+        <View style={styles.inputDiv}>
+          <View style={styles.uniqueInput}>
+            <Text style={styles.label}>DNI:</Text>
+            <TextInput
+              style={styles.input}
               editable={!enableInput}
               defaultValue={info.dni}
               onChangeText={(e) => fillUserInfo(e, "dni")}
             />
           </View>
-          <View>
-            <Text>Phone Number</Text>
+          <View style={styles.uniqueInput}>
+            <Text style={styles.label}>Phone Number:</Text>
             <TextInput
+              style={styles.input}
               editable={!enableInput}
               defaultValue={info.phone}
               onChangeText={(e) => fillUserInfo(e, "phone")}
             />
           </View>
         </View>
-        <Text>Shipment Info</Text>
+        <Text style={styles.h1}>Shipment Info</Text>
 
-        <View styles={styles.inputDiv}>
-          <View>
-            <Text>Adress</Text>
+        <View style={styles.inputDiv}>
+          <View style={styles.uniqueInput}>
+            <Text style={styles.label}>Adress:</Text>
             <TextInput
+              style={styles.input}
               editable={!enableInput}
               defaultValue={info.street}
               onChangeText={(e) => fillUserInfo(e, "street")}
             />
           </View>
-          <View>
-            <Text>Number</Text>
+          <View style={styles.uniqueInput}>
+            <Text style={styles.label}>Number:</Text>
             <TextInput
+              style={styles.input}
               editable={!enableInput}
               defaultValue={info.number}
               onChangeText={(e) => fillUserInfo(e, "number")}
             />
           </View>
         </View>
-        <View styles={styles.inputDiv}>
-          <View>
-            <Text>City</Text>
+        <View style={styles.inputDiv}>
+          <View style={styles.uniqueInput}>
+            <Text style={styles.label}>City:</Text>
             <TextInput
+              style={styles.input}
               editable={!enableInput}
               defaultValue={info.city}
               onChangeText={(e) => fillUserInfo(e, "city")}
             />
           </View>
-          <View>
-            <Text>Zip Code</Text>
+          <View style={styles.uniqueInput}>
+            <Text style={styles.label}>Zip Code:</Text>
             <TextInput
+              style={styles.input}
               editable={!enableInput}
               defaultValue={info.zipCode}
               onChangeText={(e) => fillUserInfo(e, "zipCode")}
             />
           </View>
         </View>
-        <Text>Payment</Text>
-        <RadioForm
-          radio_props={paymentOptions}
-          onPress={(value) => fillOrderInfo(value)}
-        />
+        <Text style={styles.h1}>Payment</Text>
+        <View>
+         {hideRadio ? <RadioForm
+            style={styles.radioButtons}
+            radio_props={paymentOptions}
+            onPress={(value) => fillOrderInfo(value)}
+            onPress={() => setEnablePayment(false)}
+            disabled={enableInput}
+            buttonColor={"#ad999393"}
+            selectedButtonColor={"#ad999393"}
+            labelHorizontal={false}
+            labelStyle={{
+              fontSize: 18,
+              color: "black",
+              fontFamily: "Roboto_500Medium",
+            }}/> 
+            : <Test>{order.paymentMethod.type}</Test>}
+        </View>
+        <Button style={styles.checkOut}
+            title='Checkout Order'
+            disabled={enablePayment}
+            onPress={validate}/>
+        <Text style={styles.error}>{renderError}</Text>
       </View>
     </View>
   )
@@ -281,4 +317,48 @@ const mapDispatchToProps = {
 
 export default connect(mapStateToProps, mapDispatchToProps)(PaymentGateway)
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  gatewayContainer: { paddingVertical: 15, paddingHorizontal: 10 },
+  checkoutInfo: {},
+  inputDiv: {},
+  radioButtons: {
+    display: "flex",
+    flexDirection: "row",
+    paddingVertical: 10,
+    justifyContent: "space-evenly",
+  },
+  h1: {
+    backgroundColor: "#ad999393",
+    textAlign: "center",
+    color: "black",
+    fontFamily: "Cormorant_700Bold",
+    textTransform: "uppercase",
+    paddingVertical: 4,
+    marginTop: 8,
+    letterSpacing: 3,
+  },
+  uniqueInput: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 4,
+    paddingHorizontal: 15,
+  },
+  label: { paddingRight: 7, fontFamily: "Roboto_500Medium" },
+  input: {
+    padding: 0,
+    paddingLeft: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: "#bf988f",
+    flex: 1,
+    marginVertical: 3,
+
+    height: 35,
+  },
+  error:{
+    textAlign: 'center',
+    fontSize: 15,
+    color: 'rgb(216, 34, 34)',
+    paddingTop:10,
+  }
+})
