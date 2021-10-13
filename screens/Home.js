@@ -14,8 +14,6 @@ import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontA
 
 
 const Home = ({ navigation, route }, props) => {
-  console.log(route)
-  console.log(props)
 
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current

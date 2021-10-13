@@ -29,8 +29,6 @@ const Product = ({
     if (!products.length) {
       getProducts().then((res) => {
         if (res.success) {
-    //       findAProduct(route.params.id)
-    //       getProductByCategory(product.category)
           setLoading(false)
         }
       })
@@ -43,7 +41,6 @@ const Product = ({
   }, [refresh])
 
   const editShowCartCard = (newState) => {
-    console.log("se ejecuta editshow")
     setShowCartCard(newState)
   }
 
@@ -117,7 +114,6 @@ const Product = ({
               />
               <Text style={styles.quantity}>{quantity}</Text>
               <FontAwesome5 name="plus" size={24} color="black"  style={styles.icon} 
-                
                 onPress={() => {
                   product.stock === quantity
                     ? alert("no hay stock")

@@ -59,7 +59,6 @@ export const NavigatorProductGallery = (props) => {
           ),
         }}
       />
-      {/* Aca irían las screens que te llevan al componente dinamico de cada producto */}
     </Stack.Navigator>
   )
 }

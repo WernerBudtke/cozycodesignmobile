@@ -7,7 +7,7 @@ import productsActions from "../redux/actions/productsActions"
 import { FontAwesome5, Foundation, MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 import SelectDropdown from 'react-native-select-dropdown'
 
-const ProductsGallery = ({ products, getProducts, productsCategory, route, getProductByCategory, navigation}, props) => {
+const ProductsGallery = ({ products, getProducts, productsCategory, route, getProductByCategory, navigation}) => {
     const [showCartCard, setShowCartCard] = useState(false)
     const [productAlert, setProductAlert] = useState(null)
     const [order, setOrder] = useState(null)
