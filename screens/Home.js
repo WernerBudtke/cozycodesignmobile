@@ -11,7 +11,10 @@ import {
 import { StatusBar } from "expo-status-bar"
 import { TouchableOpacity } from "react-native-gesture-handler"
 
-const Home = ({navigation}, props) => {
+const Home = ({ navigation, route }, props) => {
+  console.log(route)
+  console.log(props)
+
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current
 
@@ -50,7 +53,7 @@ const Home = ({navigation}, props) => {
       category: "Giftcard",
     },
     { src: "https://i.postimg.cc/R0mhJ9vz/sale.jpg", category: "Sale" },
-  ];
+  ]
 
   return (
     <View style={styles.container}>
@@ -134,28 +137,29 @@ const Home = ({navigation}, props) => {
                     }}
                   />
                 </View>
-              ):(
-              <View
-                style={{
-                      overflow: "hidden",
-                      alignItems: "center",
-                }}>
-                    <Animated.Image
-                      source={{ uri: item.photo }}
-                      style={{
-                        width: width*1.04,
-                        height: height*1,
-                        resizeMode: "cover",
-                        transform: [
-                          {
-                            translateY,
-                          },
-                        ],
-                      }}
-                    />
-                    {item.link.includes("Check") &&(
-                      <View  style={styles.boxCallToAction}>
-                    <Text style={styles.textCallToAction}>{item.link} </Text>
+              ) : (
+                <View
+                  style={{
+                    overflow: "hidden",
+                    alignItems: "center",
+                  }}
+                >
+                  <Animated.Image
+                    source={{ uri: item.photo }}
+                    style={{
+                      width: width * 1.04,
+                      height: height * 1,
+                      resizeMode: "cover",
+                      transform: [
+                        {
+                          translateY,
+                        },
+                      ],
+                    }}
+                  />
+                  {item.link.includes("Check") && (
+                    <View style={styles.boxCallToAction}>
+                      <Text style={styles.textCallToAction}>{item.link} </Text>
                     </View>
                   )}
                   {item.link.includes("home") && (
@@ -206,11 +210,11 @@ const styles = StyleSheet.create({
     height: 140,
     position: "absolute",
     zIndex: 300,
-    bottom:width+200,
-    right:60,
-    borderRadius:15,
-    shadowColor: '#000',
-    shadowOpacity:.5,
+    bottom: width + 200,
+    right: 60,
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOpacity: 0.5,
     shadowOffset: {
       width: 0,
       height: 0,
@@ -221,18 +225,18 @@ const styles = StyleSheet.create({
     color: "#060B34",
     textAlign: "center",
     fontSize: 20,
-    fontWeight: "bold", 
-    marginBottom:width*1.5,
-    padding:10,
+    fontWeight: "bold",
+    marginBottom: width * 1.5,
+    padding: 10,
   },
-  categoriesContainer:{
-      minHeight:"100%",
-      flex:1,
-      alignContent: "center",
-      marginLeft:20,
+  categoriesContainer: {
+    minHeight: "100%",
+    flex: 1,
+    alignContent: "center",
+    marginLeft: 20,
   },
-  titleCategory:{
-    fontSize:30,
+  titleCategory: {
+    fontSize: 30,
     fontWeight: "bold",
     alignSelf: "center",
     paddingTop: 10,
@@ -255,17 +259,17 @@ const styles = StyleSheet.create({
     color: "#060B34",
     fontSize: 10,
     backgroundColor: "rgba(255, 255, 255, 0.79)",
-    width:220,
-    height:270,
+    width: 220,
+    height: 270,
     position: "absolute",
     zIndex: 200,
-    bottom:-60,
-    left:-10,
-    marginBottom:width,
-    padding:15,
-    borderRadius:15,
-    shadowColor: '#000',
-    shadowOpacity:.1,
+    bottom: -60,
+    left: -10,
+    marginBottom: width,
+    padding: 15,
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
     shadowOffset: {
       width: 0,
       height: 0,
@@ -275,8 +279,8 @@ const styles = StyleSheet.create({
   textQuote: {
     color: "#060B34",
     fontSize: 14,
-    fontWeight: "bold", 
-    paddingStart:10,
+    fontWeight: "bold",
+    paddingStart: 10,
   },
   bodyQuote: {
     color: "#060B34",
