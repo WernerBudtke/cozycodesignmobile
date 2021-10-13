@@ -29,7 +29,6 @@ const Navigator = ({ logFromSession, addCartLS, loginUser }) => {
     }
     getFromLS()
   }, [])
-
   return (
     <Drawer.Navigator
       drawerContent={(props) => <DrawerStyle {...props} />}

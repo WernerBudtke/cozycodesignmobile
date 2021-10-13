@@ -13,7 +13,10 @@ import { TouchableOpacity } from "react-native-gesture-handler"
 import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 
 
-const Home = ({navigation}, props) => {
+const Home = ({ navigation, route }, props) => {
+  console.log(route)
+  console.log(props)
+
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current
 
@@ -21,42 +24,15 @@ const Home = ({navigation}, props) => {
   const ITEM_WIDTH = width * 0.76
   const ITEM_HEIGHT = ITEM_WIDTH * 1.47
   const imageW = width / 2
-
   const images = [
-    {
-      img: "https://i.postimg.cc/28fhfXP2/home1.png",
-      link: "Check out our latest trends",
-    },
-    {
-        img: "https://i.postimg.cc/W3kX8xqY/11.png",
-        link: "Look out our latest trends2",
-      },
-    
-      {
-        img: "https://i.postimg.cc/d3cnxn8s/14.png",
-        link: "Este es otro botón para ver que",
-      },
-     
-      {
-        img: "https://i.postimg.cc/j5b7V1kF/16.png",
-        link: "Este es otro botón para ver que",
-      },
       {
         img: "https://i.postimg.cc/BbhLKnZr/17.png",
-        link: "Look out our latest trends2",
+        link: "Check out our latest trends",
       },
     {
       img: "https://i.postimg.cc/66G4VjPx/home3.png",
       link: "There is no place like home",
-      description:
-        "In Cozy we offer a wide variety of well-designed, functional home products. Whether your home decor leans towards minimalist or maximalist aesthetic, you'll find something to suit your style.",
     },
-    {
-        img: "https://i.postimg.cc/sfTwB3d3/home2.png",
-        link: "There is no place like home",
-        description:
-          "In Cozy we offer a wide variety of well-designed, functional home products. Whether your home decor leans towards minimalist or maximalist aesthetic, you'll find something to suit your style.",
-      },
     // { img: "https://i.postimg.cc/fRkNXFHx/home4.png", link: "" },
     { img: "https://i.postimg.cc/cCsFRrC2/home2.png", link: "Categories" },
   ]
@@ -76,7 +52,7 @@ const Home = ({navigation}, props) => {
       category: "Giftcard",
     },
     { src: "https://i.postimg.cc/R0mhJ9vz/sale.jpg", category: "Sale" },
-  ];
+  ]
 
   return (
     <View style={styles.container}>
@@ -127,10 +103,10 @@ const Home = ({navigation}, props) => {
                         >
                           <View key={index}>
                             <TouchableOpacity
-                              onPress={() => {
-                                navigation.navigate("Gallery")
-                              }}
-                            >
+                             onPress={() => navigation.navigate("Gallery", {
+                                category: item.category
+                              })
+                            }>
                               <Image
                                 source={{ uri: item.src }}
                                 style={{
@@ -182,24 +158,14 @@ const Home = ({navigation}, props) => {
                     {item.link.includes("Check") &&(
                       <View  style={styles.boxCallToAction}>
                     <Text style={styles.textCallToAction}>{item.link} </Text>
-                    </View>
-                  )}
-                   {item.link.includes("botón") &&(
-                      <View  style={styles.boxCallToAction3}>
-                    <Text style={styles.textCallToAction3}>{item.link} </Text>
-                    </View>
-                  )}
-                  {item.link.includes("trends2") &&(
-                      <View  style={styles.boxCallToAction2}>
-                    <Text style={styles.textCallToAction2}>{item.link} </Text>
-                    <FontAwesome5 name="wpexplorer" size={50} color="rgba(92, 92, 92, 0.713)"  style={styles.icon} />
+                    <FontAwesome5 name="wpexplorer" size={40} color="black"  style={styles.icon} />
 
                     </View>
                   )}
                   {item.link.includes("home") && (
                     <View style={styles.boxQuote}>
                       <Text style={styles.textQuote}>{item.link} </Text>
-                      <Text style={styles.bodyQuote}>{item.description} </Text>
+                      <FontAwesome5 name="couch" size={25} color="black"  style={styles.icon} />
                     </View>
                   )}
                 </View>
@@ -239,41 +205,15 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   boxCallToAction: {
-    backgroundColor: "#dabea8de",
-    width: 100,
-    height: 140,
-    position: "absolute",
-    zIndex: 300,
-    bottom:width+300,
-    right:width/2-100,
-    borderRadius:15,
-    shadowColor: '#000',
-    shadowOpacity:.5,
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowRadius: 20,
-  },
-  textCallToAction: {
-    color: "#060B34",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold", 
-    marginTop:15,
-    padding:10,
-
-  },
-  boxCallToAction2: {
     backgroundColor: "rgba(0, 0, 0, 0.538)",
     backgroundColor: "#e3cebc",
-    width: width+50,
-    height: width+50,
+    width: width+46.5,
+    height: width+46.5,
     position: "absolute",
     zIndex: 300,
     paddingTop:250,
     top:-250,
-    right:-4,
+    right:-3,
     borderRadius:250,
     shadowColor: "#000",
     shadowOpacity: 0.5,
@@ -284,57 +224,26 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
     color: "#060B34",
   },
-  textCallToAction2: {
+  textCallToAction: {
     color: "rgb(245, 245, 245)",
+    color: "rgb(41, 40, 40)",
     textAlign: "center",
     fontSize: 23,
     padding:10,
-    marginTop:15,
+    marginTop:20,
     width:"50%",
     alignSelf:"center",
     fontWeight:"bold",
-    
-    
   },
-  boxCallToAction3: {
-    backgroundColor: "rgb(41, 40, 40)",
-    width: 200,
-    height: 200,
-    position: "absolute",
-    zIndex: 300,
-    paddingTop:10,
-    top:width-200,
-    right:width/2-90,
-    borderRadius:100,
-    shadowColor: "#000",
-    shadowOpacity: 0.5,
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowRadius: 20,
-    color: "#060B34",
-  },
-  textCallToAction3: {
-    color: "rgb(245, 245, 245)",
-    textAlign: "center",
-    fontSize: 20,
-    padding:10,
-    marginTop:35,
-    width:"75%",
-    alignSelf:"center",
-    fontWeight:"bold",
-    
-    
-  },
+
   categoriesContainer:{
       minHeight:"100%",
       flex:1,
       alignContent: "center",
       marginLeft:20,
   },
-  titleCategory:{
-    fontSize:30,
+  titleCategory: {
+    fontSize: 30,
     fontWeight: "bold",
     alignSelf: "center",
     paddingTop: 10,
@@ -355,19 +264,19 @@ const styles = StyleSheet.create({
   },
   boxQuote: {
     color: "#060B34",
-    fontSize: 10,
-    backgroundColor: "rgba(255, 255, 255, 0.79)",
-    width:220,
-    height:270,
+    fontSize: 20,
+    backgroundColor: "rgba(255, 255, 255, 0.40)",
+    width:width+35,
+    height:120,
     position: "absolute",
     zIndex: 200,
-    bottom:-60,
-    left:-10,
-    marginBottom:width,
-    padding:15,
-    borderRadius:15,
+    top:0,
+    left:0,
+    paddingTop:30,
     shadowColor: '#000',
     shadowOpacity:.1,
+    borderBottomStartRadius:50,
+    borderBottomEndRadius:50,
     shadowOffset: {
       width: 0,
       height: 0,
@@ -376,43 +285,15 @@ const styles = StyleSheet.create({
   },
   textQuote: {
     color: "#060B34",
-    fontSize: 14,
+    fontSize: 23,
     fontWeight: "bold", 
     paddingStart:10,
-  },
-  bodyQuote: {
-    color: "#060B34",
-    fontSize: 14,
-    lineHeight: 20,
-    paddingStart: 10,
-    paddingTop: 10,
-  },
-  boxCallToAction: {
-    backgroundColor: "#dabea8de",
-    width: 100,
-    height: 140,
-    position: "absolute",
-    zIndex: 200,
-    bottom: width + 100,
-    left: 40,
-    borderRadius: 15,
-    shadowColor: "#000",
-    shadowOpacity: 0.5,
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowRadius: 20,
-  },
-  textCallToAction: {
-    color: "#060B34",
     textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: width * 1.5,
-    padding: 10,
   },
+
   icon:{
       alignSelf: "center",
+      color: "rgb(41, 40, 40)",
+      marginTop:12,
   }
 })
