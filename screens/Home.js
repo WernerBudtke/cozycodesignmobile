@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import {
   Animated,
   Dimensions,
@@ -7,20 +7,16 @@ import {
   Text,
   View,
   StyleSheet,
-  Button,
-  TextInput,
-  ImageBackground,
-  Pressable,
 } from "react-native"
 import { StatusBar } from "expo-status-bar"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 
 
-const Home = ({navigation, route}, props) => {
+const Home = ({navigation}) => {
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current
-
+  console.log("home" + navigation)
 
   const { width, height } = Dimensions.get("screen")
   const ITEM_WIDTH = width * 0.76
@@ -54,7 +50,7 @@ const Home = ({navigation, route}, props) => {
       category: "Giftcard",
     },
     { src: "https://i.postimg.cc/R0mhJ9vz/sale.jpg", category: "Sale" },
-  ];
+  ]
 
   return (
     <View style={styles.container}>
@@ -109,8 +105,7 @@ const Home = ({navigation, route}, props) => {
                                 category: item.category
                               })
                             }
-                            >
-                              
+                            > 
                               <Image
                                 source={{ uri: item.src }}
                                 style={{
@@ -246,8 +241,8 @@ const styles = StyleSheet.create({
       alignContent: "center",
       marginLeft:20,
   },
-  titleCategory:{
-    fontSize:30,
+  titleCategory: {
+    fontSize: 30,
     fontWeight: "bold",
     alignSelf: "center",
     paddingTop: 10,

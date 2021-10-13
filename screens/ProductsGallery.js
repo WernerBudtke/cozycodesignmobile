@@ -12,7 +12,7 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
     const [productAlert, setProductAlert] = useState(null)
     const [order, setOrder] = useState(null)
     const [view, setView] = useState({category: null, subcategory: null})
-    const [category, setCategory] = useState(null)
+    const [category, setCategory] = useState(props.category)
     const [modalVisible, setModalVisible] = useState(false);
     
 
@@ -260,6 +260,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         paddingLeft: 18,
+        fontFamily:"Roboto_400Regular",
     },
 
     select: {
@@ -269,11 +270,13 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         borderColor: "#d16b5f",
+        fontFamily:"Roboto_400Regular",
     },
 
     dropdownTxtStyle: {
         color: "black", 
         textAlign: "left",
+        fontFamily:"Roboto_400Regular",
     },
 
     dropdownStyle: { 
@@ -289,6 +292,7 @@ const styles = StyleSheet.create({
         color: "#444", 
         textAlign: "left",
         paddingLeft: 10,
+        fontFamily:"Roboto_400Regular"
     },
 
     centeredView: {
@@ -335,14 +339,14 @@ const styles = StyleSheet.create({
 
     textStyle: {
         color: "black",
-        fontWeight: "bold",
+        fontFamily:"Roboto_500Medium",
         textAlign: "center", 
     },
 
     modalTitle: {
         marginBottom: 5,
         textAlign: "center", 
-        fontWeight: "bold", 
+        fontFamily: "Roboto_700Bold", 
         fontSize: 20
     }
 })

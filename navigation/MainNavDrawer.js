@@ -48,22 +48,22 @@ const Navigator = ({ logFromSession, addCartLS, loginUser }) => {
         options={{ headerShown: false }}
       />
       <Drawer.Screen
-        name="Cart"
+        name="Cart "
         component={NavigatorCart}
         options={{ headerShown: false }}
       />
       <Drawer.Screen
-        name="LogIn"
+        name="LogIn "
         component={NavigatorSignIn}
         options={{ headerShown: false }}
       />
       <Drawer.Screen
-        name="SignUp"
+        name="SignUp "
         component={NavigatorSignUp}
         options={{ headerShown: false }}
       />
       <Drawer.Screen
-        name="Payment"
+        name="Payment "
         component={NavigatorPayment}
         options={{ headerShown: false }}
       />

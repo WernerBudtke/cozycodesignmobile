@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import { StyleSheet, Text, View, Image, Dimensions, Button, Pressable } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View, Dimensions, Button, Pressable } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { connect } from 'react-redux'
 import ProductInCart from '../components/ProductInCart'
@@ -19,7 +19,6 @@ const Cart = ({products, loginUser, navigation}) => {
       }
 
       const redirectHandler = () => {
-          console.log('entra')
         setShowAlert(true)
       }
 
@@ -33,33 +32,33 @@ const Cart = ({products, loginUser, navigation}) => {
         ? <View style={styles.mainContainer}>
             <Text style={styles.title}>SHOPPING CART</Text>
             <FlatList 
-            data={products}
-            keyExtractor={(item) => item.product._id}
-            renderItem={({item}) => (
-                <ProductInCart cartItem={item} />
+                data={products}
+                keyExtractor={(item) => item.product._id}
+                renderItem={({item}) => (
+                    <ProductInCart cartItem={item} />
                 )}
-                />    
-        <Text style={styles.total}>Total: $ {totalPrice.reduce((a, b) => a + b).toFixed(2)}</Text>
-        <Button title="FINALIZE PURCHASE" onPress={loginUser ?  redirectPayment : redirectHandler}></Button>
-        <AwesomeAlert
-            show={showAlert}
-            showProgress={false}
-            title="Hey!"
-            message="You must be logged in to make a purchase"
-            closeOnTouchOutside={true}
-            closeOnHardwareBackPress={false}
-            showCancelButton={true}
-            showConfirmButton={true}
-            cancelText="Close"
-            confirmText="Sign In"
-            confirmButtonColor="#DD6B55"
-            onCancelPressed={() => {
-                hideAlert()
-            }}
-            onConfirmPressed={() => {
-                setShowAlert(false)
-                navigation.navigate('LogIn')
-            }}
+            />    
+            <Text style={styles.total}>Total: $ {totalPrice.reduce((a, b) => a + b).toFixed(2)}</Text>
+            <Button title="FINALIZE PURCHASE" onPress={loginUser ?  redirectPayment : redirectHandler}></Button>
+            <AwesomeAlert
+                show={showAlert}
+                showProgress={false}
+                title="Hey!"
+                message="You must be logged in to make a purchase"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={false}
+                showCancelButton={true}
+                showConfirmButton={true}
+                cancelText="Close"
+                confirmText="Sign In"
+                confirmButtonColor="#DD6B55"
+                onCancelPressed={() => {
+                    hideAlert()
+                }}
+                onConfirmPressed={() => {
+                    setShowAlert(false)
+                    navigation.navigate('LogIn')
+                }}
             />
         </View>
         : <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -102,6 +101,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     button: {
-        marginVertical: 10
+        marginVertical: 10,
+        width: Dimensions.get('window').width
     }
 })
