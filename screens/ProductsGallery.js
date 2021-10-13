@@ -38,7 +38,6 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
 
     const sorting = ["Most relevant", "Lower to higher", "Higher to lower"]
 
-    console.log(category)
 
     const sortProducts = (e) => {
         console.log(e)

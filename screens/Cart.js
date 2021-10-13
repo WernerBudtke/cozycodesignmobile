@@ -20,7 +20,7 @@ const Cart = ({products, loginUser, navigation}) => {
       const redirectHandler = () => {
         loginUser ? redirectPayment() : setView(true)
       }
-      console.log(products)
+   
       products.map((product) => console.log(product.product.name))
     return (
         products.length 

@@ -44,14 +44,14 @@ const Home = (props) => {
   }));
 
   const categories = [
-    { src: "https://i.postimg.cc/tR8xRKn9/bat.jpg", category: "bathroom" },
-    { src: "https://i.postimg.cc/nzm4F3LR/home8.jpg", category: "kitchenware" },
-    { src: "https://i.postimg.cc/J4Q2C5tc/deco.jpg", category: "decor" },
+    { src: "https://i.postimg.cc/tR8xRKn9/bat.jpg", category: "Bathroom" },
+    { src: "https://i.postimg.cc/nzm4F3LR/home8.jpg", category: "Kitchenware" },
+    { src: "https://i.postimg.cc/J4Q2C5tc/deco.jpg", category: "Decor" },
     {
       src: "https://i.postimg.cc/3wdn2zCV/gitfcard-Home.png",
-      category: "giftcard",
+      category: "Giftcard",
     },
-    { src: "https://i.postimg.cc/R0mhJ9vz/sale.jpg", category: "sale" },
+    { src: "https://i.postimg.cc/R0mhJ9vz/sale.jpg", category: "Sale" },
   ];
 
   const items = categories.map((obj, index) => (
@@ -174,16 +174,18 @@ const Home = (props) => {
                     />
                     {item.link.includes("Check") &&(
                           <TouchableOpacity
-                    onPress={() => {
-                      props.navigation.navigate("/", {
+                          style={styles.boxCallToAction}
+                        onPress={() => {
+                        props.navigation.navigate("/", {
                         id: item._id,
                         title: item.link,
                         
                       });
+                    
                       
                     }}
                   >
-                    <Text style={styles.textCard}>{item.link} </Text>
+                    <Text style={styles.textCallToAction}>{item.link} </Text>
                   </TouchableOpacity>
                   )}
                   {item.link.includes("home") &&(
@@ -222,20 +224,14 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 5,
   },
-  textCard: {
-    color: "#060B34",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold", 
+  boxCallToAction: {
     backgroundColor: "#dabea8de",
     width:100,
     height:140,
     position: "absolute",
     zIndex: 200,
-    bottom:-60,
+    bottom:width+100,
     left:40,
-    marginBottom:width*1.5,
-    padding:10,
     borderRadius:15,
     shadowColor: '#000',
     shadowOpacity:.5,
@@ -245,12 +241,19 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 20,
   },
+  textCallToAction: {
+    color: "#060B34",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold", 
+    marginBottom:width*1.5,
+    padding:10,
+  },
   categoriesContainer:{
       minHeight:"100%",
       flex:1,
   },
-
-  titleCategory: {
+  titleCategory:{
     fontSize:30,
     fontWeight: "bold",
     alignSelf: "center",
@@ -261,7 +264,6 @@ const styles = StyleSheet.create({
   textCategory:{
     fontSize:20, 
     textAlign: "center",
-    textTransform: 'capitalize',
     color: "rgba(0, 0, 0, 0.638)",
     fontWeight: "bold", 
     backgroundColor: "rgba(255, 255, 255, 0.69)",
@@ -285,7 +287,6 @@ const styles = StyleSheet.create({
     marginBottom:width,
     padding:10,
     borderTopRightRadius:15,
-    borderEndEndRadius:15,
     shadowColor: '#000',
     shadowOpacity:.1,
     shadowOffset: {

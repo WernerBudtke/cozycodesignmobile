@@ -1,13 +1,15 @@
-import React from 'react'
-import { StyleSheet, Text, View, Pressable } from 'react-native'
+import React from "react"
+import { Text, View, StyleSheet, Image, Pressable, Keyboard, Dimensions, FlatList} from "react-native"
 import { connect } from "react-redux"
 import { useEffect, useState } from "react"
 import cartActions from "../redux/actions/cartActions"
 import productsActions from "../redux/actions/productsActions"
 import ProductCard from "../components/ProductCard"
+import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 
 const Product = ({
   product,
+  route,
   match,
   products,
   getProducts,
@@ -73,94 +75,71 @@ const Product = ({
     ? product.photo
     : `http://localhost:4000/${product.photo}`
 
+
   return (
     <View style={styles.productSection}>
-      {productAlert && (
+      {productAlert ? (
         <ProductCard
           productAlert={productAlert}
           showCartCard={showCartCard}
           editShowCartCard={editShowCartCard}
         />
-      )}
-
+      ): (null) }
       <View style={styles.mainContainer}>
-        <View
-          style={styles.productImage}
-          style={{ backgroundImage: `url("${photo}")` }}
-        ></View>
+        <View style={styles.productImage}>
+        <Image source={{ uri: photo}} style={styles.productImage} resizeMode="cover"/>
+        </View>
         <View style={styles.productInfo}>
-          <Text>{product.name}</Text>
-          <Text>{product.description}</Text>
-          <View>
-            {product.discount !== 0 && (
+          <Text style={styles.productName}>{product.name}</Text>
+          <Text style={styles.productDescription}>{product.description}</Text>
+          <View style={styles.rowPrice}>
+            {product.discount !== 0 ? (
               <Text style={product.discount !== 0 ? styles.sale : null}>
                 ${product.price}
               </Text>
-            )}
-            <Text>${finalPrice}</Text>
+            ): (null) }
+            <Text style={styles.productPrice}>${finalPrice}</Text>
           </View>
-          <View>
-            {/* <i style="far fa-credit-card fa-lg"></i> */}
+          <View style={styles.rowPrice}>
+          <FontAwesome5 name="credit-card" size={24} color="black"  style={styles.icon} />
             <Text style={styles.interestCard}>
               3 payments of ${((1.1 * finalPrice) / 3).toFixed(2)}
             </Text>
           </View>
-          <View>
-            <View style={styles.counter}>
-              <i
-                style="fas fa-minus"
-                onPress={quantity > 1 ? () => setQuantity(quantity - 1) : null}
-              ></i>
+          <View style={styles.addToCart}>
+            <View style={styles.rowPrice}>
+             
+            <FontAwesome5 name="minus" size={16} color="black"  style={styles.icon}          
+                onPress={quantity > 1 ? () => setQuantity(quantity - 1) : (null)}
+              />
               <Text>{quantity}</Text>
-              <i
-                style="fas fa-plus"
+              <FontAwesome5 name="plus" size={16} color="black"  style={styles.icon} 
+                
                 onPress={() => {
                   product.stock === quantity
                     ? alert("no hay stock")
                     : setQuantity(quantity + 1)
                 }}
-              ></i>
+              />
             </View>
-            <Pressable onPress={addToCartHandler}><Text>Add to Cart</Text></Pressable>
+            <Pressable style={styles.buttonAdd} onPress={addToCartHandler}><Text>Add to Cart</Text></Pressable>
           </View>
           <View style={styles.shippingInfo}>
-            {/* <i style="fas fa-truck fa-lg"></i> */}
-            <Text>Free shipping on purchases from 200 dollars or more.</Text>
+          <FontAwesome5 name="truck" size={24} color="black"  style={styles.icon} />
+            <Text style={styles.productShipping}>Free shipping on purchases from 200 dollars or more.</Text>
           </View>
           <Text style={styles.calculateSend}>Calculo de envio - CP</Text>
           <Pressable
            onPress={() => {
-            props.navigation.navigate("/cart", {
+            navigation.navigate("/cart", {
               onClickHandler:onClick
             });
           }}
               >
-                Open Cart
+               <Text style={styles.buttonOpen}>Open Cart</Text>
             </Pressable>
         </View>
       </View>
-      {/* <View style={styles.suggestionContainer}>
-        <Text>Related Products</Text>
-        <View style={styles.suggestion}>
-          {productsCategory.map((obj) => {
-            if (obj._id !== route.params.id) {
-              return (
-                <View
-                  onPress={() => setRefresh(!refresh)}
-                  style={styles.productCardContainer}
-                >
-                  <ProductCard
-                    setProductAlert={setProductAlert}
-                    product={obj}
-                    newClass={"newClass"}
-                    editShowCartCard={editShowCartCard}
-                  />
-                </View>
-              )
-            }
-          })}
-        </View>
-      </View> */}
     </View>
   )
 }
@@ -180,28 +159,115 @@ const mapDispatchToProps = {
 }
 export default connect(mapStateTopProps, mapDispatchToProps)(Product)
 
+const width = Dimensions.get("window").width - 40;
+
 const styles = StyleSheet.create({ 
   productSection :{
     backgroundColor: "#f8f6f4",
     justifyContent: "center",
-    alignItems: "center",
+    alignSelf: "center",
+    marginTop: 15,
+    width: width,
+    height: width*1.5,
+
   },
   mainContainer :{
     alignSelf: "center",
-    width: 80,
-    minHeight: 65,
-    margin: 5,
+    width: width-10,
+    height: width*1.5-10,
+    marginTop: 5,
     borderRadius: 20,
     overflow: "hidden",
+    padding:10,
   },
   productImage :{
-    minWidth: 20,
-    height: 20,
+    width: 200,
+    height: 200,
     alignSelf: "center",
+    borderRadius:16,
   },
   productInfo :{
     justifyContent: "space-around",
     padding: 1,
     color: "rgb(75, 69, 69)",
+  },
+  productName:{
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign:"center",
+  },
+  productDescription:{
+    fontSize:12,
+    color:"grey",
+  },
+  rowPrice:{
+    flexDirection: "row",
+    alignSelf: "center",
+    padding:3,
+    textAlignVertical:"center",
+  },
+  sale:{
+    textDecorationLine: 'line-through', 
+    textDecorationStyle: 'solid',
+    color: "#dd3e2c",
+    fontSize:16,
+    padding:3,
+  },
+  productPrice:{
+    fontSize:18,
+    padding:3,
+  },
+  interestCard:{
+    color: "rgb(114, 107, 107)",
+  },
+  addToCart:{
+    flexDirection: "row",
+    alignSelf: "center",
+    padding:1,
+    textAlignVertical:"center",
+  },
+  counter:{
+    flexDirection: "row",
+    width: "50%",
+    textAlign: "center",
+  },
+  shippingInfo:{
+    backgroundColor: "#bf988f",
+    flexDirection: "row",
+    padding:2,
+    margin:3,
+    borderRadius:4,
+  },
+  productShipping:{
+    color:"black",
+    fontSize:12,
+    width:width-80,
+  },
+  calculateSend:{
+    fontSize:16,
+    alignSelf: "center",
+  },
+  icon:{
+    margin:4,
+  },
+  buttonAdd:{
+    backgroundColor: "#bf988f",
+    color: "#fff",
+    borderRadius:10,
+    margin:3,
+    padding:5,
+  },
+
+  buttonOpen:{
+    backgroundColor: "#bf988f",
+    color: "#fff",
+    borderRadius:10,
+    fontWeight:"bold",
+    fontSize:16,
+    margin:3,
+    padding:5,
+    width:100,
+    textAlign:"center",
+    alignSelf: "center",
   },
 })
