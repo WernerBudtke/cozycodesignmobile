@@ -2,9 +2,9 @@ import React from "react"
 import { Text, View, StyleSheet, Image, Pressable} from "react-native"
 import { connect } from "react-redux"
 import { useEffect, useState } from "react"
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons"
 import cartActions from "../redux/actions/cartActions"
-import productsActions from "../redux/actions/productsActions"
+import AwesomeAlert from "react-native-awesome-alerts"
 
 const ProductCard = ({
     user,
@@ -14,6 +14,8 @@ const ProductCard = ({
   }) => {
 
     const [admin, setAdmin] = useState(null)
+    const [showAlert, setShowAlert] = useState(false)
+
     useEffect(() => {
         if (user) {
         setAdmin(user.admin)
@@ -28,12 +30,29 @@ const ProductCard = ({
         addCartProduct(newProducts)
     }
 
+    const showAddAlert = () => {
+      setShowAlert(true)
+    }
+
     const photo = product.photo?.includes("http")
         ? product.photo
         : `https://cozydeco.herokuapp.com/${product.photo}`
         
     return (
       <View style={styles.wrapper} >
+          <AwesomeAlert
+            show={showAlert}
+            showProgress={false}
+            message="Item successfully added to cart!"
+            closeOnTouchOutside={true}
+            closeOnHardwareBackPress={false}
+            showConfirmButton={true}
+            confirmText="Ok"
+            confirmButtonColor="#DD6B55"
+            onConfirmPressed={() => {
+                setShowAlert(false)
+            }}
+          />
       {product.discount !== 0 && (
         <View style={styles.inside}>
           <Text style={styles.icon}>
@@ -70,7 +89,7 @@ const ProductCard = ({
                     </Text>
                   )} 
                 </View>
-        <Pressable onPress={addToCartHandler}>
+        <Pressable onPress={addToCartHandler, showAddAlert}>
         <Ionicons name="ios-cart" size={25} color="black" />
         </Pressable>
         </View>
