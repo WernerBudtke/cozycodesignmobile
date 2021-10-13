@@ -38,7 +38,6 @@ const App = () => {
       <NavigationContainer>
         <Navigator />
       </NavigationContainer>
-      <PayWithCard/>
     </Provider>
   )
 }

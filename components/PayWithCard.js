@@ -4,6 +4,7 @@ import React from "react";
 import {connect} from 'react-redux'
 import cartActions from '../redux/actions/cartActions';
 import { Text, View, Pressable } from "react-native";
+
 const PayWithCard = ({addNewOrderHandler, catchPagoErr, payWithCreditCard}) => {
     const [fetching, setFetching] = useState(false)
     const payWithCCard = async () => {

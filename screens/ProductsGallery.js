@@ -15,6 +15,8 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
     const [category, setCategory] = useState(null)
     const [modalVisible, setModalVisible] = useState(false);
 
+    console.log(category)
+    
     useEffect(() => {
         if (!products.length) {
           getProducts()
@@ -28,7 +30,6 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [category])
-
 
     const categories = ["Bathroom", "Kitchenware", "Decor", "GiftCard", "Sale"]
     let subcategories = []
