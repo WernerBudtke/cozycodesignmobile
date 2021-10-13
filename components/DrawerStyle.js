@@ -9,7 +9,7 @@ function DrawerStyle({user, logOut, navigation, props}) {
     return(
       <View style={styles.mainView}>
         <ImageBackground source={{uri: 'https://i.imgur.com/ZFwIqq5.jpg'}} style={styles.drawerHeader}>
-          <Text style={styles.title}>{!user ? 'Welcome to COZY.' : 'Welcome, ' + user.firstName}</Text>
+          <Text style={styles.title}>{!user ? 'Welcome to COZY.' : 'Welcome, ' + user.firstName + ' '}</Text>
         </ImageBackground>
         <DrawerContentScrollView {...props}>
           <View style={styles.drawerContent}>
@@ -25,45 +25,48 @@ function DrawerStyle({user, logOut, navigation, props}) {
                 : <DrawerItem icon={({ color, size }) => (<Icon name="log-out-outline" color={color} size={size} />)} label="Log Out" onPress={() => logOut()} />
               }
             </View>
-            {user && 
-              <View style={styles.userImageContainer}>
-                <Image style={styles.userImage} source={{ uri: `${user.photo}` }} />
-                <Text>Logged as, {user.eMail}</Text>
-              </View>}
           </View>
         </DrawerContentScrollView>
-    </View>
+        {user && 
+          <View style={styles.userImageContainer}>
+            <Image style={styles.userImage} source={{ uri: `${user.photo}` }} />
+            <Text>Logged as, {user.firstName}</Text>
+          </View>}
+      </View>
   )
 }
 
 const styles = StyleSheet.create({
     mainView: {
-      flex: 1
+      flex: 1,
+      display: 'flex',
+      justifyContent: 'space-between',
     },
     drawerContent: {
       display: 'flex',
-      flex: 1
+      justifyContent: 'space-between',
+      flex: 1,
     },
     userInfoSection: {
       paddingLeft: 20,
     },
     title: {
       fontSize: 20,
-      // fontWeight: 'bold',
       color: 'white',
       marginBottom: 10,
       marginLeft: 10
     },
     userImage: {
-      width: 150,
-      height: 150,
-      borderRadius: 100,
+      width: 100,
+      height: 100,
+      borderRadius: 50,
       marginVertical: 10
     },
     userImageContainer: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'center',
+      marginVertical: 10,
     },
     drawerHeader: {
       height: 230,

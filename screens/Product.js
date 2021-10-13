@@ -17,6 +17,7 @@ const Product = ({
   addCartProduct,
   productsCategory,
   getProductByCategory,
+  navigation
 }) => {
   const [quantity, setQuantity] = useState(1)
   const [loading, setLoading] = useState(true)
@@ -28,8 +29,8 @@ const Product = ({
     if (!products.length) {
       getProducts().then((res) => {
         if (res.success) {
-          findAProduct(route.params.id)
-          getProductByCategory(product.category)
+    //       findAProduct(route.params.id)
+    //       getProductByCategory(product.category)
           setLoading(false)
         }
       })
@@ -52,7 +53,6 @@ const Product = ({
       product: product,
       quantity: quantity,
     }
-    setProductAlert(newProducts)
     addCartProduct(newProducts)
   }
 
@@ -73,7 +73,7 @@ const Product = ({
 
   const photo = product.photo.includes("http")
     ? product.photo
-    : `http://localhost:4000/${product.photo}`
+    : `http://cozydeco.herokuapp.com/${product.photo}`
 
 
   return (
@@ -133,9 +133,7 @@ const Product = ({
           </View>
           <Pressable
            onPress={() => {
-            navigation.navigate("/cart", {
-              onClickHandler:onClick
-            });
+            navigation.navigate("Cart")
           }}
               >
                <Text style={styles.buttonOpen}>Open Cart</Text>
@@ -145,7 +143,7 @@ const Product = ({
     </View>
   )
 }
-const mapStateTopProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     product: state.products.product,
     products: state.products.products,
@@ -159,7 +157,7 @@ const mapDispatchToProps = {
   getProductByCategory: productsActions.getProductByCategory,
   getProducts: productsActions.getProducts,
 }
-export default connect(mapStateTopProps, mapDispatchToProps)(Product)
+export default connect(mapStateToProps, mapDispatchToProps)(Product)
 
 const width = Dimensions.get("window").width - 40;
 

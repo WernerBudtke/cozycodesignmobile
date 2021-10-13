@@ -71,7 +71,6 @@ const productsActions = {
     }
   },
   getProductByCategory: (category) => {
-    console.log(category)
     return (dispatch) => {
       dispatch({ type: !category ? "GET_ALL" : "GET_BY_CATEGORY", payload: category })
     }
