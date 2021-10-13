@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import { useEffect, useState } from "react"
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
 import cartActions from "../redux/actions/cartActions"
+import productsActions from "../redux/actions/productsActions"
 
 const ProductCard = ({
     user,
@@ -42,7 +43,10 @@ const ProductCard = ({
       )}
         <View style={styles.container}>
           <Pressable 
-          onPress={() => navigation.navigate("Product")}>
+          onPress={() => navigation.navigate("Product", {
+            id: product._id, product: product
+          })
+        }>
             <Image source={{ uri: photo}} style={styles.top} resizeMode="cover"/>
           </Pressable>
         </View>

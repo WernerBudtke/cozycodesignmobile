@@ -1,13 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { LogBox } from 'react-native';
+// import { LogBox } from 'react-native';
 import Navigator from './navigation/MainNavDrawer';
 import {applyMiddleware, createStore} from 'redux'
 import {connect, Provider} from 'react-redux'
 import thunk from 'redux-thunk'
 import rootReducers from './redux/reducers/rootReducers'
 
-LogBox.ignoreAllLogs(true)
+// LogBox.ignoreAllLogs(true)
 const store = createStore(rootReducers, applyMiddleware(thunk))
 
 
