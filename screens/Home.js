@@ -10,6 +10,8 @@ import {
 } from "react-native"
 import { StatusBar } from "expo-status-bar"
 import { TouchableOpacity } from "react-native-gesture-handler"
+import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
+
 
 const Home = ({navigation}, props) => {
   const scrollY = React.useRef(new Animated.Value(0)).current
@@ -26,11 +28,35 @@ const Home = ({navigation}, props) => {
       link: "Check out our latest trends",
     },
     {
+        img: "https://i.postimg.cc/W3kX8xqY/11.png",
+        link: "Look out our latest trends2",
+      },
+    
+      {
+        img: "https://i.postimg.cc/d3cnxn8s/14.png",
+        link: "Este es otro botón para ver que",
+      },
+     
+      {
+        img: "https://i.postimg.cc/j5b7V1kF/16.png",
+        link: "Este es otro botón para ver que",
+      },
+      {
+        img: "https://i.postimg.cc/BbhLKnZr/17.png",
+        link: "Look out our latest trends2",
+      },
+    {
       img: "https://i.postimg.cc/66G4VjPx/home3.png",
       link: "There is no place like home",
       description:
         "In Cozy we offer a wide variety of well-designed, functional home products. Whether your home decor leans towards minimalist or maximalist aesthetic, you'll find something to suit your style.",
     },
+    {
+        img: "https://i.postimg.cc/sfTwB3d3/home2.png",
+        link: "There is no place like home",
+        description:
+          "In Cozy we offer a wide variety of well-designed, functional home products. Whether your home decor leans towards minimalist or maximalist aesthetic, you'll find something to suit your style.",
+      },
     // { img: "https://i.postimg.cc/fRkNXFHx/home4.png", link: "" },
     { img: "https://i.postimg.cc/cCsFRrC2/home2.png", link: "Categories" },
   ]
@@ -63,7 +89,7 @@ const Home = ({navigation}, props) => {
         }
         data={data}
         keyExtractor={(item) => item.key}
-        pagingEnabled
+        
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: true }
@@ -143,8 +169,8 @@ const Home = ({navigation}, props) => {
                     <Animated.Image
                       source={{ uri: item.photo }}
                       style={{
-                        width: width*1.04,
-                        height: height*1,
+                        width: width,
+                        height: height,
                         resizeMode: "cover",
                         transform: [
                           {
@@ -156,6 +182,18 @@ const Home = ({navigation}, props) => {
                     {item.link.includes("Check") &&(
                       <View  style={styles.boxCallToAction}>
                     <Text style={styles.textCallToAction}>{item.link} </Text>
+                    </View>
+                  )}
+                   {item.link.includes("botón") &&(
+                      <View  style={styles.boxCallToAction3}>
+                    <Text style={styles.textCallToAction3}>{item.link} </Text>
+                    </View>
+                  )}
+                  {item.link.includes("trends2") &&(
+                      <View  style={styles.boxCallToAction2}>
+                    <Text style={styles.textCallToAction2}>{item.link} </Text>
+                    <FontAwesome5 name="wpexplorer" size={50} color="rgba(92, 92, 92, 0.713)"  style={styles.icon} />
+
                     </View>
                   )}
                   {item.link.includes("home") && (
@@ -206,8 +244,8 @@ const styles = StyleSheet.create({
     height: 140,
     position: "absolute",
     zIndex: 300,
-    bottom:width+200,
-    right:60,
+    bottom:width+300,
+    right:width/2-100,
     borderRadius:15,
     shadowColor: '#000',
     shadowOpacity:.5,
@@ -222,8 +260,72 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold", 
-    marginBottom:width*1.5,
+    marginTop:15,
     padding:10,
+
+  },
+  boxCallToAction2: {
+    backgroundColor: "rgba(0, 0, 0, 0.538)",
+    backgroundColor: "#e3cebc",
+    width: width+50,
+    height: width+50,
+    position: "absolute",
+    zIndex: 300,
+    paddingTop:250,
+    top:-250,
+    right:-4,
+    borderRadius:250,
+    shadowColor: "#000",
+    shadowOpacity: 0.5,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowRadius: 20,
+    color: "#060B34",
+  },
+  textCallToAction2: {
+    color: "rgb(245, 245, 245)",
+    textAlign: "center",
+    fontSize: 23,
+    padding:10,
+    marginTop:15,
+    width:"50%",
+    alignSelf:"center",
+    fontWeight:"bold",
+    
+    
+  },
+  boxCallToAction3: {
+    backgroundColor: "rgb(41, 40, 40)",
+    width: 200,
+    height: 200,
+    position: "absolute",
+    zIndex: 300,
+    paddingTop:10,
+    top:width-200,
+    right:width/2-90,
+    borderRadius:100,
+    shadowColor: "#000",
+    shadowOpacity: 0.5,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowRadius: 20,
+    color: "#060B34",
+  },
+  textCallToAction3: {
+    color: "rgb(245, 245, 245)",
+    textAlign: "center",
+    fontSize: 20,
+    padding:10,
+    marginTop:35,
+    width:"75%",
+    alignSelf:"center",
+    fontWeight:"bold",
+    
+    
   },
   categoriesContainer:{
       minHeight:"100%",
@@ -310,4 +412,7 @@ const styles = StyleSheet.create({
     marginBottom: width * 1.5,
     padding: 10,
   },
+  icon:{
+      alignSelf: "center",
+  }
 })
