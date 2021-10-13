@@ -31,11 +31,11 @@ const Home = ({navigation}, props) => {
     },
     {
         img: "https://i.postimg.cc/xdsk2fF4/home1c.png",
-        link: "Checka out our latest trends2",
+        link: "Look out our latest trends2",
       },
       {
         img: "https://i.postimg.cc/LXVsvyBM/home1b.png",
-        link: "Checkb out our latest trends2",
+        link: "Look out our latest trends2",
       },
    
     {
@@ -251,13 +251,13 @@ const styles = StyleSheet.create({
   },
   boxCallToAction2: {
     backgroundColor: "rgba(0, 0, 0, 0.638)",
-    width: 100,
+    width: 150,
     height: 140,
     position: "absolute",
     zIndex: 300,
-    bottom:width+200,
+    bottom:width+100,
     right:width/2-50,
-    borderRadius:15,
+    borderRadius:100,
     shadowColor: '#000',
     shadowOpacity:.5,
     shadowOffset: {
@@ -271,8 +271,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold", 
-    marginBottom:width*1.5,
     padding:10,
+    marginTop:15,
   },
   categoriesContainer:{
       minHeight:"100%",
