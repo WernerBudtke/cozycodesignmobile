@@ -16,6 +16,7 @@ const SignUp = ({signUp, navigation}) => {
             if (response.success) {
               navigation.navigate("Home")
             } else {
+                console.log(response)
               response.response.forEach((error) => {
                 errorsInput[error.context.label] = error.message
               })
