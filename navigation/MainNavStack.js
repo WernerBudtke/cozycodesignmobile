@@ -25,6 +25,7 @@ export const NavigatorHome = (props) => {
 }
 
 export const NavigatorProductGallery = (props) => {
+  
   return (
     <Stack.Navigator
       screenOptions={{

@@ -17,9 +17,10 @@ import { TouchableOpacity } from "react-native-gesture-handler"
 import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 
 
-const Home = ({navigation}, props) => {
+const Home = ({navigation, route}, props) => {
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current
+
 
   const { width, height } = Dimensions.get("screen")
   const ITEM_WIDTH = width * 0.76
@@ -107,7 +108,9 @@ const Home = ({navigation}, props) => {
                              onPress={() => navigation.navigate("Gallery", {
                                 category: item.category
                               })
-                            }>
+                            }
+                            >
+                              
                               <Image
                                 source={{ uri: item.src }}
                                 style={{

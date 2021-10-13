@@ -14,9 +14,9 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
     const [view, setView] = useState({category: null, subcategory: null})
     const [category, setCategory] = useState(null)
     const [modalVisible, setModalVisible] = useState(false);
-
-    console.log(category)
     
+
+
     useEffect(() => {
         if (!products.length) {
           getProducts()
