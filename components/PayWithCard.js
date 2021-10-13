@@ -1,18 +1,9 @@
-import { CreditCardInput, LiteCreditCardInput } from "expo-credit-card";
+import { CreditCardInput } from "expo-credit-card";
 import { useState } from 'react';
 import React from "react";
 import {connect} from 'react-redux'
 import cartActions from '../redux/actions/cartActions';
 import { Text, View, Pressable } from "react-native";
-const INITIAL_STATE = {
-    cvc: "",
-    cardExpirationMonth: "",
-    cardExpirationYear: "",
-    focus: "cardNumber",
-    cardholderName: "",
-    cardNumber: "",
-    issuer: "",
-}
 const PayWithCard = ({addNewOrderHandler, catchPagoErr, payWithCreditCard}) => {
     const [fetching, setFetching] = useState(false)
     const payWithCCard = async () => {
