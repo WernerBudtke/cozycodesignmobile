@@ -186,6 +186,14 @@ const styles = StyleSheet.create({
     height: 200,
     alignSelf: "center",
     borderRadius:16,
+    shadowColor: "black",
+		shadowOffset: {
+		width: 5,
+		height: 35,
+		},
+		shadowOpacity: 1,
+		shadowRadius: 15,
+		elevation: 5,
   },
   productInfo :{
     justifyContent: "space-around",
