@@ -26,15 +26,15 @@ const Product = ({
     if (!products.length) {
       getProducts().then((res) => {
         if (res.success) {
-          findAProduct(route.params.id)
-          getProductByCategory(product.category)
+    //       findAProduct(route.params.id)
+    //       getProductByCategory(product.category)
           setLoading(false)
         }
       })
-    } else {
-      getProductByCategory(product.category)
-      findAProduct(route.params.id)
-      setLoading(false)
+    // } else {
+    //   getProductByCategory(product.category)
+    //   findAProduct(route.params.id)
+    //   setLoading(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh])
@@ -164,7 +164,7 @@ const Product = ({
     </View>
   )
 }
-const mapStateTopProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     product: state.products.product,
     products: state.products.products,
@@ -178,7 +178,7 @@ const mapDispatchToProps = {
   getProductByCategory: productsActions.getProductByCategory,
   getProducts: productsActions.getProducts,
 }
-export default connect(mapStateTopProps, mapDispatchToProps)(Product)
+export default connect(mapStateToProps, mapDispatchToProps)(Product)
 
 const styles = StyleSheet.create({ 
   productSection :{
