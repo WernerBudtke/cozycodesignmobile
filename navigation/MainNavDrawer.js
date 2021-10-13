@@ -42,7 +42,7 @@ const Navigator = ({ logFromSession, addCartLS, loginUser }) => {
         },
       }}
     >
-      <Drawer.Screen name="Home" component={NavigatorHome} />
+      <Drawer.Screen name="Home" options={{ title: 'COZY' }} component={NavigatorHome} />
       <Drawer.Screen
         name="Gallery"
         component={NavigatorProductGallery}

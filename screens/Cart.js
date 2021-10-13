@@ -8,7 +8,6 @@ import AwesomeAlert from 'react-native-awesome-alerts'
 
 const Cart = ({products, loginUser, navigation}) => {
     const [showAlert, setShowAlert] = useState(false)
-    const [buttonTitle, setButtonTitle] = useState("Finalize Purchase")
     const totalPrice = products.map((obj) =>
         obj.product.discount === 0
         ? obj.product.price * obj.quantity
@@ -41,7 +40,7 @@ const Cart = ({products, loginUser, navigation}) => {
                 )}
                 />    
         <Text style={styles.total}>Total: $ {totalPrice.reduce((a, b) => a + b).toFixed(2)}</Text>
-        <Button title={buttonTitle} onPress={loginUser ?  redirectPayment : redirectHandler}></Button>
+        <Button title="FINALIZE PURCHASE" onPress={loginUser ?  redirectPayment : redirectHandler}></Button>
         <AwesomeAlert
             show={showAlert}
             showProgress={false}

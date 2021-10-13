@@ -17,6 +17,7 @@ const Product = ({
   addCartProduct,
   productsCategory,
   getProductByCategory,
+  navigation
 }) => {
   const [quantity, setQuantity] = useState(1)
   const [loading, setLoading] = useState(true)
@@ -33,10 +34,10 @@ const Product = ({
           setLoading(false)
         }
       })
-    // } else {
-    //   getProductByCategory(product.category)
-    //   findAProduct(route.params.id)
-    //   setLoading(false)
+    } else {
+      getProductByCategory(product.category)
+      findAProduct(route.params.id)
+      setLoading(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh])
@@ -52,7 +53,6 @@ const Product = ({
       product: product,
       quantity: quantity,
     }
-    setProductAlert(newProducts)
     addCartProduct(newProducts)
   }
 
@@ -73,7 +73,7 @@ const Product = ({
 
   const photo = product.photo.includes("http")
     ? product.photo
-    : `http://localhost:4000/${product.photo}`
+    : `http://cozydeco.herokuapp.com/${product.photo}`
 
 
   return (
@@ -131,9 +131,7 @@ const Product = ({
           <Text style={styles.calculateSend}>Calculo de envio - CP</Text>
           <Pressable
            onPress={() => {
-            navigation.navigate("/cart", {
-              onClickHandler:onClick
-            });
+            navigation.navigate("Cart")
           }}
               >
                <Text style={styles.buttonOpen}>Open Cart</Text>

@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      marginVertical: 10
+      marginVertical: 10,
     },
     drawerHeader: {
       height: 230,

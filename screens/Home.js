@@ -15,7 +15,7 @@ import {
 import { StatusBar } from "expo-status-bar"
 import { TouchableOpacity } from "react-native-gesture-handler"
 
-const Home = (props) => {
+const Home = ({navigation}, props) => {
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current
 
@@ -55,19 +55,6 @@ const Home = (props) => {
     },
     { src: "https://i.postimg.cc/R0mhJ9vz/sale.jpg", category: "Sale" },
   ];
-
-  const items = categories.map((obj, index) => (
-    <View key={index} style={styles.galleryWrapOnFocus}>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate(`/products/${obj.category}`);
-        }}
-      >
-        <Image source={{ uri: obj.src }} />
-        <Text style={styles.textCategory}>{obj.category} </Text>
-      </TouchableOpacity>
-    </View>
-  ))
 
   return (
     <View style={styles.container}>
@@ -119,9 +106,7 @@ const Home = (props) => {
                           <View key={index}>
                             <TouchableOpacity
                               onPress={() => {
-                                props.navigation.navigate(
-                                  `/products/${item.category}`
-                                )
+                                navigation.navigate("Gallery")
                               }}
                             >
                               <Image
