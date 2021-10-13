@@ -5,7 +5,7 @@ const userActions = {
     return async (dispatch) => {
       try {
         let response = await axios.post(
-          "https://cozydeco.herokuapp.com/api/user/register",
+          "http://localhost:4000/api/user/register",
           user,
           { withCredentials: true }
         )

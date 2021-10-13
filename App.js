@@ -6,6 +6,9 @@ import {applyMiddleware, createStore} from 'redux'
 import {connect, Provider} from 'react-redux'
 import thunk from 'redux-thunk'
 import rootReducers from './redux/reducers/rootReducers'
+import { Camera } from 'expo-camera';
+import OurCamera from './OurCamera'
+
 
 LogBox.ignoreAllLogs(true)
 const store = createStore(rootReducers, applyMiddleware(thunk))
@@ -17,6 +20,7 @@ const App =()=>{
       <NavigationContainer>
         <Navigator />
       </NavigationContainer>
+      <OurCamera/>
     </Provider>
   )
 }
