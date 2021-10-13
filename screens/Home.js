@@ -270,14 +270,14 @@ const styles = StyleSheet.create({
     fontSize: 10,
     backgroundColor: "rgba(255, 255, 255, 0.79)",
     width:220,
-    height:200,
+    height:270,
     position: "absolute",
     zIndex: 200,
     bottom:-60,
-    left:0,
+    left:-10,
     marginBottom:width,
-    padding:10,
-    borderTopRightRadius:15,
+    padding:15,
+    borderRadius:15,
     shadowColor: '#000',
     shadowOpacity:.1,
     shadowOffset: {
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
   textQuote: {
     color: "#060B34",
     fontSize: 14,
-    // fontWeight: "bolder",
+    fontWeight: "bold", 
     paddingStart:10,
   },
   bodyQuote:{
