@@ -6,9 +6,7 @@ import {applyMiddleware, createStore} from 'redux'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
 import rootReducers from './redux/reducers/rootReducers'
-import { Camera } from 'expo-camera';
-import OurCamera from './OurCamera'
-
+import PayWithCard from './components/PayWithCard'
 
 LogBox.ignoreAllLogs(true)
 const store = createStore(rootReducers, applyMiddleware(thunk))
@@ -19,7 +17,7 @@ const App = () => {
       <NavigationContainer>
         <Navigator />
       </NavigationContainer>
-      <OurCamera/>
+      <PayWithCard/>
     </Provider>
   )
 }
