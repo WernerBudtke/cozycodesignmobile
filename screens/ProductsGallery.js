@@ -29,7 +29,6 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [category])
 
-
     const categories = ["Bathroom", "Kitchenware", "Decor", "GiftCard", "Sale"]
     let subcategories = []
     if (category === "Bathroom") {
