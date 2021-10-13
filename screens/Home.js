@@ -169,7 +169,6 @@ const Home = ({navigation}, props) => {
                   {item.link.includes("home") && (
                     <View style={styles.boxQuote}>
                       <Text style={styles.textQuote}>{item.link} </Text>
-                      <FontAwesome5 name="couch" size={35} color="black"  style={styles.icon} />
                     </View>
                   )}
                 </View>
