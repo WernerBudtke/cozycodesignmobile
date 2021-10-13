@@ -54,9 +54,6 @@ export const NavigatorProductGallery = (props) => {
         component={Product}
         options={{
           title: "Product",
-          headerLeft: () => (
-            <ArrowBack navigation={props.navigation} to={"Gallery"} />
-          ),
         }}
       />
     </Stack.Navigator>
