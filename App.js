@@ -1,9 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React  from 'react';
 import { LogBox } from 'react-native';
 import Navigator from './navigation/MainNavDrawer';
 import {applyMiddleware, createStore} from 'redux'
-import {connect, Provider} from 'react-redux'
+import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
 import rootReducers from './redux/reducers/rootReducers'
 import { Camera } from 'expo-camera';
@@ -13,8 +13,7 @@ import OurCamera from './OurCamera'
 LogBox.ignoreAllLogs(true)
 const store = createStore(rootReducers, applyMiddleware(thunk))
 
-
-const App =()=>{
+const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -26,4 +25,3 @@ const App =()=>{
 }
 
 export default App
-

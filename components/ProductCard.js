@@ -1,9 +1,10 @@
 import React from "react" 
-import { Text, View, StyleSheet, Image, Pressable, Button} from "react-native"
+import { Text, View, StyleSheet, Image, Pressable} from "react-native"
 import { connect } from "react-redux"
 import { useEffect, useState } from "react"
-import Icon from 'react-native-vector-icons/Ionicons'
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
 import cartActions from "../redux/actions/cartActions"
+import productsActions from "../redux/actions/productsActions"
 
 const ProductCard = ({
     user,
@@ -42,7 +43,10 @@ const ProductCard = ({
       )}
         <View style={styles.container}>
           <Pressable 
-          onPress={() => navigation.navigate("Product")}>
+          onPress={() => navigation.navigate("Product", {
+            id: product._id, product: product
+          })
+        }>
             <Image source={{ uri: photo}} style={styles.top} resizeMode="cover"/>
           </Pressable>
         </View>
@@ -50,6 +54,12 @@ const ProductCard = ({
                 <Text style={styles.productName}>
                     {product.name}
                 </Text>
+              </View>
+        <View style={styles.buttonContainer}>
+          <Pressable
+          onPress={() => navigation.navigate("Product")}>
+            <MaterialCommunityIcons name="eye" size={25} color="black" />
+          </Pressable>
                 <View style={styles.priceContainer}>
                   <Text style={product.discount !== 0 ? styles.sale : styles.price} >
                     ${product.price}
@@ -60,14 +70,8 @@ const ProductCard = ({
                     </Text>
                   )} 
                 </View>
-              </View>
-        <View style={styles.buttonContainer}>
-          <Pressable
-          onPress={() => navigation.navigate("Product")}>
-            <Text style={styles.button}>VIEW</Text>
-          </Pressable>
         <Pressable onPress={addToCartHandler}>
-          <Text style={styles.button}>CART</Text>
+        <Ionicons name="ios-cart" size={25} color="black" />
         </Pressable>
         </View>
       </View>
@@ -90,7 +94,7 @@ const styles = StyleSheet.create ({
   
   wrapper: {
     minWidth: "85%",
-    height: 450,
+    height: 430,
     marginVertical: "5%",
     marginHorizontal: 0.5,
     backgroundColor: "#ead8ca", 
@@ -126,13 +130,14 @@ const styles = StyleSheet.create ({
 
   nameAndPrice: {
     backgroundColor: "#ead8ca",
-    height: "20%",
+    height: "15%",
     justifyContent: "space-evenly",
     alignItems: "center",
   },
 
   productName: {
-    fontSize: 20,
+    fontSize: 25,
+    fontWeight: "bold",
   },
 
   priceContainer: {
@@ -142,23 +147,15 @@ const styles = StyleSheet.create ({
 
   price: {
     color: "black",
-    fontSize: 17,
+    fontSize: 20,
   },
 
   sale: {
     color: "#dd3e2c",
     textDecorationLine: 'line-through', 
     textDecorationStyle: 'solid',
-    fontSize: 12,
+    fontSize: 17,
     marginRight: 15,
-  },
-
-  cardButtons: {
-    backgroundColor: "#ead8ca",
-    height: "100%",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    paddingTop: "5%"
   },
 
   inside: {
@@ -170,11 +167,6 @@ const styles = StyleSheet.create ({
     color: "white",
     fontSize: 15,
   },
-
-  button: {
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-  }, 
 
   buttonContainer: {
     flexDirection: "row",
