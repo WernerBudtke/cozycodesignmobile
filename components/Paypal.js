@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react"
-import { View, Text } from "react-native"
+import {View} from 'react-native'
 
 const Paypal = ({ description, total, catchPagoErr, addNewOrderHandler }) => {
+
   const paypal = useRef()
   useEffect(() => {
     if (window.myButton) window.myButton.close()

@@ -200,11 +200,7 @@ const PaymentGateway = ({
   const paymentOptions = [
     { label: "Paypal", value: "PayPal" },
     { label: "Mercado Pago / Credit", value: "MercadoPago" },
-    {
-      label: "Giftcard",
-      value: "GiftCard",
-    },
-  ]
+    { label: "Giftcard", value: "GiftCard"},]
 
   const paymentOptionsGiftC = [
     { label: "Paypal", value: "PayPal" },
