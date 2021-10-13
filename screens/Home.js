@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     width:100,
     height:140,
     position: "absolute",
-    zIndex: 200,
+    zIndex: 300,
     bottom:width+100,
     left:40,
     borderRadius:15,
@@ -252,6 +252,8 @@ const styles = StyleSheet.create({
   categoriesContainer:{
       minHeight:"100%",
       flex:1,
+      alignContent: "center",
+      marginLeft:20,
   },
   titleCategory:{
     fontSize:30,
