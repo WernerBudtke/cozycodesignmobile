@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import {
   Animated,
   Dimensions,
@@ -7,23 +7,26 @@ import {
   Text,
   View,
   StyleSheet,
+  Pressable
 } from "react-native"
 import { StatusBar } from "expo-status-bar"
+import { connect } from "react-redux"
 import { TouchableOpacity } from "react-native-gesture-handler"
-import {
-  FontAwesome5,
-  Foundation,
-  MaterialIcons,
-  MaterialCommunityIcons,
-  FontAwesome,
-} from "@expo/vector-icons"
+import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
+import productsActions from "../redux/actions/productsActions"
 
-const Home = ({ navigation, route }, props) => {
-  console.log(route)
-
+const Home = ({navigation, route, match, product, params, getProductByCategory}, props) => {
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current
-
+  const [categoryHome, setCategoryHome]= useState(null)
+  
+  const handlerCategory=(item)=>{
+    console.log(item)
+    setCategoryHome(item)
+    getProductByCategory(item)
+    navigation.navigate("Gallery", categoryHome)
+    }
+  
   const { width, height } = Dimensions.get("screen")
   const ITEM_WIDTH = width * 0.76
   const ITEM_HEIGHT = ITEM_WIDTH * 1.47
@@ -44,7 +47,6 @@ const Home = ({ navigation, route }, props) => {
     key: String(index),
     photo: image.img,
     link: image.link,
-    description: image.description,
   }))
 
   const categories = [
@@ -203,7 +205,19 @@ const Home = ({ navigation, route }, props) => {
     </View>
   )
 }
-export default Home
+const mapStateToProps = (state) => {
+    return {
+      products: state.products.products,
+      productsCategory: state.products.productsCategory
+    }
+}
+
+const mapDispatchToProps = {
+  getProductByCategory: productsActions.getProductByCategory
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
 
 const width = Dimensions.get("window").width - 40
 
@@ -306,9 +320,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-  icon: {
-    alignSelf: "center",
-    color: "rgb(41, 40, 40)",
-    marginTop: 12,
-  },
+  icon:{
+      alignSelf: "center",
+      color: "rgb(41, 40, 40)",
+      marginTop:12,
+  }
 })
