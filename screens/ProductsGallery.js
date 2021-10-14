@@ -16,8 +16,8 @@ const ProductsGallery = ({ products, getProducts, match, categoryHome, productsC
     const [category, setCategory] = useState(null)
 
     
-console.log(route)
-console.log(props)
+console.log(productsCategory)
+
 
     useEffect(() => {
         if (!products.length) {

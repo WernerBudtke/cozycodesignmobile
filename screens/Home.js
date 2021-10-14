@@ -13,21 +13,21 @@ import { StatusBar } from "expo-status-bar"
 import { connect } from "react-redux"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
+import productsActions from "../redux/actions/productsActions"
 
 
-const Home = ({navigation, route, categoryHome, match, product, params}, props) => {
+
+const Home = ({navigation, route, match, product, params}, props) => {
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current
-  const [categoryHome, setCategory]= useState(null)
+  const [categoryHome, setCategoryHome]= useState(null)
 
-  console.log(props)
+  console.log(categoryHome)
   
   const handlerCategory=(item)=>{
     console.log(item)
-    setCategory(item)
-    navigation.navigate("Gallery", {
-    id:item
-      })
+    props.getProductByCategory(item)
+    navigation.navigate("Gallery")
       }
   
   const { width, height } = Dimensions.get("screen")
@@ -203,9 +203,12 @@ const mapStateToProps = (state) => {
       productsCategory: state.products.productsCategory
     }
 }
+const mapDispatchToProps = {
+  getProducts: productsActions.getProducts,
+  getProductByCategory: productsActions.getProductByCategory
+}
 
-
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
 
 const width = Dimensions.get("window").width - 40
 
