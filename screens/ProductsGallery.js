@@ -17,6 +17,8 @@ const ProductsGallery = ({ products, getProducts, match, categoryHome, productsC
 
     
 console.log(productsCategory)
+console.log(route)
+console.log(props)
 
 
     useEffect(() => {

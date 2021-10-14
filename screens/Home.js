@@ -17,17 +17,19 @@ import productsActions from "../redux/actions/productsActions"
 
 
 
-const Home = ({navigation, route, match, product, params}, props) => {
+const Home = ({navigation, route, match, product, params, getProductByCategory}, props) => {
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current
   const [categoryHome, setCategoryHome]= useState(null)
 
-  console.log(categoryHome)
   
   const handlerCategory=(item)=>{
     console.log(item)
-    props.getProductByCategory(item)
-    navigation.navigate("Gallery")
+    setCategoryHome(item)
+    getProductByCategory(categoryHome)
+    navigation.navigate("Gallery", {
+      category: categoryHome
+    })
       }
   
   const { width, height } = Dimensions.get("screen")
