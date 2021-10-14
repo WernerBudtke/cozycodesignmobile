@@ -1,24 +1,12 @@
 import React, { useState } from "react"
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native"
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity} from "react-native"
 import userActions from "../redux/actions/userActions"
 import cartActions from "../redux/actions/cartActions"
 import productsActions from "../redux/actions/productsActions"
-import Paypal from "../components/Paypal"
+import PayWithCard from "../components/PayWithCard"
 import { TextInput } from "react-native-gesture-handler"
 import { connect } from "react-redux"
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel,
-} from "react-native-simple-radio-button"
-import { useFocusEffect } from "@react-navigation/native"
+import RadioForm from "react-native-simple-radio-button"
 
 const PaymentGateway = ({
   loginUser,
@@ -157,8 +145,6 @@ const PaymentGateway = ({
     })
   }
 
-  let date = new Date()
-
   const fillCode = (e) => {
     setCode(e)
   }
@@ -198,12 +184,10 @@ const PaymentGateway = ({
   }
 
   const paymentOptions = [
-    { label: "Paypal", value: "PayPal" },
     { label: "Mercado Pago / Credit", value: "MercadoPago" },
     { label: "Giftcard", value: "GiftCard"},]
 
   const paymentOptionsGiftC = [
-    { label: "Paypal", value: "PayPal" },
     { label: "Mercado Pago / Credit", value: "MercadoPago" },
   ]
   console.log(chosenMethod)
@@ -415,14 +399,8 @@ const PaymentGateway = ({
             )}
           </View>
         )}
-        {chosenMethod.enable && chosenMethod.type.includes("PayPal") && (
-          <Paypal
-            description={`Cozy  ${date.toLocaleDateString()}`}
-            catchPagoErr={catchPagoErr}
-            total={!sharedPayment ? order.totalPrice : sharedPaymentPrice}
-            info={info}
-            addNewOrderHandler={addNewOrderHandler}
-          />
+        {chosenMethod.enable && chosenMethod.type.includes("MercadoPago") && (
+          <PayWithCard addNewOrderHandler={addNewOrderHandler} catchPagoErr={catchPagoErr}/>
         )}
       </View>
     </ScrollView>
