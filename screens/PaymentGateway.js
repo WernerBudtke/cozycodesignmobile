@@ -1,12 +1,19 @@
-import React, { useState } from "react"
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity} from "react-native"
+import React, { useState, useEffect } from "react"
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native"
 import userActions from "../redux/actions/userActions"
 import cartActions from "../redux/actions/cartActions"
 import productsActions from "../redux/actions/productsActions"
-import PayWithCard from "../components/PayWithCard"
 import { TextInput } from "react-native-gesture-handler"
 import { connect } from "react-redux"
 import RadioForm from "react-native-simple-radio-button"
+import PayWithCard from "../components/PayWithCard"
+import AwesomeAlert from "react-native-awesome-alerts"
 
 const PaymentGateway = ({
   loginUser,
@@ -19,6 +26,7 @@ const PaymentGateway = ({
   getCard,
   deleteAllCartProduct,
   navigation,
+  route,
 }) => {
   const [sharedPayment, setSharedPayment] = useState(false)
   const [code, setCode] = useState(null)
@@ -27,6 +35,7 @@ const PaymentGateway = ({
   const [enableInput, setEnableInput] = useState(false)
   const [enablePayment, setEnablePayment] = useState(true)
   const [renderError, setRenderError] = useState(null)
+  const [showAlert2, setShowAlert2] = useState(false)
   const [chosenMethod, setChosenMethod] = useState({
     type: null,
     enable: false,
@@ -130,18 +139,17 @@ const PaymentGateway = ({
       setChosenMethod({ ...chosenMethod, enable: false })
       deleteAllCartProduct()
       getProducts()
-      // navigation.navigate("Home")
-      navigation.pop("Home")
+      setShowAlert2(true)
       // navigation.reset({
-      //   // I did reset my stack using navigation.reset() instead of using popToTop
       //   index: 0,
       //   routes: [
       //     {
-      //       name: "Home", //name of screen which you wan't to come back to it
-      //       params: { pago: true }, // params you wanna pass to the screen
+      //       name: "Home", 
+      //       params: {}, 
       //     },
       //   ],
       // })
+      ///////
     })
   }
 
@@ -185,15 +193,38 @@ const PaymentGateway = ({
 
   const paymentOptions = [
     { label: "Mercado Pago / Credit", value: "MercadoPago" },
-    { label: "Giftcard", value: "GiftCard"},]
+    { label: "Giftcard", value: "GiftCard" },
+  ]
 
   const paymentOptionsGiftC = [
     { label: "Mercado Pago / Credit", value: "MercadoPago" },
   ]
-  console.log(chosenMethod)
+
   return (
     <ScrollView style={styles.gatewayContainer}>
+      <AwesomeAlert
+        show={showAlert2}
+        showProgress={false}
+        message="Gracias por su compra!! voleva prontos :D"
+        closeOnTouchOutside={false}
+        closeOnHardwareBackPress={false}
+        showConfirmButton={true}
+        confirmText="BACK TO HOME"
+        confirmButtonColor="#b7cbd3"
+        onConfirmPressed={() => {
+          setShowAlert2(false) , navigation.reset({
+            index: 0,
+            routes: [
+              {
+                name: "Home", 
+                params: {}, 
+              },
+            ],
+          })
+        }}
+      />
       <View style={styles.checkoutInfo}>
+        <Text>{order.totalPrice} </Text>
         <Text style={styles.h1}>Personal Info</Text>
         <View style={styles.uniqueInput}>
           <Text style={styles.label}>Email:</Text>
@@ -289,6 +320,7 @@ const PaymentGateway = ({
             <RadioForm
               style={styles.radioButtons}
               radio_props={paymentOptions}
+              initial={-1}
               onPress={(value) => {
                 fillOrderInfo(value)
                 setEnablePayment(false)
@@ -359,8 +391,10 @@ const PaymentGateway = ({
                 <RadioForm
                   style={styles.radioButtons}
                   radio_props={paymentOptionsGiftC}
-                  onPress={(value) => fillOrderInfo(value, "add")}
-                  onPress={() => setEnablePayment(false)}
+                  initial={-1}
+                  onPress={(value) => {
+                    fillOrderInfo(value, "add"), setEnablePayment(false)
+                  }}
                   disabled={sharedPayment}
                   buttonColor={"#ad999393"}
                   selectedButtonColor={"#ad999393"}
@@ -400,7 +434,11 @@ const PaymentGateway = ({
           </View>
         )}
         {chosenMethod.enable && chosenMethod.type.includes("MercadoPago") && (
-          <PayWithCard addNewOrderHandler={addNewOrderHandler} catchPagoErr={catchPagoErr}/>
+          <PayWithCard
+            addNewOrderHandler={addNewOrderHandler}
+            catchPagoErr={catchPagoErr}
+            // total={!sharedPayment ? order.totalPrice : sharedPaymentPrice}
+          />
         )}
       </View>
     </ScrollView>
