@@ -15,15 +15,18 @@ import { TouchableOpacity } from "react-native-gesture-handler"
 import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 
 
-const Home = ({navigation, route, match, product, params}, props) => {
+const Home = ({navigation, route, categoryHome, match, product, params}, props) => {
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current
-  const [category, setCategory]= useState(null)
+  const [categoryHome, setCategory]= useState(null)
 
+  console.log(props)
+  
   const handlerCategory=(item)=>{
+    console.log(item)
     setCategory(item)
     navigation.navigate("Gallery", {
-        id:category
+    id:item
       })
       }
   
