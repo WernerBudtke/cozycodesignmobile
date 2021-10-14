@@ -142,6 +142,16 @@ export const NavigatorCart = (props) => {
           headerTitleStyle: {fontFamily: 'Cormorant_700Bold', fontSize: 30}
         }}
       />
+      <Stack.Screen
+        name="Payment"
+        component={PaymentGateway}
+        options={{
+          title: "Payment",
+          headerLeft: () => (
+            <ArrowBack navigation={props.navigation} to={"Cart"} />
+          ),
+        }}
+      />
     </Stack.Navigator>
   )
 }
