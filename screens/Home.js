@@ -103,6 +103,7 @@ const Home = ({ navigation, route }, props) => {
                             <TouchableOpacity
                              onPress={() => navigation.navigate("Gallery", {
                                 category: item.category
+                                
                               })
                             }>
                               <Image
@@ -112,7 +113,6 @@ const Home = ({ navigation, route }, props) => {
                                   width: width - 40,
                                   height: width - 40,
                                   resizeMode: "cover",
-
                                   shadowColor: "#000",
                                   shadowOpacity: 0.5,
                                   borderRadius: 16,
