@@ -10,10 +10,16 @@ import {
 } from "react-native"
 import { StatusBar } from "expo-status-bar"
 import { TouchableOpacity } from "react-native-gesture-handler"
-import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
-
+import {
+  FontAwesome5,
+  Foundation,
+  MaterialIcons,
+  MaterialCommunityIcons,
+  FontAwesome,
+} from "@expo/vector-icons"
 
 const Home = ({ navigation, route }, props) => {
+  console.log(route)
 
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current
@@ -23,10 +29,10 @@ const Home = ({ navigation, route }, props) => {
   const ITEM_HEIGHT = ITEM_WIDTH * 1.47
   const imageW = width / 2
   const images = [
-      {
-        img: "https://i.postimg.cc/BbhLKnZr/17.png",
-        link: "Check out our latest trends",
-      },
+    {
+      img: "https://i.postimg.cc/BbhLKnZr/17.png",
+      link: "Check out our latest trends",
+    },
     {
       img: "https://i.postimg.cc/66G4VjPx/home3.png",
       link: "There is no place like home",
@@ -63,7 +69,6 @@ const Home = ({ navigation, route }, props) => {
         }
         data={data}
         keyExtractor={(item) => item.key}
-        
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: true }
@@ -101,10 +106,12 @@ const Home = ({ navigation, route }, props) => {
                         >
                           <View key={index}>
                             <TouchableOpacity
-                             onPress={() => navigation.navigate("Gallery", {
-                                category: item.category
-                              })
-                            }>
+                              onPress={() =>
+                                navigation.navigate("Gallery", {
+                                  category: item.category,
+                                })
+                              }
+                            >
                               <Image
                                 source={{ uri: item.src }}
                                 style={{
@@ -134,36 +141,46 @@ const Home = ({ navigation, route }, props) => {
                     }}
                   />
                 </View>
-              ):(
-              <View
-                style={{
-                      overflow: "hidden",
-                      alignItems: "center",
-                }}>
-                    <Animated.Image
-                      source={{ uri: item.photo }}
-                      style={{
-                        width: width,
-                        height: height,
-                        resizeMode: "cover",
-                        transform: [
-                          {
-                            translateY,
-                          },
-                        ],
-                      }}
-                    />
-                    {item.link.includes("Check") &&(
-                      <View  style={styles.boxCallToAction}>
-                    <Text style={styles.textCallToAction}>{item.link} </Text>
-                    <FontAwesome5 name="wpexplorer" size={40} color="black"  style={styles.icon} />
-
+              ) : (
+                <View
+                  style={{
+                    overflow: "hidden",
+                    alignItems: "center",
+                  }}
+                >
+                  <Animated.Image
+                    source={{ uri: item.photo }}
+                    style={{
+                      width: width,
+                      height: height,
+                      resizeMode: "cover",
+                      transform: [
+                        {
+                          translateY,
+                        },
+                      ],
+                    }}
+                  />
+                  {item.link.includes("Check") && (
+                    <View style={styles.boxCallToAction}>
+                      <Text style={styles.textCallToAction}>{item.link} </Text>
+                      <FontAwesome5
+                        name="wpexplorer"
+                        size={40}
+                        color="black"
+                        style={styles.icon}
+                      />
                     </View>
                   )}
                   {item.link.includes("home") && (
                     <View style={styles.boxQuote}>
                       <Text style={styles.textQuote}>{item.link} </Text>
-                      <FontAwesome5 name="couch" size={25} color="black"  style={styles.icon} />
+                      <FontAwesome5
+                        name="couch"
+                        size={25}
+                        color="black"
+                        style={styles.icon}
+                      />
                     </View>
                   )}
                 </View>
@@ -205,14 +222,14 @@ const styles = StyleSheet.create({
   boxCallToAction: {
     backgroundColor: "rgba(0, 0, 0, 0.538)",
     backgroundColor: "#e3cebc",
-    width: width+46.5,
-    height: width+46.5,
+    width: width + 46.5,
+    height: width + 46.5,
     position: "absolute",
     zIndex: 300,
-    paddingTop:250,
-    top:-250,
-    right:-3,
-    borderRadius:250,
+    paddingTop: 250,
+    top: -250,
+    right: -3,
+    borderRadius: 250,
     shadowColor: "#000",
     shadowOpacity: 0.5,
     shadowOffset: {
@@ -227,18 +244,18 @@ const styles = StyleSheet.create({
     color: "rgb(41, 40, 40)",
     textAlign: "center",
     fontSize: 23,
-    padding:10,
-    marginTop:20,
-    width:"50%",
-    alignSelf:"center",
-    fontWeight:"bold",
+    padding: 10,
+    marginTop: 20,
+    width: "50%",
+    alignSelf: "center",
+    fontWeight: "bold",
   },
 
-  categoriesContainer:{
-      minHeight:"100%",
-      flex:1,
-      alignContent: "center",
-      marginLeft:20,
+  categoriesContainer: {
+    minHeight: "100%",
+    flex: 1,
+    alignContent: "center",
+    marginLeft: 20,
   },
   titleCategory: {
     fontSize: 30,
@@ -264,17 +281,17 @@ const styles = StyleSheet.create({
     color: "#060B34",
     fontSize: 20,
     backgroundColor: "rgba(255, 255, 255, 0.40)",
-    width:width+35,
-    height:120,
+    width: width + 35,
+    height: 120,
     position: "absolute",
     zIndex: 200,
-    top:0,
-    left:0,
-    paddingTop:30,
-    shadowColor: '#000',
-    shadowOpacity:.1,
-    borderBottomStartRadius:50,
-    borderBottomEndRadius:50,
+    top: 0,
+    left: 0,
+    paddingTop: 30,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    borderBottomStartRadius: 50,
+    borderBottomEndRadius: 50,
     shadowOffset: {
       width: 0,
       height: 0,
@@ -284,14 +301,14 @@ const styles = StyleSheet.create({
   textQuote: {
     color: "#060B34",
     fontSize: 23,
-    fontWeight: "bold", 
-    paddingStart:10,
+    fontWeight: "bold",
+    paddingStart: 10,
     textAlign: "center",
   },
 
-  icon:{
-      alignSelf: "center",
-      color: "rgb(41, 40, 40)",
-      marginTop:12,
-  }
+  icon: {
+    alignSelf: "center",
+    color: "rgb(41, 40, 40)",
+    marginTop: 12,
+  },
 })
