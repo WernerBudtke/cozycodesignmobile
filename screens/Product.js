@@ -8,6 +8,7 @@ import {
   Keyboard,
   Dimensions,
   FlatList,
+  ScrollView,
 } from "react-native"
 import { connect } from "react-redux"
 import { useEffect, useState } from "react"
@@ -88,94 +89,98 @@ const Product = ({
     : `http://cozydeco.herokuapp.com/${product.photo}`
 
   return (
-    <View style={styles.productSection}>
-      {productAlert ? (
-        <ProductCard
-          productAlert={productAlert}
-          showCartCard={showCartCard}
-          editShowCartCard={editShowCartCard}
-        />
-      ) : null}
-      <View style={styles.mainContainer}>
-        <View style={styles.productImage}>
-          <Image
-            source={{ uri: photo }}
-            style={styles.productImage}
-            resizeMode="cover"
+    <ScrollView>
+      <View style={styles.productSection}>
+        {productAlert ? (
+          <ProductCard
+            productAlert={productAlert}
+            showCartCard={showCartCard}
+            editShowCartCard={editShowCartCard}
           />
-        </View>
-        <View style={styles.productInfo}>
-          <Text style={styles.productName}>{product.name}</Text>
-          <Text style={styles.productDescription}>{product.description}</Text>
-          <View style={styles.rowPrice}>
+        ) : null}
+        <View style={styles.mainContainer}>
+          <View style={styles.productImage}>
+            <Image
+              source={{ uri: photo }}
+              style={styles.productImage}
+              resizeMode="cover"
+            />
+          </View>
+          <View style={styles.productInfo}>
+            <Text style={styles.productName}>{product.name}</Text>
+            <Text style={styles.productDescription}>{product.description}</Text>
             <View style={styles.rowPrice}>
-              {product.discount !== 0 ? (
-                <Text style={product.discount !== 0 ? styles.sale : null}>
-                  ${product.price}
+              <View style={styles.rowPrice}>
+                {product.discount !== 0 ? (
+                  <Text style={product.discount !== 0 ? styles.sale : null}>
+                    ${product.price}
+                  </Text>
+                ) : null}
+                <Text style={styles.productPrice}>${finalPrice}</Text>
+              </View>
+              <View style={styles.rowPrice}>
+                <FontAwesome5
+                  name="credit-card"
+                  size={24}
+                  color="black"
+                  style={styles.icon}
+                />
+                <Text style={styles.interestCard}>
+                  3 payments of ${((1.1 * finalPrice) / 3).toFixed(2)}
                 </Text>
-              ) : null}
-              <Text style={styles.productPrice}>${finalPrice}</Text>
+              </View>
             </View>
-            <View style={styles.rowPrice}>
+
+            <View style={styles.addToCart}>
+              <View style={styles.rowPrice}>
+                <FontAwesome5
+                  name="minus"
+                  size={24}
+                  color="black"
+                  style={styles.icon}
+                  onPress={
+                    quantity > 1 ? () => setQuantity(quantity - 1) : null
+                  }
+                />
+                <Text style={styles.quantity}>{quantity}</Text>
+                <FontAwesome5
+                  name="plus"
+                  size={24}
+                  color="black"
+                  style={styles.icon}
+                  onPress={() => {
+                    product.stock === quantity
+                      ? alert("no hay stock")
+                      : setQuantity(quantity + 1)
+                  }}
+                />
+              </View>
+              <Pressable onPress={addToCartHandler}>
+                <Text style={styles.buttonAdd}>Add to Cart</Text>
+              </Pressable>
+            </View>
+            <View style={styles.shippingInfo}>
               <FontAwesome5
-                name="credit-card"
+                name="truck"
                 size={24}
                 color="black"
                 style={styles.icon}
               />
-              <Text style={styles.interestCard}>
-                3 payments of ${((1.1 * finalPrice) / 3).toFixed(2)}
+              <Text style={styles.productShipping}>
+                Shipping within 72 hours.
               </Text>
             </View>
-          </View>
-
-          <View style={styles.addToCart}>
-            <View style={styles.rowPrice}>
-              <FontAwesome5
-                name="minus"
-                size={24}
-                color="black"
-                style={styles.icon}
-                onPress={quantity > 1 ? () => setQuantity(quantity - 1) : null}
-              />
-              <Text style={styles.quantity}>{quantity}</Text>
-              <FontAwesome5
-                name="plus"
-                size={24}
-                color="black"
-                style={styles.icon}
-                onPress={() => {
-                  product.stock === quantity
-                    ? alert("no hay stock")
-                    : setQuantity(quantity + 1)
-                }}
-              />
-            </View>
-            <Pressable onPress={addToCartHandler}>
-              <Text style={styles.buttonAdd}>Add to Cart</Text>
+            <Pressable
+              onPress={() => {
+                navigation.navigate("Cart")
+              }}
+            >
+              <Text style={styles.buttonOpen}>Open Cart</Text>
             </Pressable>
           </View>
-          <View style={styles.shippingInfo}>
-            <FontAwesome5
-              name="truck"
-              size={24}
-              color="black"
-              style={styles.icon}
-            />
-            <Text style={styles.productShipping}>
-              Free shipping on purchases from 200 dollars or more.
-            </Text>
-          </View>
-          <Pressable
-            onPress={() => {
-              navigation.navigate("Cart")
-            }}
-          >
-            <Text style={styles.buttonOpen}>Open Cart</Text>
-          </Pressable>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 const mapStateToProps = (state) => {
@@ -285,14 +290,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   shippingInfo: {
+    backgroundColor: "red",
     flexDirection: "row",
     padding: 2,
     marginVertical: 10,
-    marginHorizontal: -15,
-    backgroundColor: "#ead8ca",
+    marginHorizontal: "auto",
     width: width,
     borderRadius: 5,
     justifyContent: "space-evenly",
+    alignItems: "center",
   },
   productShipping: {
     color: "black",

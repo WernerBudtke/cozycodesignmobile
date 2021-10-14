@@ -144,8 +144,8 @@ const PaymentGateway = ({
       //   index: 0,
       //   routes: [
       //     {
-      //       name: "Home", 
-      //       params: {}, 
+      //       name: "Home",
+      //       params: {},
       //     },
       //   ],
       // })
@@ -203,28 +203,33 @@ const PaymentGateway = ({
   return (
     <ScrollView style={styles.gatewayContainer}>
       <AwesomeAlert
+        messageStyle={{ fontFamily: "Roboto_500Medium", textAlign: "center" }}
+        contentContainerStyle={{
+          backgroundColor: "#f8f6f4",
+        }}
+        alertContainerStyle={{ backgroundColor: "#ad9993d2" }}
+        confirmButtonStyle={{ height: 30, backgroundColor: "#ad9993" }}
         show={showAlert2}
         showProgress={false}
-        message="Gracias por su compra!! voleva prontos :D"
+        message={`Thank you for your purchase, ${loginUser.firstName}. Come back anytime soon!`}
         closeOnTouchOutside={false}
         closeOnHardwareBackPress={false}
         showConfirmButton={true}
         confirmText="BACK TO HOME"
-        confirmButtonColor="#b7cbd3"
         onConfirmPressed={() => {
-          setShowAlert2(false) , navigation.reset({
-            index: 0,
-            routes: [
-              {
-                name: "Home", 
-                params: {}, 
-              },
-            ],
-          })
+          setShowAlert2(false),
+            navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: "Home",
+                  params: {},
+                },
+              ],
+            })
         }}
       />
       <View style={styles.checkoutInfo}>
-        <Text>{order.totalPrice} </Text>
         <Text style={styles.h1}>Personal Info</Text>
         <View style={styles.uniqueInput}>
           <Text style={styles.label}>Email:</Text>
@@ -256,6 +261,7 @@ const PaymentGateway = ({
           <View style={styles.uniqueInput}>
             <Text style={styles.label}>DNI:</Text>
             <TextInput
+              keyboardType="numeric"
               style={styles.input}
               editable={!enableInput}
               defaultValue={info.dni}
@@ -265,6 +271,7 @@ const PaymentGateway = ({
           <View style={styles.uniqueInput}>
             <Text style={styles.label}>Phone Number:</Text>
             <TextInput
+              keyboardType="numeric"
               style={styles.input}
               editable={!enableInput}
               defaultValue={info.phone}
@@ -287,6 +294,7 @@ const PaymentGateway = ({
           <View style={styles.uniqueInput}>
             <Text style={styles.label}>Number:</Text>
             <TextInput
+              keyboardType="numeric"
               style={styles.input}
               editable={!enableInput}
               defaultValue={info.number}
@@ -307,6 +315,7 @@ const PaymentGateway = ({
           <View style={styles.uniqueInput}>
             <Text style={styles.label}>Zip Code:</Text>
             <TextInput
+              keyboardType="numeric"
               style={styles.input}
               editable={!enableInput}
               defaultValue={info.zipCode}
@@ -316,6 +325,7 @@ const PaymentGateway = ({
         </View>
         <Text style={styles.h1}>Payment</Text>
         <View>
+          <Text style={styles.total}>Your Total is: ${order.totalPrice}</Text>
           {hideRadio ? (
             <RadioForm
               style={styles.radioButtons}
@@ -437,7 +447,7 @@ const PaymentGateway = ({
           <PayWithCard
             addNewOrderHandler={addNewOrderHandler}
             catchPagoErr={catchPagoErr}
-            // total={!sharedPayment ? order.totalPrice : sharedPaymentPrice}
+            total={!sharedPayment ? order.totalPrice : sharedPaymentPrice}
           />
         )}
       </View>
@@ -547,5 +557,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     margin: 5,
+  },
+  total: {
+    textAlign: "center",
+    fontFamily: "Roboto_500Medium",
+    marginVertical: 7,
+    fontSize: 18,
   },
 })

@@ -3,13 +3,19 @@ import { useState } from "react"
 import React from "react"
 import { connect } from "react-redux"
 import cartActions from "../redux/actions/cartActions"
-import { Text, View, Pressable } from "react-native"
+import {
+  Text,
+  View,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native"
 
 const PayWithCard = ({
   addNewOrderHandler,
   catchPagoErr,
   payWithCreditCard,
-  total
+  total,
 }) => {
   console.log(total)
   const [fetching, setFetching] = useState(false)
@@ -28,11 +34,11 @@ const PayWithCard = ({
   return (
     <View>
       <CreditCardInput onChange={this._onChange} />
-      {fetching && <Text>Processing payment... please wait!</Text>}
+      {fetching && <Text style={styles.button}>Processing payment...</Text>}
       {!fetching && (
-        <Pressable onPress={payWithCCard}>
+        <TouchableOpacity style={styles.button} onPress={payWithCCard}>
           <Text>Complete Payment</Text>
-        </Pressable>
+        </TouchableOpacity>
       )}
     </View>
   )
@@ -41,3 +47,16 @@ const mapDispatchToProps = {
   payWithCreditCard: cartActions.payWithCreditCard,
 }
 export default connect(null, mapDispatchToProps)(PayWithCard)
+
+const styles = StyleSheet.create({
+  button: {
+    textAlign: "center",
+    alignSelf: "center",
+    width: "70%",
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 10,
+    borderRadius: 20,
+    marginVertical: 30,
+  },
+})
