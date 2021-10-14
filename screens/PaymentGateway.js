@@ -224,7 +224,6 @@ const PaymentGateway = ({
         }}
       />
       <View style={styles.checkoutInfo}>
-        <Text>{order.totalPrice} </Text>
         <Text style={styles.h1}>Personal Info</Text>
         <View style={styles.uniqueInput}>
           <Text style={styles.label}>Email:</Text>
@@ -316,6 +315,7 @@ const PaymentGateway = ({
         </View>
         <Text style={styles.h1}>Payment</Text>
         <View>
+          <Text>{order.totalPrice} </Text>
           {hideRadio ? (
             <RadioForm
               style={styles.radioButtons}
