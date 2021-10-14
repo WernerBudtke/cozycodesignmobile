@@ -1,13 +1,13 @@
 import React from "react"
-import { Text, View, StyleSheet, Keyboard, FlatList, Modal, Alert, Pressable} from "react-native"
+import { Text, View, StyleSheet, FlatList, Modal, Pressable, Image} from "react-native"
 import ProductCard from "../components/ProductCard"
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import productsActions from "../redux/actions/productsActions"
-import { FontAwesome5, Foundation, MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons'
 import SelectDropdown from 'react-native-select-dropdown'
 
-const ProductsGallery = ({ products, getProducts, productsCategory, route, getProductByCategory, navigation, categoryHome}, props) => {
+const ProductsGallery = ({ products, getProducts, productsCategory, route, getProductByCategory, navigation }) => {
     const [showCartCard, setShowCartCard] = useState(false)
     const [productAlert, setProductAlert] = useState(null)
     const [order, setOrder] = useState(null)
@@ -74,7 +74,7 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
     if (loading) {
         return (
           <View style={styles.preloader}>
-            <Image source={{ uri: `https://cozydeco.herokuapp.com/c.png`}} />
+            <Image style={styles.logoImage} source={{ uri: `https://cozydeco.herokuapp.com/c.png`}} />
             <Text style={styles.loading}>LOADING...</Text>
           </View>
         )
@@ -298,7 +298,8 @@ const styles = StyleSheet.create({
         color: "#444", 
         textAlign: "left",
         paddingLeft: 10,
-        fontFamily:"Roboto_400Regular"
+        fontFamily:"Roboto_400Regular",
+        textTransform: 'capitalize'
     },
 
     centeredView: {
@@ -357,11 +358,12 @@ const styles = StyleSheet.create({
     },
 
     logoImage: {
-        width: 500,
-        height: 500,
+        width: 200,
+        height: 200,
       }, 
     
       preloader: {
+        flex: 1,
         width: "100%",
         alignItems: "center",
         justifyContent: "center",

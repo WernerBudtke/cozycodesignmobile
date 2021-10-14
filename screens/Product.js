@@ -71,7 +71,7 @@ const Product = ({
   if (loading) {
     return (
       <View style={styles.preloader}>
-        <Image source={{ uri: `https://cozydeco.herokuapp.com/c.png`}} />
+        <Image style={styles.logoImage} source={{ uri: `https://cozydeco.herokuapp.com/c.png`}} />
         <Text style={styles.loading}>LOADING...</Text>
       </View>
     )
@@ -373,11 +373,12 @@ const styles = StyleSheet.create({
   },
 
   logoImage: {
-    width: 500,
-    height: 500,
+    width: 200,
+    height: 200,
   }, 
 
   preloader: {
+    flex: 1,
     width: "100%",
     alignItems: "center",
     justifyContent: "center",

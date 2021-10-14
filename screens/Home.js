@@ -42,7 +42,6 @@ const Home = ({navigation, route, match, product, params, getProductByCategory},
       img: "https://i.postimg.cc/66G4VjPx/home3.png",
       link: "There is no place like home",
     },
-    // { img: "https://i.postimg.cc/fRkNXFHx/home4.png", link: "" },
     { img: "https://i.postimg.cc/cCsFRrC2/home2.png", link: "Categories" },
   ]
   const data = images.map((image, index) => ({
@@ -172,7 +171,7 @@ const Home = ({navigation, route, match, product, params, getProductByCategory},
                         name="wpexplorer"
                         size={40}
                         color="black"
-                        style={styles.icon}
+                        style={styles.iconExplore}
                       />
                     </View>
                   )}
@@ -321,10 +320,13 @@ const styles = StyleSheet.create({
     paddingStart: 10,
     textAlign: "center",
   },
-
   icon:{
-      alignSelf: "center",
-      color: "rgb(41, 40, 40)",
-      marginTop:12,
+    alignSelf: "center",
+    color: "rgb(41, 40, 40)",
+    marginTop:12,
+  },
+  iconExplore: {
+    alignSelf: "center",
+    color: "rgb(41, 40, 40)",
   }
 })
