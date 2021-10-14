@@ -41,6 +41,7 @@ const PaymentGateway = ({
     type: null,
     enable: false,
   })
+  console.log(route)
   const [info, setInfo] = useState({
     zipCode: "",
     number: "",
