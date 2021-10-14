@@ -15,6 +15,8 @@ import { TouchableOpacity } from "react-native-gesture-handler"
 import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 import productsActions from "../redux/actions/productsActions"
 
+
+
 const Home = ({navigation, route, match, product, params, getProductByCategory}, props) => {
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current

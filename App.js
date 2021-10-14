@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native"
 import React from "react"
-import { LogBox } from "react-native"
+// import { LogBox } from "react-native"
 import Navigator from "./navigation/MainNavDrawer"
 import { applyMiddleware, createStore } from "redux"
 import { Provider } from "react-redux"
@@ -18,7 +18,7 @@ import {
   Cormorant_700Bold,
 } from "@expo-google-fonts/cormorant"
 
-LogBox.ignoreAllLogs(true)
+// LogBox.ignoreAllLogs(true)
 const store = createStore(rootReducers, applyMiddleware(thunk))
 
 const App = () => {

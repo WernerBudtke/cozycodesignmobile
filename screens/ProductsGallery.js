@@ -105,13 +105,6 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
                         rowStyle={styles.rowStyle}
                         rowTextStyle={styles.rowTxtStyle}
                     />
-                    {/* <View style={styles.icons}>
-                        <FontAwesome5 onPress={() => setCategory("Bathroom")} name="toilet" size={24} color="black"  style={styles.icon}/>
-                        <FontAwesome5 onPress={() => setCategory("Kitchenware")} name="utensils" size={24} color="black" style={styles.icon}/>
-                        <MaterialCommunityIcons onPress={() => setCategory("Decor")} name="lamp" size={26} color="black" style={styles.icon} />
-                        <MaterialIcons onPress={() => setCategory("GiftCard")} name="card-giftcard" size={26} color="black" style={styles.icon} />
-                        <Foundation onPress={() => setCategory("sale")} name="burst-sale" size={30} color="black" style={styles.icon}/>
-                    </View> */}
                     <SelectDropdown
                             data={subcategories}
                             onSelect={(selectedItem, index) => {
