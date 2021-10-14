@@ -43,7 +43,7 @@ const Navigator = ({ logFromSession, addCartLS, loginUser }) => {
     >
       <Drawer.Screen
         name="Home"
-        options={{ title: "COZY" }}
+        options={{ title: "COZY", headerTitleStyle: {fontFamily: 'Cormorant_700Bold', fontSize: 30}}}
         component={NavigatorHome}
       />
       <Drawer.Screen

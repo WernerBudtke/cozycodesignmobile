@@ -29,7 +29,7 @@ const productsReducer = (
       case "GET_BY_CATEGORY":
         return {
           ...state,
-          productsCategory: action.payload !== 'sale' 
+          productsCategory: action.payload !== 'Sale' 
           ? state.products.filter((product) =>  product.category === action.payload && product.stock > 0)
           : state.products.filter((product) =>  product.discount !== 0 && product.stock > 0)
         }

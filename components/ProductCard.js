@@ -36,11 +36,17 @@ const ProductCard = ({
         closeOnTouchOutside={true}
         closeOnHardwareBackPress={false}
         showConfirmButton={true}
-        confirmText="Ok"
-        confirmButtonColor="#DD6B55"
+        confirmText="OK"
+        confirmButtonColor="#ad9993d2"
         onConfirmPressed={() => {
           setShowAlert(false)
         }}
+        messageStyle={{ fontFamily: "Roboto_500Medium"}}
+        contentContainerStyle={{
+          backgroundColor: "#f8f6f4"
+        }}
+        confirmButtonStyle={{width: 100, textAlign: 'center'}}
+        confirmButtonTextStyle={{textAlign: 'center'}}
       />
       {product.discount !== 0 && (
       <View style={styles.inside}>

@@ -6,8 +6,9 @@ import {
   Dimensions,
   Button,
   Pressable,
+  ImageBackground
 } from "react-native"
-import { FlatList } from "react-native-gesture-handler"
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler"
 import { connect } from "react-redux"
 import ProductInCart from "../components/ProductInCart"
 import Icon from "react-native-vector-icons/Ionicons"
@@ -44,10 +45,7 @@ const Cart = ({ products, loginUser, navigation }) => {
       <Text style={styles.total}>
         Total: $ {totalPrice.reduce((a, b) => a + b).toFixed(2)}
       </Text>
-      <Button
-        title="FINALIZE PURCHASE"
-        onPress={loginUser ? redirectPayment : redirectHandler}
-      ></Button>
+      <Text style={styles.buttonFinalize} onPress={loginUser ? redirectPayment : redirectHandler}>FINALIZE PURCHASE</Text>
       <AwesomeAlert
         show={showAlert}
         showProgress={false}
@@ -59,7 +57,7 @@ const Cart = ({ products, loginUser, navigation }) => {
         showConfirmButton={true}
         cancelText="Close"
         confirmText="Sign In"
-        confirmButtonColor="#DD6B55"
+        confirmButtonColor="#b7cbd3"
         onCancelPressed={() => {
           hideAlert()
         }}
@@ -67,27 +65,29 @@ const Cart = ({ products, loginUser, navigation }) => {
           setShowAlert(false)
           navigation.navigate("LogIn")
         }}
+        messageStyle={{ fontFamily: "Roboto_500Medium"}}
+        contentContainerStyle={{
+          backgroundColor: "#f8f6f4"
+        }}
+        confirmButtonStyle={{width: 100, textAlign: 'center'}}
+        confirmButtonTextStyle={{textAlign: 'center', color: 'black'}}
+        cancelButtonStyle={{width: 100, textAlign: 'center'}}
+        cancelButtonTextStyle={{color: 'black', textAlign: 'center'}}
       />
     </View>
   ) : (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text style={{ fontSize: 20, marginVertical: 50 }}>
-        <Icon size={25} name="warning-outline" />
-        You don't have any items in your cart.
-      </Text>
-      <Pressable style={styles.button}>
-        <Button
-          onPress={() => navigation.navigate("Gallery")}
-          title="START SHOPPING"
-        ></Button>
-      </Pressable>
+    <ImageBackground style={styles.image} source={{uri: 'https://tiendaramo.com/vistas/imagenes/empty-cart.png'}}>
+      <View style={{ flex: 1, justifyContent: "space-around", flexDirection: 'row' }}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Gallery")}>
+        <Text style={{fontFamily: 'Roboto_500Medium'}}>START SHOPPING</Text>
+      </TouchableOpacity>
       {!loginUser && (
-        <Button
-          onPress={() => navigation.navigate("LogIn")}
-          title="SIGN IN"
-        ></Button>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("LogIn")}>
+          <Text>SIGN IN</Text>
+        </TouchableOpacity>
       )}
     </View>
+    </ImageBackground>
   )
 }
 
@@ -109,7 +109,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginVertical: 20,
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: 'Cormorant_700Bold',
+    letterSpacing: 3,
+    fontSize: 25
   },
   productImage: {
     height: 360,
@@ -122,7 +124,26 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   button: {
-    marginVertical: 10,
-    width: Dimensions.get("window").width,
+    width: 150,
+    alignItems: "center",
+    backgroundColor: "#ad9993",
+    padding: 10,
+    borderRadius: 20,
+    marginTop: 25,
   },
+  image: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    flexDirection: 'row',
+    alignItems: 'flex-start'
+  },
+  buttonFinalize: {
+    width: Dimensions.get("window").width,
+    backgroundColor: '#ad9993',
+    paddingVertical: 10,
+    textAlign: 'center',
+    fontFamily: 'Cormorant_700Bold',
+    letterSpacing: 3,
+    fontSize: 20
+  }
 })

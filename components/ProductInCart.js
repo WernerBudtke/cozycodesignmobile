@@ -48,10 +48,11 @@ const ProductInCart = ({cartItem, updateCartProduct, deleteACartProduct}) => {
                   </Text>
                 </View>
                 <View>
-                  <Text style={styles.price}> ${cartItem.product.discount === 0 
-                    ? cartItem.product.price 
-                    : (((100 - cartItem.product.discount) / 100) * cartItem.product.price).toFixed(2)} - {cartItem.product.name}
+                    <Text style={styles.price}>${cartItem.product.discount === 0 
+                      ? cartItem.product.price 
+                      : (((100 - cartItem.product.discount) / 100) * cartItem.product.price).toFixed(2)}
                     </Text>
+                    <Text style={styles.price}>{cartItem.product.name}</Text>
                 </View>
               </View>
             </View>
@@ -68,28 +69,30 @@ const mapDispatchToProps =  {
 export default connect(null, mapDispatchToProps)(ProductInCart)
 
 const styles = StyleSheet.create({
-wrapper: {
+  wrapper: {
     minWidth: "85%",
     marginVertical: "2%",
     marginHorizontal: 0.5,
     backgroundColor: "#ead8ca", 
     position: "relative",
     overflow: "hidden",
+    marginHorizontal: 7
   },
   container: {
-      backgroundColor: "#ead8ca",
-      height: 100,
-      flexDirection: "row",
-      width: "100%"
+    backgroundColor: "#ead8ca",
+    height: 100,
+    flexDirection: "row",
+    width: "100%"
   },
   top: {
-      height: '100%',
-      width: 100,
-      overflow: "hidden",
+    height: '100%',
+    width: 100,
+    overflow: "hidden",
   },
   price: {
     color: "black",
     fontSize: 15,
+    marginLeft: 5
   },
   cardButtons: {
     backgroundColor: "#ead8ca",

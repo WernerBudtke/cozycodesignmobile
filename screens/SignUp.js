@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, Dimensions, ImageBackground, TextInput, TouchableOpacity, Button, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, ImageBackground, TextInput, TouchableOpacity, Button, Pressable, KeyboardAvoidingView } from 'react-native'
 import userActions from '../redux/actions/userActions'
 import { connect } from 'react-redux'
 
@@ -25,7 +25,8 @@ const SignUp = ({signUp, navigation}) => {
           }
     }
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView keyboardVerticalOffset={10}>
+            <View style={styles.container}>
             <ImageBackground style={styles.image} source={{uri: 'https://i.imgur.com/jmu7dkR.jpg'}} >
                 <View style={styles.content}>
                     <Text style={styles.text}>Sign Up</Text>
@@ -49,6 +50,7 @@ const SignUp = ({signUp, navigation}) => {
                 </View>
             </ImageBackground>
         </View>
+        </KeyboardAvoidingView>
     )
 }
 

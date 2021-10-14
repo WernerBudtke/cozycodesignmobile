@@ -86,7 +86,7 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
                         onSelect={(selectedItem, index) => {
                             setCategory(selectedItem)
                         }}
-                        defaultButtonText={"Category"}
+                        defaultButtonText={!category ? 'Category' : category}
                         buttonTextAfterSelection={(selectedItem, index) => {
                             return selectedItem
                         }}
@@ -128,6 +128,7 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
                             dropdownStyle={styles.dropdownStyle}
                             rowStyle={styles.rowStyle}
                             rowTextStyle={styles.rowTxtStyle}
+                            disabled={!category ? true : false}
                     />
                     <SelectDropdown
                         data={sorting}

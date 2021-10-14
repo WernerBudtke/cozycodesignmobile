@@ -22,6 +22,7 @@ import {
   MaterialCommunityIcons,
   FontAwesome,
 } from "@expo/vector-icons"
+import AwesomeAlert from "react-native-awesome-alerts"
 
 const Product = ({
   product,
@@ -40,6 +41,8 @@ const Product = ({
   const [productAlert, setProductAlert] = useState(null)
   const [showCartCard, setShowCartCard] = useState(false)
   const [refresh, setRefresh] = useState(false)
+  const [showAlertStock, setShowAlertStock] = useState(false)
+  const [showAlertCart, setShowAlertCart] = useState(false)
 
   useEffect(() => {
     if (!products.length) {
@@ -56,12 +59,8 @@ const Product = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh])
 
-  const editShowCartCard = (newState) => {
-    setShowCartCard(newState)
-  }
-
   const addToCartHandler = () => {
-    setShowCartCard(true)
+    setShowAlertCart(true)
     let newProducts = {
       product: product,
       quantity: quantity,
@@ -71,12 +70,6 @@ const Product = ({
 
   if (loading) {
     return <Text>LOADING...</Text>
-  }
-
-  if (productAlert) {
-    setTimeout(() => {
-      setProductAlert(null)
-    }, 2500)
   }
 
   const finalPrice =
@@ -90,6 +83,36 @@ const Product = ({
 
   return (
     <ScrollView>
+      <AwesomeAlert
+        show={showAlertStock}
+        showProgress={false}
+        title="Oops!"
+        message="There's no more stock!"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showCancelButton={false}
+        showConfirmButton={true}
+        confirmText="Okey"
+        confirmButtonColor="#DD6B55"
+        onConfirmPressed={() => {
+          setShowAlertStock(false)
+        }}
+      />
+      <AwesomeAlert
+        show={showAlertCart}
+        showProgress={false}
+        title="Done!"
+        message="Product added to the cart!"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showCancelButton={false}
+        showConfirmButton={true}
+        confirmText="Okey"
+        confirmButtonColor="#ad9993"
+        onConfirmPressed={() => {
+          setShowAlertCart(false)
+        }}
+      />
       <View style={styles.productSection}>
         {productAlert ? (
           <ProductCard
@@ -150,7 +173,7 @@ const Product = ({
                   style={styles.icon}
                   onPress={() => {
                     product.stock === quantity
-                      ? alert("no hay stock")
+                      ? setShowAlertStock(true)
                       : setQuantity(quantity + 1)
                   }}
                 />

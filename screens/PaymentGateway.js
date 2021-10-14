@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native"
 import userActions from "../redux/actions/userActions"
 import cartActions from "../redux/actions/cartActions"
@@ -140,16 +141,6 @@ const PaymentGateway = ({
       deleteAllCartProduct()
       getProducts()
       setShowAlert2(true)
-      // navigation.reset({
-      //   index: 0,
-      //   routes: [
-      //     {
-      //       name: "Home",
-      //       params: {},
-      //     },
-      //   ],
-      // })
-      ///////
     })
   }
 
@@ -179,29 +170,20 @@ const PaymentGateway = ({
     setEnableInput(false)
     setEnablePayment(false)
     setHideRadio(true)
-    // toast.custom(
-    //   <div className={styles.alertPago}>
-    //     <p>
-    //       <i className="fas fa-exclamation-circle"></i> We were unable to
-    //       process the payment, please try again, or choose another payment
-    //       method.
-    //     </p>
-    //   </div>,
-    //   { duration: 3000 }
-    // )
   }
 
   const paymentOptions = [
-    { label: "Mercado Pago / Credit", value: "MercadoPago" },
+    { label: "Credit Card", value: "Credit Card" },
     { label: "Giftcard", value: "GiftCard" },
   ]
 
   const paymentOptionsGiftC = [
-    { label: "Mercado Pago / Credit", value: "MercadoPago" },
+    { label: "Credit Card", value: "Credit Card" },
   ]
 
   return (
-    <ScrollView style={styles.gatewayContainer}>
+    <KeyboardAvoidingView behavior={'position'}>
+      <ScrollView style={styles.gatewayContainer}>
       <AwesomeAlert
         messageStyle={{ fontFamily: "Roboto_500Medium", textAlign: "center" }}
         contentContainerStyle={{
@@ -437,13 +419,13 @@ const PaymentGateway = ({
                   style={styles.button}
                   onPress={addNewOrderHandler}
                 >
-                  <Text>pagar</Text>
+                  <Text>PAY</Text>
                 </TouchableOpacity>
               </View>
             )}
           </View>
         )}
-        {chosenMethod.enable && chosenMethod.type.includes("MercadoPago") && (
+        {chosenMethod.enable && chosenMethod.type.includes("Credit Card") && (
           <PayWithCard
             addNewOrderHandler={addNewOrderHandler}
             catchPagoErr={catchPagoErr}
@@ -452,6 +434,7 @@ const PaymentGateway = ({
         )}
       </View>
     </ScrollView>
+    </KeyboardAvoidingView>
   )
 }
 
