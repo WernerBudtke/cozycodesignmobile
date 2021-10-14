@@ -7,15 +7,13 @@ import productsActions from "../redux/actions/productsActions"
 import { FontAwesome5, Foundation, MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 import SelectDropdown from 'react-native-select-dropdown'
 
-const ProductsGallery = ({ products, getProducts, productsCategory, route, getProductByCategory, navigation}) => {
+const ProductsGallery = ({ products, getProducts, productsCategory, route, getProductByCategory, navigation, categoryHome}, props) => {
     const [showCartCard, setShowCartCard] = useState(false)
     const [productAlert, setProductAlert] = useState(null)
     const [order, setOrder] = useState(null)
     const [view, setView] = useState({category: null, subcategory: null})
     const [category, setCategory] = useState(null)
-    const [modalVisible, setModalVisible] = useState(false);
-
-    console.log(category)
+    const [modalVisible, setModalVisible] = useState(false)
     
     useEffect(() => {
         if (!products.length) {
