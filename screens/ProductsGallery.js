@@ -14,31 +14,36 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
     const [view, setView] = useState({category: null, subcategory: null})
     const [category, setCategory] = useState(null)
     const [modalVisible, setModalVisible] = useState(false)
+    const [loading, setLoading] = useState(true)
     
     useEffect(() => {
         if (!products.length) {
           getProducts()
+          setLoading(false)
         } else {
           getProductByCategory(category)
+          setLoading(false)
         }
         if (route.params?.category) {
           setView({category: route.params?.category, subcategory: null})
+          setLoading(false)
         } else {
           setView({category: null, subcategory: null})
+          setLoading(false)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [category])
 
-    const categories = ["Bathroom", "Kitchenware", "Decor", "GiftCard", "Sale"]
+    const categories = ["bathroom", "kitchenware", "decor", "giftcard", "sale"]
     let subcategories = []
-    if (category === "Bathroom") {
-        subcategories = ["Accesories", "Mirrors"]
-    } else if (category === "Kitchenware") {
-        subcategories = ["Accesories", "Glassware", "Tableware"]
+    if (category === "bathroom") {
+        subcategories = ["accesories", "mirrors"]
+    } else if (category === "kitchenware") {
+        subcategories = ["accesories", "glassware", "tableware"]
     } else if (category === "Decor") {
-        subcategories = ["Accesories", "Home", "Lighting"]
-    } else if (category === "GiftCard") {
-        subcategories = ["GiftCard"]
+        subcategories = ["accesories", "home", "lighting"]
+    } else if (category === "giftcard") {
+        subcategories = ["giftcard"]
     }
     const sorting = ["Most relevant", "Lower to higher", "Higher to lower"]
 
@@ -65,6 +70,15 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
     const viewHandler = (e) => {
     setView({...view, subcategory: e})
     }
+
+    if (loading) {
+        return (
+          <View style={styles.preloader}>
+            <Image source={{ uri: `https://cozydeco.herokuapp.com/c.png`}} />
+            <Text style={styles.loading}>LOADING...</Text>
+          </View>
+        )
+      }
 
     return (
         <View style={styles.main}>
@@ -340,5 +354,20 @@ const styles = StyleSheet.create({
         textAlign: "center", 
         fontFamily: "Roboto_700Bold", 
         fontSize: 20
-    }
+    },
+
+    logoImage: {
+        width: 500,
+        height: 500,
+      }, 
+    
+      preloader: {
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+      },
+    
+      loading: {
+        fontFamily:"Roboto_400Regular",
+      }
 })

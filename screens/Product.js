@@ -69,7 +69,12 @@ const Product = ({
   }
 
   if (loading) {
-    return <Text>LOADING...</Text>
+    return (
+      <View style={styles.preloader}>
+        <Image source={{ uri: `https://cozydeco.herokuapp.com/c.png`}} />
+        <Text style={styles.loading}>LOADING...</Text>
+      </View>
+    )
   }
 
   const finalPrice =
@@ -366,4 +371,19 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignSelf: "center",
   },
+
+  logoImage: {
+    width: 500,
+    height: 500,
+  }, 
+
+  preloader: {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  loading: {
+    fontFamily:"Roboto_400Regular",
+  }
 })
