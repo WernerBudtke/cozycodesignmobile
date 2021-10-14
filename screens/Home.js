@@ -20,11 +20,10 @@ const Home = ({navigation, route, match, product, params}, props) => {
   const scrollX = React.useRef(new Animated.Value(0)).current
   const [category, setCategory]= useState(null)
 
-
   const handlerCategory=(item)=>{
     setCategory(item)
     navigation.navigate("Gallery", {
-        category:category
+        id:category
       })
       }
   

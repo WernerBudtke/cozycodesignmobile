@@ -15,14 +15,13 @@ const ProductsGallery = ({ products, getProducts, match, productsCategory, route
     const [view, setView] = useState({category: null, subcategory: null})
     const [category, setCategory] = useState(null)
 
-    console.log(route.params.category + "soy la gallery")
-
+console.log(route)
 
     useEffect(() => {
         if (!products.length) {
           getProducts()
         } else {
-          getProductByCategory(route.params.category)
+          getProductByCategory(id)
         }
         if (route.params?.category) {
           setView({category: route.params?.category, subcategory: null})
