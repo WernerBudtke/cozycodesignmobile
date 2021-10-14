@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import {
   Animated,
   Dimensions,
@@ -7,17 +7,27 @@ import {
   Text,
   View,
   StyleSheet,
+  Pressable
 } from "react-native"
 import { StatusBar } from "expo-status-bar"
+import { connect } from "react-redux"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 
 
-const Home = ({navigation}) => {
+const Home = ({navigation, route, match, product, params}, props) => {
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current
-  console.log("home" + navigation)
+  const [category, setCategory]= useState(null)
 
+
+  const handlerCategory=(item)=>{
+    setCategory(item)
+    navigation.navigate("Gallery", {
+        category:category
+      })
+      }
+  
   const { width, height } = Dimensions.get("screen")
   const ITEM_WIDTH = width * 0.76
   const ITEM_HEIGHT = ITEM_WIDTH * 1.47
@@ -38,7 +48,6 @@ const Home = ({navigation}) => {
     key: String(index),
     photo: image.img,
     link: image.link,
-    description: image.description,
   }))
 
   const categories = [
@@ -101,10 +110,9 @@ const Home = ({navigation}) => {
                         >
                           <View key={index}>
                             <TouchableOpacity
-                             onPress={() => navigation.navigate("Gallery", {
-                                category: item.category
-                              })
-                            }
+                            onPress={() => 
+                                handlerCategory(item.category)
+                              }
                             > 
                               <Image
                                 source={{ uri: item.src }}
@@ -187,7 +195,15 @@ const Home = ({navigation}) => {
     </View>
   )
 }
-export default Home
+const mapStateToProps = (state) => {
+    return {
+      products: state.products.products,
+      productsCategory: state.products.productsCategory
+    }
+}
+
+
+export default connect(mapStateToProps)(Home)
 
 const width = Dimensions.get("window").width - 40
 
