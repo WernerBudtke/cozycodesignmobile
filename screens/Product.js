@@ -290,7 +290,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   shippingInfo: {
-    backgroundColor: "red",
     flexDirection: "row",
     padding: 2,
     marginVertical: 10,
