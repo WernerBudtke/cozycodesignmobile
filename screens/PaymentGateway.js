@@ -193,7 +193,7 @@ const PaymentGateway = ({
         confirmButtonStyle={{ height: 30, backgroundColor: "#ad9993" }}
         show={showAlert2}
         showProgress={false}
-        message={`Thank you for your purchase, ${loginUser.firstName}. Come back anytime soon!`}
+        message="Thank you for your purchase! You'll be recieving an email with all the details."
         closeOnTouchOutside={false}
         closeOnHardwareBackPress={false}
         showConfirmButton={true}
@@ -210,6 +210,7 @@ const PaymentGateway = ({
               ],
             })
         }}
+        messageStyle={{lineHeight: 20, textAlign: 'center' }}
       />
       <View style={styles.checkoutInfo}>
         <Text style={styles.h1}>Personal Info</Text>
@@ -317,7 +318,6 @@ const PaymentGateway = ({
                 fillOrderInfo(value)
                 setEnablePayment(false)
               }}
-              // onPress={() => setEnablePayment(false)}
               disabled={enableInput}
               buttonColor={"#ad999393"}
               selectedButtonColor={"#ad999393"}
