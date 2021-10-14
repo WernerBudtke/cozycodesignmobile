@@ -23,7 +23,7 @@ const Cart = ({ products, loginUser, navigation }) => {
   )
 
   const redirectPayment = () => {
-    navigation.navigate("Payment", { totalPrice: totalPrice })
+    navigation.navigate("Payment", { total: 'total' })
   }
 
   const redirectHandler = () => {

@@ -66,11 +66,6 @@ const Navigator = ({ logFromSession, addCartLS, loginUser }) => {
         component={NavigatorSignUp}
         options={{ headerShown: false }}
       />
-      <Drawer.Screen
-        name="Payment"
-        component={NavigatorPayment}
-        options={{ headerShown: false }}
-      />
     </Drawer.Navigator>
   )
 }

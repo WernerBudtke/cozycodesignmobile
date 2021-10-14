@@ -27,7 +27,7 @@ const SignUp = ({signUp, navigation}) => {
     return (
         <KeyboardAvoidingView keyboardVerticalOffset={10}>
             <View style={styles.container}>
-            <ImageBackground style={styles.image} source={{uri: 'https://i.imgur.com/jmu7dkR.jpg'}} >
+            <ImageBackground style={styles.image} source={{uri: 'https://i.imgur.com/53dtUry.jpg'}} >
                 <View style={styles.content}>
                     <Text style={styles.text}>Sign Up</Text>
                     <View style={styles.form}>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         marginTop: -70
     },
     text:{
-        color: '#ecebe9',
+        color: 'black',
         fontSize: 28,
         marginBottom: 10,
         fontWeight: 'bold'

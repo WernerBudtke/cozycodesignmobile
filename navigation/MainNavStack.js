@@ -20,12 +20,22 @@ export const NavigatorHome = (props) => {
         component={Home}
         options={{ title: "COZY", headerShown: false}}
       />
+      {/* <Stack.Screen
+        name="Gallery"
+        component={ProductsGallery}
+        options={{
+          title: "Gallery",
+          headerLeft: () => (
+            <ArrowBack navigation={props.navigation} to={"Home"} />
+          ),
+        }}
+      /> */}
     </Stack.Navigator>
+    
   )
 }
 
 export const NavigatorProductGallery = (props) => {
-  
   return (
     <Stack.Navigator
       screenOptions={{
