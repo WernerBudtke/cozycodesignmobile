@@ -43,7 +43,7 @@ const ProductCard = ({
       )}
         <View style={styles.container}>
           <Pressable 
-          onPress={() => navigation.navigate("Product", {
+          onPress={() => navigation.navigate("Product ", {
             id: product._id, product: product
           })
         }>
@@ -57,7 +57,9 @@ const ProductCard = ({
               </View>
         <View style={styles.buttonContainer}>
           <Pressable
-          onPress={() => navigation.navigate("Product")}>
+          onPress={() => navigation.navigate("Product ", {
+            id: product._id, product: product
+          })}>
             <MaterialCommunityIcons name="eye" size={25} color="black" />
           </Pressable>
                 <View style={styles.priceContainer}>

@@ -16,7 +16,7 @@ export const NavigatorHome = (props) => {
     <Stack.Navigator>
       <Stack.Screen
         navigation={props.navigation}
-        name="Home"
+        name="Home "
         component={Home}
         options={{ title: "COZY", headerShown: false }}
       />
@@ -40,7 +40,7 @@ export const NavigatorProductGallery = (props) => {
       }}
     >
       <Stack.Screen
-        name="Gallery"
+        name="Gallery "
         component={ProductsGallery}
         options={{
           title: "Gallery",
@@ -50,12 +50,12 @@ export const NavigatorProductGallery = (props) => {
         }}
       />
       <Stack.Screen
-        name="Product"
+        name="Product "
         component={Product}
         options={{
           title: "Product",
           headerLeft: () => (
-            <ArrowBack navigation={props.navigation} to={"Gallery"} />
+            <ArrowBack navigation={props.navigation} to={"Gallery "} />
           ),
         }}
       />
@@ -81,7 +81,7 @@ export const NavigatorSignIn = (props) => {
       }}
     >
       <Stack.Screen
-        name="LogIn"
+        name="LogIn "
         component={SignIn}
         options={{
           title: "Sign In",
@@ -111,7 +111,7 @@ export const NavigatorSignUp = (props) => {
       }}
     >
       <Stack.Screen
-        name="SignUp"
+        name="SignUp "
         component={SignUp}
         options={{
           title: "Sign Up",
@@ -141,7 +141,7 @@ export const NavigatorCart = (props) => {
       }}
     >
       <Stack.Screen
-        name="Cart"
+        name="Cart "
         component={Cart}
         options={{
           title: "Cart",
@@ -171,7 +171,7 @@ export const NavigatorPayment = (props) => {
       }}
     >
       <Stack.Screen
-        name="Payment"
+        name="Payment "
         component={PaymentGateway}
         options={{
           title: "Payment",

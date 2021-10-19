@@ -37,6 +37,7 @@ const Product = ({
     } else {
       getProductByCategory(product.category)
       findAProduct(route.params.id)
+      setTimeout(()=>{},3000)
       setLoading(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

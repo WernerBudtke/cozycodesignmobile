@@ -106,7 +106,9 @@ const Home = ({navigation}, props) => {
                           <View key={index}>
                             <TouchableOpacity
                               onPress={() => {
-                                navigation.navigate("Gallery")
+                                navigation.navigate("Gallery", {
+                                  category: "bathroom"
+                                })
                               }}
                             >
                               <Image

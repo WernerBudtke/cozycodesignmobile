@@ -7,7 +7,7 @@ import productsActions from "../redux/actions/productsActions"
 import { FontAwesome5, Foundation, MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 import SelectDropdown from 'react-native-select-dropdown'
 
-const ProductsGallery = ({ products, getProducts, productsCategory, route, getProductByCategory, navigation}, props) => {
+const ProductsGallery = ({ products, getProducts, productsCategory, getProductByCategory, navigation}, props) => {
     const [showCartCard, setShowCartCard] = useState(false)
     const [productAlert, setProductAlert] = useState(null)
     const [order, setOrder] = useState(null)
@@ -19,15 +19,16 @@ const ProductsGallery = ({ products, getProducts, productsCategory, route, getPr
         if (!products.length) {
           getProducts()
         } else {
+            console.log(props.route.params.category)
           getProductByCategory(category)
         }
-        if (route.params?.category) {
-          setView({category: route.params?.category, subcategory: null})
+        if (props.route.params.category) {
+          setView({category: props.route.params.category, subcategory: null})
         } else {
           setView({category: null, subcategory: null})
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [category])
+    }, [])
 
 
     const categories = ["Bathroom", "Kitchenware", "Decor", "GiftCard", "Sale"]
