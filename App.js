@@ -1,21 +1,45 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native"
+import React from "react"
+import { LogBox } from "react-native"
+import Navigator from "./navigation/MainNavDrawer"
+import { applyMiddleware, createStore } from "redux"
+import { Provider } from "react-redux"
+import thunk from "redux-thunk"
+import rootReducers from "./redux/reducers/rootReducers"
+import { AppLoading } from "expo-app-loading"
+import {
+  Roboto_400Regular,
+  Roboto_700Bold,
+  Roboto_500Medium,
+} from "@expo-google-fonts/roboto"
+import { useFonts } from "expo-font"
+import {
+  Cormorant_400Regular,
+  Cormorant_700Bold,
+} from "@expo-google-fonts/cormorant"
 
-export default function App() {
+LogBox.ignoreAllLogs(true)
+const store = createStore(rootReducers, applyMiddleware(thunk))
+
+const App = () => {
+  let [fontsLoaded] = useFonts({
+    Cormorant_400Regular,
+    Cormorant_700Bold,
+    Roboto_700Bold,
+    Roboto_400Regular,
+    Roboto_500Medium,
+  })
+
+  if (!fontsLoaded) {
+    return null
+  } 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <Provider store={store}>
+      <NavigationContainer>
+        <Navigator />
+      </NavigationContainer>
+    </Provider>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
