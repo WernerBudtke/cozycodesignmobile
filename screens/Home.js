@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, {useState} from "react"
 import {
   Animated,
   Dimensions,
@@ -7,42 +7,47 @@ import {
   Text,
   View,
   StyleSheet,
-  Button,
-  TextInput,
-  ImageBackground,
-  Pressable,
+  Pressable
 } from "react-native"
 import { StatusBar } from "expo-status-bar"
+import { connect } from "react-redux"
 import { TouchableOpacity } from "react-native-gesture-handler"
+import { FontAwesome5, Foundation,  MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
+import productsActions from "../redux/actions/productsActions"
 
-const Home = ({navigation}, props) => {
+
+
+const Home = ({navigation, route, match, product, params, getProductByCategory}, props) => {
   const scrollY = React.useRef(new Animated.Value(0)).current
   const scrollX = React.useRef(new Animated.Value(0)).current
-
+  const [categoryHome, setCategoryHome]= useState(null)
+  
+  const handlerCategory=(item)=>{
+    console.log(item)
+    setCategoryHome(item)
+    getProductByCategory(item)
+    navigation.navigate("Gallery", categoryHome)
+    }
+  
   const { width, height } = Dimensions.get("screen")
   const ITEM_WIDTH = width * 0.76
   const ITEM_HEIGHT = ITEM_WIDTH * 1.47
   const imageW = width / 2
-
   const images = [
     {
-      img: "https://i.postimg.cc/28fhfXP2/home1.png",
+      img: "https://i.postimg.cc/BbhLKnZr/17.png",
       link: "Check out our latest trends",
     },
     {
       img: "https://i.postimg.cc/66G4VjPx/home3.png",
       link: "There is no place like home",
-      description:
-        "In Cozy we offer a wide variety of well-designed, functional home products. Whether your home decor leans towards minimalist or maximalist aesthetic, you'll find something to suit your style.",
     },
-    // { img: "https://i.postimg.cc/fRkNXFHx/home4.png", link: "" },
     { img: "https://i.postimg.cc/cCsFRrC2/home2.png", link: "Categories" },
   ]
   const data = images.map((image, index) => ({
     key: String(index),
     photo: image.img,
     link: image.link,
-    description: image.description,
   }))
 
   const categories = [
@@ -54,7 +59,7 @@ const Home = ({navigation}, props) => {
       category: "Giftcard",
     },
     { src: "https://i.postimg.cc/R0mhJ9vz/sale.jpg", category: "Sale" },
-  ];
+  ]
 
   return (
     <View style={styles.container}>
@@ -67,7 +72,6 @@ const Home = ({navigation}, props) => {
         }
         data={data}
         keyExtractor={(item) => item.key}
-        pagingEnabled
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: true }
@@ -105,11 +109,11 @@ const Home = ({navigation}, props) => {
                         >
                           <View key={index}>
                             <TouchableOpacity
-                              onPress={() => {
+                              onPress={() =>
                                 navigation.navigate("Gallery", {
-                                  category: "bathroom"
+                                  category: item.category,
                                 })
-                              }}
+                              }
                             >
                               <Image
                                 source={{ uri: item.src }}
@@ -140,34 +144,46 @@ const Home = ({navigation}, props) => {
                     }}
                   />
                 </View>
-              ):(
-              <View
-                style={{
-                      overflow: "hidden",
-                      alignItems: "center",
-                }}>
-                    <Animated.Image
-                      source={{ uri: item.photo }}
-                      style={{
-                        width: width*1.04,
-                        height: height*1,
-                        resizeMode: "cover",
-                        transform: [
-                          {
-                            translateY,
-                          },
-                        ],
-                      }}
-                    />
-                    {item.link.includes("Check") &&(
-                      <View  style={styles.boxCallToAction}>
-                    <Text style={styles.textCallToAction}>{item.link} </Text>
+              ) : (
+                <View
+                  style={{
+                    overflow: "hidden",
+                    alignItems: "center",
+                  }}
+                >
+                  <Animated.Image
+                    source={{ uri: item.photo }}
+                    style={{
+                      width: width,
+                      height: height,
+                      resizeMode: "cover",
+                      transform: [
+                        {
+                          translateY,
+                        },
+                      ],
+                    }}
+                  />
+                  {item.link.includes("Check") && (
+                    <View style={styles.boxCallToAction}>
+                      <Text style={styles.textCallToAction}>{item.link} </Text>
+                      <FontAwesome5
+                        name="wpexplorer"
+                        size={40}
+                        color="black"
+                        style={styles.iconExplore}
+                      />
                     </View>
                   )}
                   {item.link.includes("home") && (
                     <View style={styles.boxQuote}>
                       <Text style={styles.textQuote}>{item.link} </Text>
-                      <Text style={styles.bodyQuote}>{item.description} </Text>
+                      <FontAwesome5
+                        name="couch"
+                        size={25}
+                        color="black"
+                        style={styles.icon}
+                      />
                     </View>
                   )}
                 </View>
@@ -190,7 +206,19 @@ const Home = ({navigation}, props) => {
     </View>
   )
 }
-export default Home
+const mapStateToProps = (state) => {
+    return {
+      products: state.products.products,
+      productsCategory: state.products.productsCategory
+    }
+}
+
+const mapDispatchToProps = {
+  getProductByCategory: productsActions.getProductByCategory
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
 
 const width = Dimensions.get("window").width - 40
 
@@ -207,38 +235,45 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   boxCallToAction: {
-    backgroundColor: "#dabea8de",
-    width: 100,
-    height: 140,
+    backgroundColor: "rgba(0, 0, 0, 0.538)",
+    backgroundColor: "#e3cebc",
+    width: width + 46.5,
+    height: width + 46.5,
     position: "absolute",
     zIndex: 300,
-    bottom:width+200,
-    right:60,
-    borderRadius:15,
-    shadowColor: '#000',
-    shadowOpacity:.5,
+    paddingTop: 250,
+    top: -250,
+    right: -3,
+    borderRadius: 250,
+    shadowColor: "#000",
+    shadowOpacity: 0.5,
     shadowOffset: {
       width: 0,
       height: 0,
     },
     shadowRadius: 20,
+    color: "#060B34",
   },
   textCallToAction: {
-    color: "#060B34",
+    color: "rgb(245, 245, 245)",
+    color: "rgb(41, 40, 40)",
     textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold", 
-    marginBottom:width*1.5,
-    padding:10,
+    fontSize: 23,
+    padding: 10,
+    marginTop: 20,
+    width: "50%",
+    alignSelf: "center",
+    fontWeight: "bold",
   },
-  categoriesContainer:{
-      minHeight:"100%",
-      flex:1,
-      alignContent: "center",
-      marginLeft:20,
+
+  categoriesContainer: {
+    minHeight: "100%",
+    flex: 1,
+    alignContent: "center",
+    marginLeft: 20,
   },
-  titleCategory:{
-    fontSize:30,
+  titleCategory: {
+    fontSize: 30,
     fontWeight: "bold",
     alignSelf: "center",
     paddingTop: 10,
@@ -259,19 +294,19 @@ const styles = StyleSheet.create({
   },
   boxQuote: {
     color: "#060B34",
-    fontSize: 10,
-    backgroundColor: "rgba(255, 255, 255, 0.79)",
-    width:220,
-    height:270,
+    fontSize: 20,
+    backgroundColor: "rgba(255, 255, 255, 0.40)",
+    width: width + 35,
+    height: 120,
     position: "absolute",
     zIndex: 200,
-    bottom:-60,
-    left:-10,
-    marginBottom:width,
-    padding:15,
-    borderRadius:15,
-    shadowColor: '#000',
-    shadowOpacity:.1,
+    top: 0,
+    left: 0,
+    paddingTop: 30,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    borderBottomStartRadius: 50,
+    borderBottomEndRadius: 50,
     shadowOffset: {
       width: 0,
       height: 0,
@@ -280,40 +315,18 @@ const styles = StyleSheet.create({
   },
   textQuote: {
     color: "#060B34",
-    fontSize: 14,
-    fontWeight: "bold", 
-    paddingStart:10,
-  },
-  bodyQuote: {
-    color: "#060B34",
-    fontSize: 14,
-    lineHeight: 20,
-    paddingStart: 10,
-    paddingTop: 10,
-  },
-  boxCallToAction: {
-    backgroundColor: "#dabea8de",
-    width: 100,
-    height: 140,
-    position: "absolute",
-    zIndex: 200,
-    bottom: width + 100,
-    left: 40,
-    borderRadius: 15,
-    shadowColor: "#000",
-    shadowOpacity: 0.5,
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowRadius: 20,
-  },
-  textCallToAction: {
-    color: "#060B34",
-    textAlign: "center",
-    fontSize: 20,
+    fontSize: 23,
     fontWeight: "bold",
-    marginBottom: width * 1.5,
-    padding: 10,
+    paddingStart: 10,
+    textAlign: "center",
   },
+  icon:{
+    alignSelf: "center",
+    color: "rgb(41, 40, 40)",
+    marginTop:12,
+  },
+  iconExplore: {
+    alignSelf: "center",
+    color: "rgb(41, 40, 40)",
+  }
 })

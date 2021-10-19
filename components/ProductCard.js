@@ -1,96 +1,105 @@
 import React from "react" 
 import { Text, View, StyleSheet, Image, Pressable} from "react-native"
 import { connect } from "react-redux"
-import { useEffect, useState } from "react"
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
+import { useState } from "react"
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons"
 import cartActions from "../redux/actions/cartActions"
-import productsActions from "../redux/actions/productsActions"
+import AwesomeAlert from "react-native-awesome-alerts"
 
 const ProductCard = ({
-    user,
     product,
     navigation,
     addCartProduct,
   }) => {
 
-    const [admin, setAdmin] = useState(null)
-    useEffect(() => {
-        if (user) {
-        setAdmin(user.admin)
-        }
-    }, [])
+  const [showAlert, setShowAlert] = useState(false)
 
-    const addToCartHandler = () => {
-        let newProducts = {
-          product: product,
-          quantity: 1,
-        }
-        addCartProduct(newProducts)
+  const addToCartHandler = () => {
+    let newProducts = {
+      product: product,
+      quantity: 1,
     }
+    addCartProduct(newProducts)
+    setShowAlert(true)
+  }
 
-    const photo = product.photo?.includes("http")
-        ? product.photo
-        : `https://cozydeco.herokuapp.com/${product.photo}`
+  const photo = product.photo?.includes("http")
+    ? product.photo
+    : `https://cozydeco.herokuapp.com/${product.photo}`
         
-    return (
-      <View style={styles.wrapper} >
+  return (
+    <View style={styles.wrapper} >
+      <AwesomeAlert
+        show={showAlert}
+        showProgress={false}
+        message="Item successfully added to cart!"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showConfirmButton={true}
+        confirmText="OK"
+        confirmButtonColor="#ad9993d2"
+        onConfirmPressed={() => {
+          setShowAlert(false)
+        }}
+        messageStyle={{ fontFamily: "Roboto_500Medium"}}
+        contentContainerStyle={{
+          backgroundColor: "#f8f6f4"
+        }}
+        confirmButtonStyle={{width: 100, textAlign: 'center'}}
+        confirmButtonTextStyle={{textAlign: 'center'}}
+      />
       {product.discount !== 0 && (
-        <View style={styles.inside}>
-          <Text style={styles.icon}>
-            {product.discount}% OFF
-          </Text>
-        </View>
+      <View style={styles.inside}>
+        <Text style={styles.icon}>
+          {product.discount}% OFF
+        </Text>
+      </View>
       )}
-        <View style={styles.container}>
-          <Pressable 
-          onPress={() => navigation.navigate("Product ", {
+      <View style={styles.container}>
+        <Pressable 
+          onPress={() => navigation.navigate("Product", {
             id: product._id, product: product
           })
-        }>
-            <Image source={{ uri: photo}} style={styles.top} resizeMode="cover"/>
-          </Pressable>
-        </View>
-              <View style={styles.nameAndPrice}>
-                <Text style={styles.productName}>
-                    {product.name}
-                </Text>
-              </View>
-        <View style={styles.buttonContainer}>
-          <Pressable
-          onPress={() => navigation.navigate("Product ", {
-            id: product._id, product: product
-          })}>
-            <MaterialCommunityIcons name="eye" size={25} color="black" />
-          </Pressable>
-                <View style={styles.priceContainer}>
-                  <Text style={product.discount !== 0 ? styles.sale : styles.price} >
-                    ${product.price}
-                  </Text>
-                  {product.discount !== 0 && (
-                    <Text style={styles.price}>
-                      ${(((100 - product.discount) / 100) * product.price).toFixed(2)}
-                    </Text>
-                  )} 
-                </View>
-        <Pressable onPress={addToCartHandler}>
-        <Ionicons name="ios-cart" size={25} color="black" />
+          }>
+          <Image source={{ uri: photo}} style={styles.top} resizeMode="cover"/>
         </Pressable>
-        </View>
       </View>
-    )
+      <View style={styles.nameAndPrice}>
+        <Text style={styles.productName}>
+            {product.name}
+        </Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <Pressable
+          onPress={() => navigation.navigate("Product", {
+            id: product._id, product: product
+          })
+          }>
+          <MaterialCommunityIcons name="eye" size={27} color="black" />
+        </Pressable>
+        <View style={styles.priceContainer}>
+          <Text style={product.discount !== 0 ? styles.sale : styles.price} >
+            ${product.price}
+          </Text>
+            {product.discount !== 0 && (
+              <Text style={styles.price}>
+                ${(((100 - product.discount) / 100) * product.price).toFixed(2)}
+              </Text>
+            )} 
+        </View>
+        <Pressable onPress={addToCartHandler}>
+          <Ionicons name="ios-cart" size={27} color="black" />
+        </Pressable>
+      </View>
+    </View>
+  )
 }
-
-const mapStateToProps = (states) => {
-    return {
-      user: states.users.user,
-    }
-  }
   
 const mapDispatchToProps = {
     addCartProduct: cartActions.addCartProduct,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCard)
+export default connect(null, mapDispatchToProps)(ProductCard)
 
 const styles = StyleSheet.create ({
   
@@ -139,7 +148,7 @@ const styles = StyleSheet.create ({
 
   productName: {
     fontSize: 25,
-    fontWeight: "bold",
+    fontFamily: "Roboto_700Bold",
   },
 
   priceContainer: {
@@ -150,6 +159,7 @@ const styles = StyleSheet.create ({
   price: {
     color: "black",
     fontSize: 20,
+    fontFamily:"Roboto_400Regular",
   },
 
   sale: {
@@ -158,6 +168,7 @@ const styles = StyleSheet.create ({
     textDecorationStyle: 'solid',
     fontSize: 17,
     marginRight: 15,
+    fontFamily:"Roboto_400Regular",
   },
 
   inside: {
@@ -168,6 +179,7 @@ const styles = StyleSheet.create ({
   icon: {
     color: "white",
     fontSize: 15,
+    fontFamily:"Roboto_400Regular",
   },
 
   buttonContainer: {

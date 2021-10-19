@@ -18,9 +18,20 @@ export const NavigatorHome = (props) => {
         navigation={props.navigation}
         name="Home "
         component={Home}
-        options={{ title: "COZY", headerShown: false }}
+        options={{ title: "COZY", headerShown: false}}
       />
+      {/* <Stack.Screen
+        name="Gallery"
+        component={ProductsGallery}
+        options={{
+          title: "Gallery",
+          headerLeft: () => (
+            <ArrowBack navigation={props.navigation} to={"Home"} />
+          ),
+        }}
+      /> */}
     </Stack.Navigator>
+    
   )
 }
 
@@ -32,10 +43,7 @@ export const NavigatorProductGallery = (props) => {
           backgroundColor: "#e3cebc",
         },
         headerTintColor: "black",
-        headerTitleStyle: {
-          fontSize: 24,
-          color: "black",
-        },
+        headerTitleStyle: {fontFamily: 'Cormorant_700Bold', fontSize: 30},
         headerRight: () => <LogoMenu navigation={props.navigation} />,
       }}
     >
@@ -54,12 +62,8 @@ export const NavigatorProductGallery = (props) => {
         component={Product}
         options={{
           title: "Product",
-          headerLeft: () => (
-            <ArrowBack navigation={props.navigation} to={"Gallery "} />
-          ),
         }}
       />
-      {/* Aca irían las screens que te llevan al componente dinamico de cada producto */}
     </Stack.Navigator>
   )
 }
@@ -73,10 +77,7 @@ export const NavigatorSignIn = (props) => {
           backgroundColor: "#e3cebc",
         },
         headerTintColor: "black",
-        headerTitleStyle: {
-          fontSize: 24,
-          color: "black",
-        },
+        headerTitleStyle: {fontFamily: 'Cormorant_700Bold', fontSize: 30},
         headerRight: () => <LogoMenu navigation={props.navigation} />,
       }}
     >
@@ -148,6 +149,17 @@ export const NavigatorCart = (props) => {
           headerLeft: () => (
             <ArrowBack navigation={props.navigation} to={"Home"} />
           ),
+          headerTitleStyle: {fontFamily: 'Cormorant_700Bold', fontSize: 30}
+        }}
+      />
+      <Stack.Screen
+        name="Payment"
+        component={PaymentGateway}
+        options={{
+          title: "Payment",
+          headerLeft: () => (
+            <ArrowBack navigation={props.navigation} to={"Cart"} />
+          ),
         }}
       />
     </Stack.Navigator>
@@ -163,10 +175,7 @@ export const NavigatorPayment = (props) => {
           backgroundColor: "#e3cebc",
         },
         headerTintColor: "black",
-        headerTitleStyle: {
-          fontSize: 24,
-          color: "black",
-        },
+        headerTitleStyle: {fontFamily: 'Cormorant_700Bold', fontSize: 30},
         headerRight: () => <LogoMenu navigation={props.navigation} />,
       }}
     >

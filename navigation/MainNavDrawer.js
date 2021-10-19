@@ -29,7 +29,6 @@ const Navigator = ({ logFromSession, addCartLS, loginUser }) => {
     }
     getFromLS()
   }, [])
-
   return (
     <Drawer.Navigator
       drawerContent={(props) => <DrawerStyle {...props} />}
@@ -42,7 +41,11 @@ const Navigator = ({ logFromSession, addCartLS, loginUser }) => {
         },
       }}
     >
-      <Drawer.Screen name="Home" options={{ title: 'COZY' }} component={NavigatorHome} />
+      <Drawer.Screen
+        name="Home"
+        options={{ title: "COZY", headerTitleStyle: {fontFamily: 'Cormorant_700Bold', fontSize: 30}}}
+        component={NavigatorHome}
+      />
       <Drawer.Screen
         name="Gallery"
         component={NavigatorProductGallery}
@@ -61,11 +64,6 @@ const Navigator = ({ logFromSession, addCartLS, loginUser }) => {
       <Drawer.Screen
         name="SignUp"
         component={NavigatorSignUp}
-        options={{ headerShown: false }}
-      />
-      <Drawer.Screen
-        name="Payment"
-        component={NavigatorPayment}
         options={{ headerShown: false }}
       />
     </Drawer.Navigator>

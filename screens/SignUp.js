@@ -1,54 +1,46 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, Dimensions, ImageBackground, TextInput, TouchableOpacity, Button, Pressable, Image } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, ImageBackground, TextInput, TouchableOpacity, Button, Pressable, KeyboardAvoidingView } from 'react-native'
 import userActions from '../redux/actions/userActions'
 import { connect } from 'react-redux'
 
 const SignUp = ({signUp, navigation}) => {
+    const [user, setUser] = useState({firstName: '', lastName: '', eMail: '', password: '', photo: 'c.png', admin: false, google: false, native: true})
+    const [renderError, setRenderError] = useState({})
+    const errorsInput = { firstName: null, lastName: null, eMail: null, password: null, emptyFields: null }
 
-    const [user, setUser] = useState({firstName: '', lastName: '', eMail: '', password: '', photo: 'xxxxxxxxx', admin: false, google: false, native: true})
-    const [error, setError] = useState([])
-
-    const signup=async()=>{
-        const response = await signUp(user)
-        console.log(response)
-        if (response.success) {
-          setUser('')
-          navigation.navigate('Home')
-        }
-    //     if (response.data.error === 'Username already in use, try another.') {
-    //       setError(response.data.error)
-    //     }
-    //     if (!response.data.success) {
-    //     response.data.errors.map((error) => {
-    //       return setError(error.message)
-    //     })
-    //   }
+    const signup = async () => {
+        if (Object.values(user).some((value) => value === "")) {
+            setRenderError({ emptyFields: "There cannot be empty fields" })
+          } else {
+            const response = await signUp(user)
+            if (response.success) {
+              navigation.navigate("Home")
+            } else {
+                console.log(response)
+              response.response.forEach((error) => {
+                errorsInput[error.context.label] = error.message
+              })
+              setRenderError(errorsInput)
+            }
+          }
     }
-
     return (
-        <View style={styles.container}>
-            <ImageBackground style={styles.image} source={{uri: 'https://i.imgur.com/Tc1vKCs.jpg'}} >
-                {error.length > 0 && <Text style={{color: 'red', fontSize: 23, textAlign: 'center'}}>{error}</Text>}
+        <KeyboardAvoidingView keyboardVerticalOffset={10}>
+            <View style={styles.container}>
+            <ImageBackground style={styles.image} source={{uri: 'https://i.imgur.com/53dtUry.jpg'}} >
                 <View style={styles.content}>
                     <Text style={styles.text}>Sign Up</Text>
                     <View style={styles.form}>
+                        <View style={{height: 17, marginBottom: 5}}>{renderError.firstName && (<Text style={styles.inputError}>{renderError.firstName}</Text>)}</View>
                         <TextInput placeholder="Firstname" style={styles.input} value={user.firstName} onChangeText={(value)=>setUser({...user, firstName: value})}/>
+                        <View style={{height: 17, marginBottom: 5}}>{renderError.lastName && (<Text style={styles.inputError}>{renderError.lastName}</Text>)}</View>
                         <TextInput placeholder="Lastname" style={styles.input} value={user.lastName} onChangeText={(value)=>setUser({...user, lastName: value})}/>
+                        <View style={{height: 17, marginBottom: 5}}>{renderError.eMail && (<Text style={styles.inputError}>{renderError.eMail}</Text>)}</View>
                         <TextInput placeholder="Email" style={styles.input} value={user.eMail} onChangeText={(value)=>setUser({...user, eMail: value})}/>
+                        <View style={{height: 17, marginBottom: 5}}>{renderError.password && (<Text style={styles.inputError}>{renderError.password}</Text>)}</View>
                         <TextInput placeholder="Password" secureTextEntry value={user.password} style={styles.input} onChangeText={(value)=>setUser({...user, password: value})}/>
                     </View>
-                    <Text style={styles.title}>Choose profile picture</Text>
-                    <View style={styles.imagesContainer}>
-                        <TouchableOpacity onPress={() => setUser({...user, photo: 'https://i.imgur.com/SrCMGbp.jpeg'})}>
-                            <Image style={styles.chooseImage} source={{ uri: 'https://i.imgur.com/SrCMGbp.jpeg' }} />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => setUser({...user, photo: 'https://i.imgur.com/Z0BrctE.jpeg'})}>
-                            <Image style={styles.chooseImage} source={{ uri: 'https://i.imgur.com/Z0BrctE.jpeg' }} />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => setUser({...user, photo: 'https://i.imgur.com/gaxfLhe.jpeg'})}>
-                            <Image style={styles.chooseImage} source={{ uri: 'https://i.imgur.com/gaxfLhe.jpeg' }} />
-                        </TouchableOpacity>
-                    </View>
+                    <View style={{height: 25}}>{<Text style={{color: 'red', fontWeight: 'bold', fontSize: 20}}>{renderError.emptyFields}</Text>}</View>
                     <TouchableOpacity style={styles.button} >
                         <Button color="#ad9993" title="Sign Up" onPress={signup}></Button>
                     </TouchableOpacity>
@@ -58,12 +50,11 @@ const SignUp = ({signUp, navigation}) => {
                 </View>
             </ImageBackground>
         </View>
+        </KeyboardAvoidingView>
     )
 }
+
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     content: {
         flex: 1,
         justifyContent: 'center',
@@ -71,16 +62,10 @@ const styles = StyleSheet.create({
         marginTop: -70
     },
     text:{
-        color: '#ecebe9',
+        color: 'black',
         fontSize: 28,
         marginBottom: 10,
-        backgroundColor: 'rgba(0, 0, 0, 0.6)',
-        borderRadius: 20,
-        padding: 5
-    },
-    form: {
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
+        fontWeight: 'bold'
     },
     image: {
         width: Dimensions.get('window').width,
@@ -99,25 +84,15 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 10
     },
-    imagesContainer: {
-        height: 150,
-        width: Dimensions.get('window').width,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around'
-    },
-    chooseImage: {
-        width: 100,
-        height: 100,
-        marginVertical: 10,
-        borderRadius: 50,
-        borderWidth: 2,
-        borderColor: 'black'
-    },
     title: {
         color: 'black',
         fontSize: 25,
         fontWeight: 'bold'
+    },
+    inputError: {
+        color: 'red',
+        fontWeight: 'bold',
+        fontSize: 15
     }
 })
 

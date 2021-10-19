@@ -1,46 +1,54 @@
 import React from "react"
-import { Text, View, StyleSheet, Keyboard, FlatList, Modal, Alert, Pressable} from "react-native"
+import { Text, View, StyleSheet, FlatList, Modal, Pressable, Image} from "react-native"
 import ProductCard from "../components/ProductCard"
 import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import productsActions from "../redux/actions/productsActions"
-import { FontAwesome5, Foundation, MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons'
 import SelectDropdown from 'react-native-select-dropdown'
 
+<<<<<<< HEAD
 const ProductsGallery = ({ products, getProducts, productsCategory, getProductByCategory, navigation}, props) => {
+=======
+const ProductsGallery = ({ products, getProducts, productsCategory, route, getProductByCategory, navigation }) => {
+>>>>>>> 08b4b70ded8b8efbbec3a9d0adc9aac6cd56f7f1
     const [showCartCard, setShowCartCard] = useState(false)
     const [productAlert, setProductAlert] = useState(null)
     const [order, setOrder] = useState(null)
     const [view, setView] = useState({category: null, subcategory: null})
     const [category, setCategory] = useState(null)
-    const [modalVisible, setModalVisible] = useState(false);
-
+    const [modalVisible, setModalVisible] = useState(false)
+    const [loading, setLoading] = useState(true)
+    
     useEffect(() => {
         if (!products.length) {
           getProducts()
+          setLoading(false)
         } else {
             console.log(props.route.params.category)
           getProductByCategory(category)
+          setLoading(false)
         }
-        if (props.route.params.category) {
-          setView({category: props.route.params.category, subcategory: null})
+        if (route.params?.category) {
+          setView({category: route.params?.category, subcategory: null})
+          setLoading(false)
         } else {
           setView({category: null, subcategory: null})
+          setLoading(false)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-
-    const categories = ["Bathroom", "Kitchenware", "Decor", "GiftCard", "Sale"]
+    const categories = ["bathroom", "kitchenware", "decor", "giftcard", "sale"]
     let subcategories = []
-    if (category === "Bathroom") {
-        subcategories = ["Accesories", "Mirrors"]
-    } else if (category === "Kitchenware") {
-        subcategories = ["Accesories", "Glassware", "Tableware"]
+    if (category === "bathroom") {
+        subcategories = ["accesories", "mirrors"]
+    } else if (category === "kitchenware") {
+        subcategories = ["accesories", "glassware", "tableware"]
     } else if (category === "Decor") {
-        subcategories = ["Accesories", "Home", "Lighting"]
-    } else if (category === "GiftCard") {
-        subcategories = ["GiftCard"]
+        subcategories = ["accesories", "home", "lighting"]
+    } else if (category === "giftcard") {
+        subcategories = ["giftcard"]
     }
     const sorting = ["Most relevant", "Lower to higher", "Higher to lower"]
 
@@ -68,6 +76,15 @@ const ProductsGallery = ({ products, getProducts, productsCategory, getProductBy
     setView({...view, subcategory: e})
     }
 
+    if (loading) {
+        return (
+          <View style={styles.preloader}>
+            <Image style={styles.logoImage} source={{ uri: `https://cozydeco.herokuapp.com/c.png`}} />
+            <Text style={styles.loading}>LOADING...</Text>
+          </View>
+        )
+      }
+
     return (
         <View style={styles.main}>
             <View style={styles.filterContainer}>
@@ -88,7 +105,7 @@ const ProductsGallery = ({ products, getProducts, productsCategory, getProductBy
                         onSelect={(selectedItem, index) => {
                             setCategory(selectedItem)
                         }}
-                        defaultButtonText={"Category"}
+                        defaultButtonText={!category ? 'Category' : category}
                         buttonTextAfterSelection={(selectedItem, index) => {
                             return selectedItem
                         }}
@@ -107,13 +124,6 @@ const ProductsGallery = ({ products, getProducts, productsCategory, getProductBy
                         rowStyle={styles.rowStyle}
                         rowTextStyle={styles.rowTxtStyle}
                     />
-                    {/* <View style={styles.icons}>
-                        <FontAwesome5 onPress={() => setCategory("Bathroom")} name="toilet" size={24} color="black"  style={styles.icon}/>
-                        <FontAwesome5 onPress={() => setCategory("Kitchenware")} name="utensils" size={24} color="black" style={styles.icon}/>
-                        <MaterialCommunityIcons onPress={() => setCategory("Decor")} name="lamp" size={26} color="black" style={styles.icon} />
-                        <MaterialIcons onPress={() => setCategory("GiftCard")} name="card-giftcard" size={26} color="black" style={styles.icon} />
-                        <Foundation onPress={() => setCategory("sale")} name="burst-sale" size={30} color="black" style={styles.icon}/>
-                    </View> */}
                     <SelectDropdown
                             data={subcategories}
                             onSelect={(selectedItem, index) => {
@@ -137,6 +147,7 @@ const ProductsGallery = ({ products, getProducts, productsCategory, getProductBy
                             dropdownStyle={styles.dropdownStyle}
                             rowStyle={styles.rowStyle}
                             rowTextStyle={styles.rowTxtStyle}
+                            disabled={!category ? true : false}
                     />
                     <SelectDropdown
                         data={sorting}
@@ -260,6 +271,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         paddingLeft: 18,
+        fontFamily:"Roboto_400Regular",
     },
 
     select: {
@@ -269,11 +281,13 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         borderColor: "#d16b5f",
+        fontFamily:"Roboto_400Regular",
     },
 
     dropdownTxtStyle: {
         color: "black", 
         textAlign: "left",
+        fontFamily:"Roboto_400Regular",
     },
 
     dropdownStyle: { 
@@ -289,6 +303,8 @@ const styles = StyleSheet.create({
         color: "#444", 
         textAlign: "left",
         paddingLeft: 10,
+        fontFamily:"Roboto_400Regular",
+        textTransform: 'capitalize'
     },
 
     centeredView: {
@@ -335,14 +351,30 @@ const styles = StyleSheet.create({
 
     textStyle: {
         color: "black",
-        fontWeight: "bold",
+        fontFamily:"Roboto_500Medium",
         textAlign: "center", 
     },
 
     modalTitle: {
         marginBottom: 5,
         textAlign: "center", 
-        fontWeight: "bold", 
+        fontFamily: "Roboto_700Bold", 
         fontSize: 20
-    }
+    },
+
+    logoImage: {
+        width: 200,
+        height: 200,
+      }, 
+    
+      preloader: {
+        flex: 1,
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+      },
+    
+      loading: {
+        fontFamily:"Roboto_400Regular",
+      }
 })
